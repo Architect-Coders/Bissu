@@ -1,6 +1,6 @@
 package com.architeccoders.bissu.data.database
 
-import com.architectcoders.data.source.LocalDataSource
+import com.architectcoders.data.source.LoginLocalDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.architectcoders.domain.User
@@ -8,10 +8,9 @@ import com.architectcoders.domain.User
 /**
  * Created by Anibal Cortez on 2019-12-12.
  */
-class RoomDataSource(db : LoginDatabase) : LocalDataSource {
+class RoomDataSource(db : LoginDatabase) : LoginLocalDataSource  {
 
     private val userDao = db.userDao()
-
 
     override suspend fun isEmpty(): Boolean =
         withContext(Dispatchers.IO) { userDao.userCount() <= 0}
@@ -26,5 +25,7 @@ class RoomDataSource(db : LoginDatabase) : LocalDataSource {
         withContext(Dispatchers.IO) {
             userDao.findById(username,password).toDomainUser()
         }
+
+
 
 }

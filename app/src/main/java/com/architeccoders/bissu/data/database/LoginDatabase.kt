@@ -11,4 +11,5 @@ abstract class LoginDatabase : RoomDatabase(){
 
     abstract fun userDao() : UserDao
 
+
 }

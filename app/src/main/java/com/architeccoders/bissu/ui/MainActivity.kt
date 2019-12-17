@@ -14,7 +14,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun validateLogin(){
+
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
+
     }
 }

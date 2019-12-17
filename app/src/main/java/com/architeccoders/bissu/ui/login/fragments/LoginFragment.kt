@@ -9,12 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architeccoders.bissu.R
 import com.architeccoders.bissu.data.database.RoomDataSource
+import com.architeccoders.bissu.data.server.LoginFirebaseDBDatasource
 import com.architeccoders.bissu.ui.common.app
 import com.architeccoders.bissu.ui.common.getViewModel
 import com.architeccoders.bissu.ui.login.LoginViewModel
 import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.usecases.DoLogin
-import kotlinx.android.synthetic.main.login_fragment_view.*
+import kotlinx.android.synthetic.main.login_view.*
 
 /**
  * Created by Anibal Cortez on 2019-12-11.
@@ -29,7 +30,9 @@ class LoginFragment : Fragment()  {
             LoginViewModel(
                 DoLogin(
                     UserRepository(
-                        RoomDataSource(activity!!.app.db)
+                        RoomDataSource(activity!!.app.db),
+                        LoginFirebaseDBDatasource(activity!!.app.firebaseDB)
+
                     )
                 )
             )
@@ -37,7 +40,7 @@ class LoginFragment : Fragment()  {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.login_fragment_view, container, false)
+        return inflater.inflate(R.layout.login_view, container, false)
     }
 
 
@@ -47,27 +50,32 @@ class LoginFragment : Fragment()  {
         viewModel.model.observe(this, Observer(::updateUi))
 
         login_button.setOnClickListener {
-            doLogin()
+            doLogin(username_edit_text.text?.toString(),password_edit_text.text?.toString())
+        }
+        create_account_text.setOnClickListener {
+            viewModel.onCreateAccountClicked()
         }
     }
 
     private fun updateUi(model : LoginViewModel.UiModel){
-
         progress_bar.visibility = if (model is LoginViewModel.UiModel.Loading) View.VISIBLE else View.GONE
-
         when(model){
              is LoginViewModel.UiModel.Content -> if (model.user == null){
                  Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
              }
+            is LoginViewModel.UiModel.Navigation -> {
+                val fragmentManager = activity!!.supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = CreateAccountFragment()
+                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.commit()
+            }
         }
     }
 
-    private fun doLogin(){
-        username_edit_text.text?.let {username ->
-            password_edit_text.text?.let { password ->
-                viewModel.doLogin(username.toString() , password.toString() )
-            }
-        }
+    private fun doLogin(username : String?, password : String? ){
+        if (!username.isNullOrEmpty() && !password.isNullOrEmpty())
+            viewModel.doLogin(username , password)
     }
 
 }
