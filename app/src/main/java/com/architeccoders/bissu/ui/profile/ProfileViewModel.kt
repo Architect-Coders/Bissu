@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architeccoders.bissu.ui.common.ScopedViewModel
 import com.architectcoders.domain.User
+import com.architectcoders.usecases.GetAccount
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(private val user: User) : ScopedViewModel() {
+class ProfileViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
     init {
         initScope()
     }
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
         get() {
-            if ( _model.value == null) doRefresh()
             return _model
         }
 
@@ -22,14 +22,17 @@ class ProfileViewModel(private val user: User) : ScopedViewModel() {
         class Navigation(val user: User): UiModel()
     }
 
-    fun doRefresh() {
+    fun doRefresh(userName: String) {
         launch {
-            _model.value = UiModel.Content(user)
+            _model.value = UiModel.Content( getAccount.invoke(userName)!!)
         }
+
     }
 
-    fun onProfileEditClicked(user: User) {
-        _model.value = UiModel.Navigation(user)
+    fun onProfileEditClicked(userName: String) {
+        launch {
+            _model.value = UiModel.Navigation( getAccount.invoke(userName)!!)
+        }
     }
 
 }

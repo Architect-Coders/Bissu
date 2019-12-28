@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.profile.ProfileActivity"
-    tools:showIn="@layout/activity_profile">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageView"
@@ -56,4 +53,13 @@
         app:layout_constraintEnd_toEndOf="@+id/profile_name"
         app:layout_constraintStart_toStartOf="@+id/profile_name"
         app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icons8_editar_64" />
 </androidx.constraintlayout.widget.ConstraintLayout>
