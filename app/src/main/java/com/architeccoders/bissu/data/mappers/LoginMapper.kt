@@ -1,7 +1,7 @@
 package com.architeccoders.bissu.data.database
 
 import com.architectcoders.domain.User
-import com.architeccoders.bissu.data.database.User as RoomUser
+import com.architeccoders.bissu.data.database.entities.User as RoomUser
 
 /**
  * Created by Anibal Cortez on 2019-12-12.

@@ -3,7 +3,6 @@ package com.architeccoders.bissu.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architeccoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.domain.User
 import com.architectcoders.usecases.DoLogin
 import kotlinx.coroutines.launch
 
@@ -21,7 +20,7 @@ class LoginViewModel(private val doLogin : DoLogin) : ScopedViewModel() {
     sealed class UiModel {
         object Loading : UiModel()
         object Navigation : UiModel()
-        class Content(val user: User?) : UiModel()
+        class Content(val success : Boolean) : UiModel()
     }
 
     init {

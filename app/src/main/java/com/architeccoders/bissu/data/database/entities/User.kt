@@ -1,4 +1,4 @@
-package com.architeccoders.bissu.data.database
+package com.architeccoders.bissu.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

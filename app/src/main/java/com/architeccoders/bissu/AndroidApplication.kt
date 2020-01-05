@@ -2,7 +2,7 @@ package com.architeccoders.bissu
 
 import android.app.Application
 import androidx.room.Room
-import com.architeccoders.bissu.data.database.LoginDatabase
+import com.architeccoders.bissu.data.database.LocalDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 /**
@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
  */
 class AndroidApplication : Application() {
 
-    lateinit var db: LoginDatabase
+    lateinit var db: LocalDatabase
         private set
     lateinit var firebaseDB: FirebaseFirestore
         private set
@@ -19,7 +19,7 @@ class AndroidApplication : Application() {
         super.onCreate()
         db = Room.databaseBuilder(
             this,
-            LoginDatabase::class.java,
+            LocalDatabase::class.java,
             "login-db"
         ).build()
         firebaseDB =  FirebaseFirestore.getInstance()

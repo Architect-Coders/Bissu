@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architeccoders.bissu.R
-import com.architeccoders.bissu.data.database.RoomDataSource
-import com.architeccoders.bissu.data.server.LoginFirebaseDBDatasource
+import com.architeccoders.bissu.data.database.login.LoginDataSource
+import com.architeccoders.bissu.data.server.LoginFirestoreDatasource
 import com.architeccoders.bissu.ui.common.app
 import com.architeccoders.bissu.ui.common.getViewModel
 import com.architeccoders.bissu.ui.login.LoginCreateAccountViewModel
@@ -34,8 +34,8 @@ class CreateAccountFragment : Fragment() {
             LoginCreateAccountViewModel(
                 CreateAccount(
                     UserRepository(
-                        RoomDataSource(activity!!.app.db),
-                        LoginFirebaseDBDatasource(activity!!.app.firebaseDB)
+                        LoginDataSource(activity!!.app.db),
+                        LoginFirestoreDatasource(activity!!.app.firebaseDB)
                     )
                 )
             )
@@ -70,8 +70,10 @@ class CreateAccountFragment : Fragment() {
     private fun updateUi(model : LoginCreateAccountViewModel.UiModel){
         progress_bar.visibility = if (model is LoginCreateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when(model){
-            is LoginCreateAccountViewModel.UiModel.Content -> if (model.user == null){
-                Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
+            is LoginCreateAccountViewModel.UiModel.Content -> {
+                if (model.status){
+                    // go to next screen
+                }else Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
             }
         }
     }

@@ -14,7 +14,6 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="Username"
-        android:gravity="center"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/first_name_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:gravity="center"
+
         android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/repeat_password_edit_text"
@@ -46,7 +45,6 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Fisrst Name"
-        android:gravity="center"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/last_name_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +60,6 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Last Name"
-        android:gravity="center"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/password_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,10 +70,10 @@
 
     <Button
         android:id="@+id/create_account_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Create"
+        android:text="Create Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -92,7 +89,6 @@
         android:ems="10"
         android:hint="Repeat password"
         android:inputType="textPassword"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/create_account_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -115,7 +111,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-
     <ProgressBar
         android:id="@+id/progress_bar"
         android:visibility="gone"
@@ -126,7 +121,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

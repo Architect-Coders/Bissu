@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architeccoders.bissu.R
-import com.architeccoders.bissu.data.database.RoomDataSource
-import com.architeccoders.bissu.data.server.LoginFirebaseDBDatasource
+import com.architeccoders.bissu.data.database.login.LoginDataSource
+import com.architeccoders.bissu.data.server.LoginFirestoreDatasource
 import com.architeccoders.bissu.ui.common.app
 import com.architeccoders.bissu.ui.common.getViewModel
 import com.architeccoders.bissu.ui.login.LoginViewModel
@@ -30,8 +30,8 @@ class LoginFragment : Fragment()  {
             LoginViewModel(
                 DoLogin(
                     UserRepository(
-                        RoomDataSource(activity!!.app.db),
-                        LoginFirebaseDBDatasource(activity!!.app.firebaseDB)
+                        LoginDataSource(activity!!.app.db),
+                        LoginFirestoreDatasource(activity!!.app.firebaseDB)
 
                     )
                 )
@@ -60,8 +60,11 @@ class LoginFragment : Fragment()  {
     private fun updateUi(model : LoginViewModel.UiModel){
         progress_bar.visibility = if (model is LoginViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when(model){
-             is LoginViewModel.UiModel.Content -> if (model.user == null){
-                 Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
+             is LoginViewModel.UiModel.Content -> {
+                 if (model.success) {
+                    // go to home
+                 }
+                 else   Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
              }
             is LoginViewModel.UiModel.Navigation -> {
                 val fragmentManager = activity!!.supportFragmentManager

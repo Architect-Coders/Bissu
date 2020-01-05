@@ -20,7 +20,7 @@ class LoginCreateAccountViewModel(private val createAccount : CreateAccount) : S
 
     sealed class UiModel {
         object Loading : UiModel()
-        class Content(val user: User?) : UiModel()
+        class Content(val status: Boolean) : UiModel()
     }
 
     init {
