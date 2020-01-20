@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architeccoders.bissu.R
 import com.architeccoders.bissu.data.database.login.LoginDataSource
-import com.architeccoders.bissu.data.server.LoginFirestoreDatasource
+import com.architeccoders.bissu.data.server.login.LoginDatasource
 import com.architeccoders.bissu.ui.common.app
 import com.architeccoders.bissu.ui.common.getViewModel
 import com.architeccoders.bissu.ui.login.LoginViewModel
@@ -31,8 +31,7 @@ class LoginFragment : Fragment()  {
                 DoLogin(
                     UserRepository(
                         LoginDataSource(activity!!.app.db),
-                        LoginFirestoreDatasource(activity!!.app.firebaseDB)
-
+                        LoginDatasource()
                     )
                 )
             )

@@ -8,7 +8,6 @@ import com.architeccoders.bissu.data.database.entities.User
  */
 @Dao
 interface UserDao {
-
     @Query("SELECT * FROM User LIMIT(1)")
     fun getUser(): User
 

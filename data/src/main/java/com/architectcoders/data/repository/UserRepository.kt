@@ -19,11 +19,9 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
         return false
     }
 
-    suspend fun createAccount(user: User): Boolean {
-        if (remoteDatasource.existsUsername(username = user.username))
-            return false
-        if (remoteDatasource.createAccount(user)) {
-            localDataSource.saveUser(user)
+    suspend fun createAccount(user: User, password: String): Boolean {
+        val remoteUser : User? = remoteDatasource.createAccount(user, password)
+        remoteUser?.let {
             return true
         }
         return false
@@ -35,6 +33,4 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
 
         return localDataSource.getUser()
     }
-
-
 }

@@ -27,10 +27,10 @@ class LoginCreateAccountViewModel(private val createAccount : CreateAccount) : S
         initScope()
     }
 
-    fun createAccount(user: User){
+    fun createAccount(user: User, password : String){
         launch {
             _model.value = UiModel.Loading
-            _model.value = UiModel.Content(createAccount.invoke(user))
+            _model.value = UiModel.Content(createAccount.invoke(user, password))
         }
     }
 }

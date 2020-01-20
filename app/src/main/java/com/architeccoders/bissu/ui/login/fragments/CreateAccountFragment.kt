@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architeccoders.bissu.R
 import com.architeccoders.bissu.data.database.login.LoginDataSource
-import com.architeccoders.bissu.data.server.LoginFirestoreDatasource
+import com.architeccoders.bissu.data.server.login.LoginDatasource
 import com.architeccoders.bissu.ui.common.app
 import com.architeccoders.bissu.ui.common.getViewModel
 import com.architeccoders.bissu.ui.login.LoginCreateAccountViewModel
@@ -35,7 +35,7 @@ class CreateAccountFragment : Fragment() {
                 CreateAccount(
                     UserRepository(
                         LoginDataSource(activity!!.app.db),
-                        LoginFirestoreDatasource(activity!!.app.firebaseDB)
+                        LoginDatasource()
                     )
                 )
             )
@@ -55,6 +55,7 @@ class CreateAccountFragment : Fragment() {
         create_account_button.setOnClickListener {
             createAccount(
                 username_edit_text?.text.toString(),
+                email_edit_text.text?.toString(),
                 first_name_edit_text.text?.toString(),
                 last_name_edit_text.text?.toString(),
                 password_edit_text.text?.toString(),
@@ -78,8 +79,9 @@ class CreateAccountFragment : Fragment() {
         }
     }
 
-    private fun createAccount(username: String?, firstName: String?, lastName: String?, password: String?, repeatPassword: String?) {
-        if (username.isNullOrEmpty() || firstName.isNullOrEmpty() || lastName.isNullOrEmpty() || password.isNullOrEmpty() || repeatPassword.isNullOrEmpty())
+    private fun createAccount(username: String?,email : String?, firstName: String?, lastName: String?, password: String?, repeatPassword: String?) {
+        if (username.isNullOrEmpty() || firstName.isNullOrEmpty() || lastName.isNullOrEmpty()
+            || password.isNullOrEmpty() || repeatPassword.isNullOrEmpty() || email.isNullOrEmpty())
             Toast.makeText(context, "complete all values", Toast.LENGTH_LONG).show()
         else if (!password.equals(repeatPassword))
             Toast.makeText(context, "passwords must be the same", Toast.LENGTH_LONG).show()
@@ -87,10 +89,13 @@ class CreateAccountFragment : Fragment() {
             viewModel.createAccount(
                 User(
                     username = username,
-                    password = password,
+                    email = email,
                     firstName = firstName,
-                    lastName = lastName
-                )
+                    lastName = lastName,
+                    photoUrl = null,
+                    categories = arrayListOf()
+                ),
+                password
             )
     }
 

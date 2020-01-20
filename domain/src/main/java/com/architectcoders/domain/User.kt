@@ -5,8 +5,9 @@ package com.architectcoders.domain
  */
 data class User (
     val username: String,
-    val password: String,
+    val email : String,
     val firstName: String,
     val lastName: String,
-    val photoUrl: String? = null
+    val photoUrl: String?,
+    val categories : List<Category>
 )
