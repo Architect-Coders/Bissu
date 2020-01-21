@@ -29,4 +29,12 @@ class LoginDatasource : LoginRemoteDatasource {
                 .await()
                 .user?.toDomainUser()
         }
+
+    override suspend fun existsUsername(username: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun updateAccount(user: User): User? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
