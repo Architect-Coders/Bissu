@@ -9,8 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architeccoders.bissu.R
-import com.architeccoders.bissu.data.database.RoomDataSource
-import com.architeccoders.bissu.data.server.LoginFirebaseDBDatasource
 import com.architeccoders.bissu.session
 import com.architeccoders.bissu.ui.common.app
 import com.architeccoders.bissu.ui.profile.ProfileViewModel
@@ -31,12 +29,12 @@ class ProfileFragment: Fragment() {
 //        lastName = "Callisaya Mamani")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = getViewModel {
-            ProfileViewModel(GetAccount(UserRepository(
-                RoomDataSource(activity!!.app.db),
-                LoginFirebaseDBDatasource(activity!!.app.firebaseDB)
-                )))
-        }
+//        viewModel = getViewModel {
+////            ProfileViewModel(GetAccount(UserRepository(
+////                RoomDataSource(activity!!.app.db),
+////                LoginFirebaseDBDatasource(activity!!.app.firebaseDB)
+////                )))
+//        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

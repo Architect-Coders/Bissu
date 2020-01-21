@@ -11,4 +11,5 @@ interface LoginLocalDataSource {
     suspend fun findById(username: String, password: String): User
     suspend fun updateUser(user:User)
     suspend fun getUser(username: String): User
+    suspend fun getUser(): User
 }
