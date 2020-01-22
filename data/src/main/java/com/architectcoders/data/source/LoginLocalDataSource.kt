@@ -1,6 +1,6 @@
 package com.architectcoders.data.source
 
-import com.architectcoders.domain.User
+import com.architectcoders.domain.entities.User
 
 /**
  * Created by Anibal Cortez on 2019-12-11.
