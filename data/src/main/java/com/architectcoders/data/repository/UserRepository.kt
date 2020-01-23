@@ -3,6 +3,7 @@ package com.architectcoders.data.repository
 import com.architectcoders.data.source.LoginLocalDataSource
 import com.architectcoders.data.source.LoginRemoteDatasource
 import com.architectcoders.domain.User
+import com.sun.org.apache.xpath.internal.operations.Bool
 
 /**
  * Created by Anibal Cortez on 2019-12-11.
@@ -32,5 +33,14 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
             return null
 
         return localDataSource.getUser()
+    }
+
+    suspend fun updateUser(user: User, password: String): Boolean {
+        val remoteUser : User? = remoteDatasource.updateAccount(user, password)
+        remoteUser?.let {
+            //localDataSource.updateUser(remoteUser)
+            return true
+        }
+        return false
     }
 }

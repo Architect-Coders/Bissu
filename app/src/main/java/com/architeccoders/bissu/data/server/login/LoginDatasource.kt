@@ -1,11 +1,14 @@
 package com.architeccoders.bissu.data.server.login
 
+import android.util.Log
 import com.architeccoders.bissu.data.database.toDomainUser
 import com.architeccoders.bissu.data.database.toRequestUser
+import com.architeccoders.bissu.data.database.toRequestUserUpdate
 import com.architeccoders.bissu.data.server.RetrofitClient
 import com.architeccoders.bissu.data.server.login.request.LoginRequest
 import com.architectcoders.data.source.LoginRemoteDatasource
 import com.architectcoders.domain.User
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -23,9 +26,9 @@ class LoginDatasource : LoginRemoteDatasource {
         }
 
     override suspend fun doLogin(username: String, password: String): User? =
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             RetrofitClient().loginService
-                .doLogin(LoginRequest(username,password))
+                .doLogin(LoginRequest(username, password))
                 .await()
                 .user?.toDomainUser()
         }
@@ -34,7 +37,15 @@ class LoginDatasource : LoginRemoteDatasource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun updateAccount(user: User): User? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun updateAccount(user: User, password: String): User? =
+
+        withContext(Dispatchers.IO) {
+            RetrofitClient().loginService
+                .update(user.toRequestUserUpdate(password))
+                .await()
+                .user?.toDomainUser()
+        }
+
+
+
 }

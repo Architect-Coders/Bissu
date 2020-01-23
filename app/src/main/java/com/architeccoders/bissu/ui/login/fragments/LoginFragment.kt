@@ -1,5 +1,6 @@
 package com.architeccoders.bissu.ui.login.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.architeccoders.bissu.data.server.login.LoginDatasource
 import com.architeccoders.bissu.ui.common.app
 import com.architeccoders.bissu.ui.common.getViewModel
 import com.architeccoders.bissu.ui.login.LoginViewModel
+import com.architeccoders.bissu.ui.profile.ProfileActivity
 import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.usecases.DoLogin
 import kotlinx.android.synthetic.main.login_view.*
@@ -61,7 +63,9 @@ class LoginFragment : Fragment()  {
         when(model){
              is LoginViewModel.UiModel.Content -> {
                  if (model.success) {
-                    // go to home
+                    val intent = Intent(activity, ProfileActivity::class.java)
+                    startActivity(intent)
+
                  }
                  else   Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
              }

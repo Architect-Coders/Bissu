@@ -22,16 +22,16 @@ class ProfileViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
         class Navigation(val user: User): UiModel()
     }
 
-    fun doRefresh(userName: String) {
+    fun doRefresh() {
         launch {
-            _model.value = UiModel.Content( getAccount.invoke(userName)!!)
+            _model.value = UiModel.Content( getAccount.invoke()!!)
         }
 
     }
 
-    fun onProfileEditClicked(userName: String) {
+    fun onProfileEditClicked() {
         launch {
-            _model.value = UiModel.Navigation( getAccount.invoke(userName)!!)
+            _model.value = UiModel.Navigation( getAccount.invoke()!!)
         }
     }
 
