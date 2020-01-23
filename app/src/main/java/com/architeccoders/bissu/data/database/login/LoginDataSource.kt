@@ -24,4 +24,16 @@ class LoginDataSource(db: LocalDatabase) : LoginLocalDataSource {
     override suspend fun saveUser(user: User) =
         withContext(Dispatchers.IO) { userDao.insertUser(user.toRoomUser()) }
 
+    override suspend fun findById(username: String, password: String): User {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun updateUser(user: User) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun getUser(username: String): User {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

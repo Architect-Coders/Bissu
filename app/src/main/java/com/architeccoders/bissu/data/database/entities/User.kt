@@ -15,5 +15,6 @@ data class User(
     val firstName: String,
     val lastName: String,
     val photoUrl: String?,
-    val categories : List<Category>
+    val categories : List<Category>,
+    val id: String
 )

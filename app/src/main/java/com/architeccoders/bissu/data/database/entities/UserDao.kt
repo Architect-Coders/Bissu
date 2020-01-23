@@ -1,4 +1,4 @@
-package com.architeccoders.bissu.data.database.entities
+package com.architeccoders.bissu.data.database
 
 import androidx.room.*
 import com.architeccoders.bissu.data.database.entities.User
@@ -20,6 +20,7 @@ interface UserDao {
     @Update
     fun updateUser(user: User)
 
-    @Query("DELETE  FROM User")
-    fun deleteUser()
+    @Query( "SELECT * FROM User WHERE username = :username")
+    fun findByUsername(username: String): User
+
 }

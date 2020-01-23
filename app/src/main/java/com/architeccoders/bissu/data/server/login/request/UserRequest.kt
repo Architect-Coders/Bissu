@@ -15,3 +15,14 @@ data class UserRequest (
     var photoUrl: String?,
     var categories: List<Category>
 )
+
+data class UserRequestUpdate (
+    var id: String,
+    var username: String,
+    var email: String,
+    var password: String,
+    var firstName: String,
+    var lastName: String,
+    var photoUrl: String?,
+    var categories: List<Category>
+)

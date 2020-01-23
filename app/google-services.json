@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "368596637021",
+    "firebase_url": "https://bissufirebase.firebaseio.com",
+    "project_id": "bissufirebase",
+    "storage_bucket": "bissufirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368596637021:android:757e8bd7eafae272ae04b4",
+        "android_client_info": {
+          "package_name": "com.architeccoders.bissu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368596637021-l35v1bvv5q2cs8rnfv11ai64m0nb5ifr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.architeccoders.bissu",
+            "certificate_hash": "5c7de9778daa999aff0e5fe0e8bbd4ce45d9d442"
+          }
+        },
+        {
+          "client_id": "368596637021-0ishr7arb6j62hvcdabdc0v1f9dftmhp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDazuMa92KNBH-qtsrWNKZnOT4WAGdNDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368596637021-0ishr7arb6j62hvcdabdc0v1f9dftmhp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
