@@ -29,11 +29,25 @@ class LoginDataSource(db: LocalDatabase) : LoginLocalDataSource {
     }
 
     override suspend fun updateUser(user: User) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        withContext(Dispatchers.IO) {
+            userDao.updateUser(user.toRoomUser())
+        }
     }
 
     override suspend fun getUser(username: String): User {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override suspend fun getAlluser(): List<User> =
+        withContext(Dispatchers.IO) {
+            val result =  userDao.getAllUser().map {
+                it.toDomainUser()
+            }
+            result
+        }
+
+    override suspend fun deleteAlluser() =
+        withContext(Dispatchers.IO) {
+            userDao.deleteAllUser()
+        }
 }

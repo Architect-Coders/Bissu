@@ -12,4 +12,6 @@ interface LoginLocalDataSource {
     suspend fun updateUser(user:User)
     suspend fun getUser(username: String): User
     suspend fun getUser(): User
+    suspend fun getAlluser(): List<User>
+    suspend fun deleteAlluser()
 }
