@@ -14,9 +14,6 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
         remoteDatasource.doLogin(username, password)?.let {
             localDataSource.deleteAlluser()
             localDataSource.saveUser(it)
-        }
-
-        if (!localDataSource.isEmpty()) {
             return true
         }
         return false

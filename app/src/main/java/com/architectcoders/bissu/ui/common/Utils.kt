@@ -7,11 +7,14 @@ import android.util.Log
 import java.io.ByteArrayOutputStream
 
 
-inline fun BitMapToString(bitmap: Bitmap): String? {
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        val b = baos.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
+inline fun BitMapToString(bitmap: Bitmap?): String? {
+        bitmap?.let {
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            val b = baos.toByteArray()
+            return Base64.encodeToString(b, Base64.DEFAULT)
+        }
+        return null
 }
 
 inline fun StringToBitMap(encodedString: String) : Bitmap? {

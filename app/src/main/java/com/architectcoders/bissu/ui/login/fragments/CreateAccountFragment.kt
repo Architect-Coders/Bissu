@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
@@ -138,7 +139,10 @@ class CreateAccountFragment : Fragment() {
         else if (!password.equals(repeatPassword))
             Toast.makeText(context, "passwords must be the same", Toast.LENGTH_LONG).show()
         else {
-            val bm = (user_photo.getDrawable() as BitmapDrawable).bitmap
+            var bm: Bitmap?
+            user_photo.getDrawable().let {
+                bm = (it as BitmapDrawable).bitmap
+            }
             var userData =     User(
                 id = USER_ID_EDIT,
                 username = username,
