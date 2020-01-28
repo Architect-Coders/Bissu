@@ -23,4 +23,9 @@ interface UserDao {
     @Query( "SELECT * FROM User WHERE username = :username")
     fun findByUsername(username: String): User
 
+    @Query("SELECT * FROM User")
+    fun getAllUser(): List<User>
+
+    @Query("DELETE FROM User")
+    fun deleteAllUser()
 }

@@ -12,8 +12,10 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
 
     suspend fun doLogin(username: String, password: String): Boolean {
         remoteDatasource.doLogin(username, password)?.let {
+            localDataSource.deleteAlluser()
             localDataSource.saveUser(it)
         }
+
         if (!localDataSource.isEmpty()) {
             return true
         }
@@ -29,6 +31,7 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
     }
 
     suspend fun getUser(): User? {
+
         if (localDataSource.isEmpty())
             return null
 
@@ -38,9 +41,10 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
     suspend fun updateUser(user: User, password: String): Boolean {
         val remoteUser : User? = remoteDatasource.updateAccount(user, password)
         remoteUser?.let {
-            //localDataSource.updateUser(remoteUser)
+            localDataSource.updateUser(remoteUser)
             return true
         }
         return false
     }
+
 }
