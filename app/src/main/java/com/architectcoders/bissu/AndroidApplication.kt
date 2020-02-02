@@ -12,6 +12,7 @@ import com.architectcoders.bissu.data.database.Prefs
 val session: Prefs by lazy {
     AndroidApplication.prefs!!
 }
+
 class AndroidApplication : Application() {
 
     lateinit var db: LocalDatabase
@@ -29,6 +30,4 @@ class AndroidApplication : Application() {
             "bissu-db"
         ).build()
     }
-
-
 }

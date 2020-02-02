@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
@@ -35,6 +34,12 @@ class CreateAccountFragment : Fragment() {
 
     val REQUEST_IMAGE_CAPTURE = 1
     var USER_ID_EDIT = ""
+
+    companion object {
+        fun newInstance() = CreateAccountFragment()
+        fun newInstance(bundle: Bundle) = CreateAccountFragment().apply { arguments = bundle }
+    }
+
     private lateinit var viewModel: LoginCreateAccountViewModel
     private var isNew = true
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +57,11 @@ class CreateAccountFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val texto = arguments?.getString("OPTION_FORM")
         texto?.let {
             this.isNew = !(texto == getString(R.string.edit_profile_option_form))
@@ -65,20 +74,20 @@ class CreateAccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.model.observe(this, Observer(::updateUi))
-        if(!this.isNew) {
+        if (!this.isNew) {
             viewModel.onLoadEdit()
         }
         create_account_button.setOnClickListener {
 
-                createAccount(
-                    username_edit_text?.text.toString(),
-                    email_edit_text.text?.toString(),
-                    first_name_edit_text.text?.toString(),
-                    last_name_edit_text.text?.toString(),
-                    password_edit_text.text?.toString(),
-                    repeat_password_edit_text.text?.toString(),
-                    this.isNew
-                )
+            createAccount(
+                username_edit_text?.text.toString(),
+                email_edit_text.text?.toString(),
+                first_name_edit_text.text?.toString(),
+                last_name_edit_text.text?.toString(),
+                password_edit_text.text?.toString(),
+                repeat_password_edit_text.text?.toString(),
+                this.isNew
+            )
 
 
         }
@@ -88,16 +97,16 @@ class CreateAccountFragment : Fragment() {
         }
 
 
-
     }
 
-    private fun updateUi(model : LoginCreateAccountViewModel.UiModel){
-        progress_bar.visibility = if (model is LoginCreateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
-        when(model){
+    private fun updateUi(model: LoginCreateAccountViewModel.UiModel) {
+        progress_bar.visibility =
+            if (model is LoginCreateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
+        when (model) {
             is LoginCreateAccountViewModel.UiModel.Content -> {
-                if (model.status){
+                if (model.status) {
                     // go to next screen
-                }else Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
+                } else Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
             }
             is LoginCreateAccountViewModel.UiModel.ContentEdit -> {
                 val bm = StringToBitMap(model.user.photoUrl!!)
@@ -108,7 +117,7 @@ class CreateAccountFragment : Fragment() {
                     first_name_edit_text.setText(firstName)
                     last_name_edit_text.setText(lastName)
                     USER_ID_EDIT = id
-                    if(bm == null) {
+                    if (bm == null) {
                         user_photo.setImageResource(R.drawable.icons8_editar_64)
                     } else {
                         user_photo.setImageBitmap(bm)
@@ -132,9 +141,18 @@ class CreateAccountFragment : Fragment() {
         }
     }
 
-    private fun createAccount(username: String?,email : String?, firstName: String?, lastName: String?, password: String?, repeatPassword: String?, userNew: Boolean = true) {
+    private fun createAccount(
+        username: String?,
+        email: String?,
+        firstName: String?,
+        lastName: String?,
+        password: String?,
+        repeatPassword: String?,
+        userNew: Boolean = true
+    ) {
         if (username.isNullOrEmpty() || firstName.isNullOrEmpty() || lastName.isNullOrEmpty()
-            || password.isNullOrEmpty() || repeatPassword.isNullOrEmpty() || email.isNullOrEmpty())
+            || password.isNullOrEmpty() || repeatPassword.isNullOrEmpty() || email.isNullOrEmpty()
+        )
             Toast.makeText(context, "complete all values", Toast.LENGTH_LONG).show()
         else if (!password.equals(repeatPassword))
             Toast.makeText(context, "passwords must be the same", Toast.LENGTH_LONG).show()
@@ -143,16 +161,17 @@ class CreateAccountFragment : Fragment() {
             user_photo.getDrawable().let {
                 bm = (it as BitmapDrawable).bitmap
             }
-            var userData =     User(
+            var userData = User(
                 id = USER_ID_EDIT,
                 username = username,
                 email = email,
                 firstName = firstName,
                 lastName = lastName,
                 photoUrl = BitMapToString(bm),
-                categories = arrayListOf())
-            if( userNew)
-                viewModel.createAccount( userData, password)
+                categories = arrayListOf()
+            )
+            if (userNew)
+                viewModel.createAccount(userData, password)
             else {
                 viewModel.updateAccount(userData, password)
             }
@@ -160,16 +179,13 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun dispatcheTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also {
-            takePictureIntent ->
-                takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
 
             }
         }
     }
-
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

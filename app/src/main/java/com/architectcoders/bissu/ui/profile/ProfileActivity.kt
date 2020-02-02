@@ -3,8 +3,7 @@ package com.architectcoders.bissu.ui.profile
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.ui.profile.fragments.ProfileFragment
-
+import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -13,14 +12,16 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        startProfileFragment()
+        startEditProfile()
     }
 
-    private fun startProfileFragment() {
+    private fun startEditProfile() {
+        val bundle = Bundle()
+        bundle.putString("OPTION_FORM", getString(R.string.edit_profile_option_form))
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = ProfileFragment()
-        fragmentTransaction.add(R.id.content_profile, fragment)
+        val fragment = CreateAccountFragment.newInstance(bundle)
+        fragmentTransaction.replace(R.id.content_profile, fragment)
         fragmentTransaction.commit()
     }
 
@@ -31,6 +32,4 @@ class ProfileActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
     }
-
-
 }

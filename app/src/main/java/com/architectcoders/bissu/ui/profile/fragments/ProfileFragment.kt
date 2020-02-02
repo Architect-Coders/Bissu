@@ -1,5 +1,6 @@
 package com.architectcoders.bissu.ui.profile.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,20 +8,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.data.database.login.LoginDataSource as local
-import com.architectcoders.bissu.data.server.login.LoginDatasource as remote
 import com.architectcoders.bissu.ui.common.StringToBitMap
 import com.architectcoders.bissu.ui.common.app
-import com.architectcoders.bissu.ui.profile.ProfileViewModel
 import com.architectcoders.bissu.ui.common.getViewModel
-import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
+import com.architectcoders.bissu.ui.profile.ProfileActivity
+import com.architectcoders.bissu.ui.profile.ProfileViewModel
 import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.usecases.GetAccount
 import kotlinx.android.synthetic.main.view_profile.*
+import com.architectcoders.bissu.data.database.login.LoginDataSource as local
+import com.architectcoders.bissu.data.server.login.LoginDatasource as remote
 
 
 class ProfileFragment: Fragment() {
     private lateinit var viewModel: ProfileViewModel
+
+    companion object{
+        fun newInstance() = ProfileFragment()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = getViewModel {
@@ -49,16 +55,7 @@ class ProfileFragment: Fragment() {
     private fun updateUi(model: ProfileViewModel.UiModel) {
         when ( model ) {
             is ProfileViewModel.UiModel.Navigation -> {
-                val bundle = Bundle()
-                bundle.putString("OPTION_FORM", getString(R.string.edit_profile_option_form))
-                val fragmentManager = activity!!.supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                val fragment = CreateAccountFragment()
-                fragment.arguments = bundle
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.replace(R.id.content_profile, fragment)
-                fragmentTransaction.commit()
-
+                startActivity(Intent(context, ProfileActivity::class.java))
             }
             is ProfileViewModel.UiModel.Content -> {
                 profile_username.text = model.user.username

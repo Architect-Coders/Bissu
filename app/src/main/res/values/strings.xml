@@ -2,9 +2,13 @@
     <string name="app_name">Bissu</string>
     <string name="title_activity_profile">ProfileActivity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="edit_profile_btn">Editar</string>
     <string name="edit_profile_title">Editar Usuario</string>
     <string name="edit_profile_option_form">Edit</string>
+
+    <string name="mainpagerfragment_books">Books</string>
+    <string name="mainpagerfragment_yours">Yours</string>
+    <string name="mainpagerfragment_profile">Profile</string>
+    <string name="booklistfragment_emptyview">No Books at this moment\nswipe to refresh</string>
 </resources>
