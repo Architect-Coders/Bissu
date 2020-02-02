@@ -1,6 +1,8 @@
 package com.architectcoders.bissu.data.server
 
+import com.architectcoders.bissu.data.server.book.BookServices
 import com.architectcoders.bissu.data.server.login.LoginServices
+import com.architectcoders.bissu.data.server.observation.ObservationServices
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,5 +29,25 @@ class RetrofitClient {
         .build()
         .run {
             create<LoginServices>(LoginServices::class.java)
+        }
+
+    val bookService : BookServices = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(okHttpClient)
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .run {
+            create<BookServices>(BookServices::class.java)
+        }
+
+    val observationService : ObservationServices = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(okHttpClient)
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .run {
+            create<ObservationServices>(ObservationServices::class.java)
         }
 }

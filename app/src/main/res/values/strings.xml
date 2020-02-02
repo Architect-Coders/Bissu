@@ -11,4 +11,13 @@
     <string name="mainpagerfragment_yours">Yours</string>
     <string name="mainpagerfragment_profile">Profile</string>
     <string name="booklistfragment_emptyview">No Books at this moment\nswipe to refresh</string>
+
+    <string name="bookdetailfragment_title">Title</string>
+    <string name="bookdetailfragment_author">Author</string>
+    <string name="bookdetailfragment_editorial">Editorial</string>
+    <string name="bookdetailfragment_pages">Pages</string>
+    <string name="bookdetailfragment_category">Category</string>
+    <string name="bookdetailfragment_description">Description</string>
+    <string name="bookdetailsfragment_observations">Observations</string>
+    <string name="observationitem_page">Page</string>
 </resources>
