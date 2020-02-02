@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.item_observation.view.*
 class ObservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: Observation) {
         if (!item.user.photoUrl.isNullOrEmpty()) {
-            Log.e("fotoloca", item.user.photoUrl)
             Glide
                 .with(itemView)
                 .load(item.user.photoUrl)

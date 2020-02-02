@@ -62,6 +62,8 @@ class LoginFragment : Fragment() {
         create_account_text.setOnClickListener {
             viewModel.onCreateAccountClicked()
         }
+
+        Toast.makeText(context, "Hago algo raro", Toast.LENGTH_LONG).show()
     }
 
     private fun updateUi(model: LoginViewModel.UiModel) {

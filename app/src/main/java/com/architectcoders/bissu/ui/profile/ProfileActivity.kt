@@ -1,6 +1,7 @@
 package com.architectcoders.bissu.ui.profile
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
@@ -12,6 +13,9 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         startEditProfile()
     }
 
@@ -25,11 +29,13 @@ class ProfileActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
