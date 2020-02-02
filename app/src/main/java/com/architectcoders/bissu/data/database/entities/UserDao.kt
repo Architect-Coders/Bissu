@@ -1,7 +1,6 @@
-package com.architectcoders.bissu.data.database
+package com.architectcoders.bissu.data.database.entities
 
 import androidx.room.*
-import com.architectcoders.bissu.data.database.entities.User
 
 /**
  * Created by Anibal Cortez on 2019-12-11.
