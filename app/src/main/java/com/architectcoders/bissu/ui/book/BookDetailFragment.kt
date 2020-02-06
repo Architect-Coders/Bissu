@@ -1,9 +1,7 @@
 package com.architectcoders.bissu.ui.book
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +15,7 @@ import com.architectcoders.bissu.data.server.observation.ObservationDatasource
 import com.architectcoders.bissu.ui.book.BookDetailViewModel.UiModel
 import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.common.getViewModel
+import com.architectcoders.bissu.ui.observation.ObservationFragment
 import com.architectcoders.data.repository.BookRepository
 import com.architectcoders.data.repository.ObservationRepository
 import com.architectcoders.domain.Book
@@ -47,6 +46,8 @@ class BookDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true);
 
         if (savedInstanceState == null) {
             arguments?.let {
@@ -109,6 +110,21 @@ class BookDetailFragment : Fragment() {
         viewModel.fetchObservations(bookId)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_book_detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = ObservationFragment.newInstance()
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.tag)
+        fragmentTransaction.commit()
+
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
@@ -128,7 +144,8 @@ class BookDetailFragment : Fragment() {
 
     private fun processObservations(observations: ArrayList<Observation>) {
         observationAdapter.submitList(observations.map { ObservationItem(it) })
-        bookdetail_observations.visibility = if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
+        bookdetail_observations.visibility =
+            if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
     }
 
     private fun observationProgressVisibility(value: Boolean) {

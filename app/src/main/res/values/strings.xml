@@ -20,4 +20,7 @@
     <string name="bookdetailfragment_description">Description</string>
     <string name="bookdetailsfragment_observations">Observations</string>
     <string name="observationitem_page">Page</string>
+    <string name="menu_bookdetailfragment_observation">Observation</string>
+    <string name="observationfragment_observation">Observation</string>
+    <string name="observationfragment_submit">Submit</string>
 </resources>
