@@ -27,8 +27,7 @@ class MyObservationsFragment : Fragment() {
     private val observationAdapter by lazy { OwnerObservationAdapter() }
 
     companion object {
-        fun newInstance() =
-            MyObservationsFragment()
+        fun newInstance() = MyObservationsFragment()
     }
 
     private lateinit var viewModel: MyObservationsViewModel

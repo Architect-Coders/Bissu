@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_book_detail.*
 
 class BookDetailFragment : Fragment() {
 
+    private var book: Book? = null
     private lateinit var bookId: String
     private val observationAdapter by lazy { ObservationAdapter() }
 
@@ -116,11 +117,18 @@ class BookDetailFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val fragmentManager = activity!!.supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = ObservationFragment.newInstance()
-        fragmentTransaction.replace(R.id.content_main, fragment, fragment.tag)
-        fragmentTransaction.commit()
+        val book = this.book
+
+        if(book == null){
+            // TODO unavailable function
+        }else{
+            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragment = ObservationFragment.newInstance(book)
+            fragmentTransaction.replace(R.id.content_main, fragment, fragment.tag)
+            fragmentTransaction.commit()
+
+        }
 
         return super.onOptionsItemSelected(item)
     }
@@ -157,6 +165,8 @@ class BookDetailFragment : Fragment() {
     }
 
     private fun updateBookUi(book: Book?) {
+        this.book = book
+
         if (book != null) {
             if (!book.photoUrl.isNullOrEmpty()) {
                 Glide

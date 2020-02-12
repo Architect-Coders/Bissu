@@ -45,4 +45,8 @@ class ObservationRepository(
 
         return localDataSource.getObservationsByOwner(userId)
     }
+
+    suspend fun createObservation(observation: Observation): Boolean {
+        return remoteDataSource.createObservation(observation)
+    }
 }
