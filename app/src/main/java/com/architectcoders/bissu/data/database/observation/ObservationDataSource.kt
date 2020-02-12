@@ -46,4 +46,9 @@ class ObservationDataSource(db: LocalDatabase) : ObservationLocalDataSource {
             observationDao.getObsevartionsByBook(id).map { it.toDomainObservation() }
         }
 
+    override suspend fun getObservationsByOwner(userId: String): List<Observation> =
+        withContext(Dispatchers.IO) {
+            observationDao.getObsevartionsByUser(userId).map { it.toDomainObservation() }
+        }
+
 }

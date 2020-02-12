@@ -3,6 +3,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.architectcoders.bissu.ui.home.myObservations.MyObservationsFragment
 import com.architectcoders.bissu.ui.profile.fragments.ProfileFragment
 
 @SuppressLint("WrongConstant")
@@ -14,7 +15,7 @@ class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
     override fun getItem(position: Int): Fragment {
         when (position) {
             0 -> return BookListFragment.newInstance()
-            1 -> {} // TODO: launch MyObservationsFragment
+            1 -> return MyObservationsFragment.newInstance()
             2 -> return ProfileFragment.newInstance()
         }
         return BookListFragment.newInstance()

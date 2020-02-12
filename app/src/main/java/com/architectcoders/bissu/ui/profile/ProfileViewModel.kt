@@ -26,7 +26,6 @@ class ProfileViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
         launch {
             _model.value = UiModel.Content( getAccount.invoke()!!)
         }
-
     }
 
     fun onProfileEditClicked() {

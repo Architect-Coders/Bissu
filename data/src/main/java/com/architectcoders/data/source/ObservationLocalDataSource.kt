@@ -7,5 +7,6 @@ interface ObservationLocalDataSource {
     suspend fun updateObservation(observation: Observation)
     suspend fun addObservation(observation: Observation)
     suspend fun getObservations(id: String): List<Observation>
+    suspend fun getObservationsByOwner(userId: String): List<Observation>
     suspend fun getObservation(id : String) : Observation?
 }

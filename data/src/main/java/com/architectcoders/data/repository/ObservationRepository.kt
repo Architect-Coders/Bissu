@@ -4,7 +4,10 @@ import com.architectcoders.data.source.ObservationLocalDataSource
 import com.architectcoders.data.source.ObservationRemoteDatasource
 import com.architectcoders.domain.Observation
 
-class ObservationRepository( private val localDataSource: ObservationLocalDataSource, private val remoteDataSource: ObservationRemoteDatasource) {
+class ObservationRepository(
+    private val localDataSource: ObservationLocalDataSource,
+    private val remoteDataSource: ObservationRemoteDatasource
+) {
 
 
     suspend fun getObservations(id: String): ArrayList<Observation> {
@@ -13,9 +16,9 @@ class ObservationRepository( private val localDataSource: ObservationLocalDataSo
             remoteDataSource.getObservationsByBook(id).let {
                 it.forEach { observation ->
                     val localObservation = localDataSource.getObservation(observation.id)
-                    if (localObservation == null){
+                    if (localObservation == null) {
                         localDataSource.addObservation(observation)
-                    }else{
+                    } else {
                         localDataSource.updateObservation(observation)
                     }
                 }
@@ -23,5 +26,23 @@ class ObservationRepository( private val localDataSource: ObservationLocalDataSo
         }
 
         return ArrayList(localDataSource.getObservations(id))
+    }
+
+    suspend fun getOwnerObservations(userId: String): List<Observation> {
+
+        if (localDataSource.isEmpty()) {
+            remoteDataSource.getObservationsByOwner(userId).let {
+                it.forEach { observation ->
+                    val localObservation = localDataSource.getObservation(observation.id)
+                    if (localObservation == null) {
+                        localDataSource.addObservation(observation)
+                    } else {
+                        localDataSource.updateObservation(observation)
+                    }
+                }
+            }
+        }
+
+        return localDataSource.getObservationsByOwner(userId)
     }
 }
