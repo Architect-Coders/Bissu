@@ -23,4 +23,5 @@
     <string name="menu_bookdetailfragment_observation">Observation</string>
     <string name="observationfragment_observation">Observation</string>
     <string name="observationfragment_submit">Submit</string>
+    <string name="observation_adddescription">Add description</string>
 </resources>

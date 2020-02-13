@@ -124,7 +124,7 @@ class BookDetailFragment : Fragment() {
         }else{
             val fragmentManager = activity!!.supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = ObservationFragment.newInstance(book)
+            val fragment = ObservationFragment.newInstance(book.id)
             fragmentTransaction.replace(R.id.content_main, fragment, fragment.tag)
             fragmentTransaction.commit()
 

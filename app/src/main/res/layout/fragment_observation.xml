@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/observationfragment_pagetitle"
+        android:id="@+id/observationfragment_pagenumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -34,15 +34,19 @@
         app:layout_constraintTop_toBottomOf="@+id/observationfragment_header" />
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/observationfragment_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/spacing_sm"
         android:background="@null"
-        android:gravity="top|left"
+        android:gravity="top|start"
+        android:focusable="true"
+        android:hint="@string/observation_adddescription"
+        android:focusedByDefault="true"
         app:layout_constraintBottom_toTopOf="@+id/observationfragment_create"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/observationfragment_pagetitle" />
+        app:layout_constraintTop_toBottomOf="@+id/observationfragment_pagenumber" />
 
     <Button
         android:id="@+id/observationfragment_create"
