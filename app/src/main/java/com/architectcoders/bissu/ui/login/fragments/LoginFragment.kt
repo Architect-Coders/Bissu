@@ -2,6 +2,7 @@ package com.architectcoders.bissu.ui.login.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.preference.Preference
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,37 +11,27 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.AndroidApplication
 import com.architectcoders.bissu.R
+import com.architectcoders.bissu.data.database.Prefs
 import com.architectcoders.bissu.data.database.login.LoginDataSource
 import com.architectcoders.bissu.data.server.login.LoginDatasource
 import com.architectcoders.bissu.ui.MainActivity
 import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.common.getViewModel
 import com.architectcoders.bissu.ui.login.LoginViewModel
-import com.architectcoders.bissu.ui.profile.ProfileActivity
 import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.usecases.DoLogin
 import kotlinx.android.synthetic.main.login_view.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Anibal Cortez on 2019-12-11.
  */
 class LoginFragment : Fragment() {
 
-    private lateinit var viewModel: LoginViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = getViewModel {
-            LoginViewModel(
-                DoLogin(
-                    UserRepository(
-                        LoginDataSource(activity!!.app.db),
-                        LoginDatasource()
-                    )
-                )
-            )
-        }
-    }
+    private val session: Prefs by inject()
+    private val viewModel: LoginViewModel by currentScope.viewModel(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,11 +41,10 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.login_view, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.model.observe(this, Observer(::updateUi))
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
 
         login_button.setOnClickListener {
             doLogin(username_edit_text.text?.toString(), password_edit_text.text?.toString())
@@ -70,7 +60,7 @@ class LoginFragment : Fragment() {
         when (model) {
             is LoginViewModel.UiModel.Content -> {
                 if (model.success) {
-                    AndroidApplication.prefs?.isUserLogged = true
+                    session.isUserLogged = true
 
                     val intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)

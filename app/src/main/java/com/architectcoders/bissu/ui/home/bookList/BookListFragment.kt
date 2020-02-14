@@ -6,24 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.data.database.book.BookDataSource
-import com.architectcoders.bissu.data.server.book.BookDatasource
 import com.architectcoders.bissu.ui.book.BookDetailActivity
-import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.common.base.adapters.AdapterClick
 import com.architectcoders.bissu.ui.common.base.adapters.AdapterListener
-import com.architectcoders.bissu.ui.common.getViewModel
 import com.architectcoders.bissu.ui.home.bookList.BookAdapter
 import com.architectcoders.bissu.ui.home.bookList.BookItem
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel.UiModel
-import com.architectcoders.data.repository.BookRepository
 import com.architectcoders.domain.Book
-import com.architectcoders.usecases.GetBooks
 import kotlinx.android.synthetic.main.fragment_book_list.*
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookListFragment : Fragment(), AdapterListener {
 
@@ -33,22 +28,7 @@ class BookListFragment : Fragment(), AdapterListener {
         fun newInstance() = BookListFragment()
     }
 
-    private lateinit var viewModel: BookListViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel = getViewModel {
-            BookListViewModel(
-                GetBooks(
-                    BookRepository(
-                        BookDataSource(activity!!.app.db),
-                        BookDatasource()
-                    )
-                )
-            )
-        }
-    }
+    private val viewModel: BookListViewModel by currentScope.viewModel(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,8 +41,6 @@ class BookListFragment : Fragment(), AdapterListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(BookListViewModel::class.java)
-
         viewModel.getBooks()
     }
 
@@ -70,7 +48,6 @@ class BookListFragment : Fragment(), AdapterListener {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
-
         initializeAdapter()
     }
 

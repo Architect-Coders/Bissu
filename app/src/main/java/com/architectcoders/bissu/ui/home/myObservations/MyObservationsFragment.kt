@@ -15,12 +15,15 @@ import com.architectcoders.bissu.data.server.login.LoginDatasource
 import com.architectcoders.bissu.data.server.observation.ObservationDatasource
 import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.common.getViewModel
+import com.architectcoders.bissu.ui.home.bookList.BookListViewModel
 import com.architectcoders.data.repository.ObservationRepository
 import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.domain.Observation
 import com.architectcoders.usecases.GetAccount
 import com.architectcoders.usecases.GetOwnerObservations
 import kotlinx.android.synthetic.main.fragment_my_observations.*
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyObservationsFragment : Fragment() {
 
@@ -30,28 +33,7 @@ class MyObservationsFragment : Fragment() {
         fun newInstance() = MyObservationsFragment()
     }
 
-    private lateinit var viewModel: MyObservationsViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel = getViewModel {
-            MyObservationsViewModel(
-                GetAccount(
-                    UserRepository(
-                        LoginDataSource(activity!!.app.db),
-                        LoginDatasource()
-                    )
-                ),
-                GetOwnerObservations(
-                    ObservationRepository(
-                        ObservationDataSource(activity!!.app.db),
-                        ObservationDatasource()
-                    )
-                )
-            )
-        }
-    }
+    private val viewModel: MyObservationsViewModel by currentScope.viewModel(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +44,6 @@ class MyObservationsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MyObservationsViewModel::class.java)
-
         viewModel.getObservationsByOwner()
     }
 

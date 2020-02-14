@@ -24,6 +24,8 @@ import com.architectcoders.usecases.GetBook
 import com.architectcoders.usecases.GetObservations
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_book_detail.*
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookDetailFragment : Fragment() {
 
@@ -43,7 +45,7 @@ class BookDetailFragment : Fragment() {
         }
     }
 
-    private lateinit var viewModel: BookDetailViewModel
+    private val viewModel: BookDetailViewModel by currentScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,25 +60,6 @@ class BookDetailFragment : Fragment() {
             savedInstanceState.let {
                 bookId = it.getString(BOOK_ID, "")
             }
-        }
-
-        viewModel = getViewModel {
-            BookDetailViewModel(
-                GetBook(
-                    BookRepository(
-                        BookDataSource(
-                            activity!!.app.db
-                        ),
-                        BookDatasource()
-                    )
-                ),
-                GetObservations(
-                    ObservationRepository(
-                        ObservationDataSource(activity!!.app.db),
-                        ObservationDatasource()
-                    )
-                )
-            )
         }
     }
 
@@ -98,14 +81,11 @@ class BookDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
-
         initializeAdapter()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        viewModel = ViewModelProviders.of(this).get(BookDetailViewModel::class.java)
 
         viewModel.getBook(bookId)
         viewModel.fetchObservations(bookId)

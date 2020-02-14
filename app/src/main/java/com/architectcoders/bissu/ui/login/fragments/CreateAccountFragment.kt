@@ -13,18 +13,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.data.database.login.LoginDataSource
-import com.architectcoders.bissu.data.server.login.LoginDatasource
 import com.architectcoders.bissu.ui.common.BitMapToString
 import com.architectcoders.bissu.ui.common.StringToBitMap
-import com.architectcoders.bissu.ui.common.app
-import com.architectcoders.bissu.ui.common.getViewModel
+import com.architectcoders.bissu.ui.home.profile.ProfileActivity
 import com.architectcoders.bissu.ui.login.LoginCreateAccountViewModel
-import com.architectcoders.bissu.ui.profile.ProfileActivity
-import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.domain.User
-import com.architectcoders.usecases.CreateAccount
 import kotlinx.android.synthetic.main.login_create_account_view.*
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 /**
@@ -40,22 +36,9 @@ class CreateAccountFragment : Fragment() {
         fun newInstance(bundle: Bundle) = CreateAccountFragment().apply { arguments = bundle }
     }
 
-    private lateinit var viewModel: LoginCreateAccountViewModel
-    private var isNew = true
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val viewModel: LoginCreateAccountViewModel by currentScope.viewModel(this)
 
-        viewModel = getViewModel {
-            LoginCreateAccountViewModel(
-                CreateAccount(
-                    UserRepository(
-                        LoginDataSource(activity!!.app.db),
-                        LoginDatasource()
-                    )
-                )
-            )
-        }
-    }
+    private var isNew = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,11 +52,11 @@ class CreateAccountFragment : Fragment() {
         return inflater.inflate(R.layout.login_create_account_view, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.model.observe(this, Observer(::updateUi))
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
+
         if (!this.isNew) {
             viewModel.onLoadEdit()
         }
@@ -88,8 +71,6 @@ class CreateAccountFragment : Fragment() {
                 repeat_password_edit_text.text?.toString(),
                 this.isNew
             )
-
-
         }
 
         user_photo.setOnClickListener {

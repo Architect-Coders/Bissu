@@ -8,26 +8,13 @@ import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.data.database.book.BookDataSource
-import com.architectcoders.bissu.data.database.login.LoginDataSource
-import com.architectcoders.bissu.data.database.observation.ObservationDataSource
-import com.architectcoders.bissu.data.server.book.BookDatasource
-import com.architectcoders.bissu.data.server.login.LoginDatasource
-import com.architectcoders.bissu.data.server.observation.ObservationDatasource
-import com.architectcoders.bissu.ui.common.app
-import com.architectcoders.bissu.ui.common.getViewModel
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel.*
-import com.architectcoders.data.repository.BookRepository
-import com.architectcoders.data.repository.ObservationRepository
-import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.domain.Book
-import com.architectcoders.usecases.CreateObservation
-import com.architectcoders.usecases.GetAccount
-import com.architectcoders.usecases.GetBook
 import kotlinx.android.synthetic.main.fragment_observation.*
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ObservationFragment : Fragment(), View.OnClickListener {
@@ -47,7 +34,7 @@ class ObservationFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private lateinit var viewModel: ObservationViewModel
+    private val viewModel: ObservationViewModel by currentScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,31 +48,6 @@ class ObservationFragment : Fragment(), View.OnClickListener {
                 bookId = it.getString(BOOK_ID, "")
             }
         }
-
-        viewModel = getViewModel {
-            ObservationViewModel(
-                GetAccount(
-                    UserRepository(
-                        LoginDataSource(activity!!.app.db),
-                        LoginDatasource()
-                    )
-                ),
-                GetBook(
-                    BookRepository(
-                        BookDataSource(
-                            activity!!.app.db
-                        ),
-                        BookDatasource()
-                    )
-                ),
-                CreateObservation(
-                    ObservationRepository(
-                        ObservationDataSource(activity!!.app.db),
-                        ObservationDatasource()
-                    )
-                )
-            )
-        }
     }
 
     override fun onCreateView(
@@ -97,15 +59,14 @@ class ObservationFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ObservationViewModel::class.java)
 
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
         viewModel.getBook(bookId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
         observationfragment_create.setOnClickListener(this)
     }
 

@@ -1,4 +1,4 @@
-package com.architectcoders.bissu.ui.profile
+package com.architectcoders.bissu.ui.home.profile
 
 import android.os.Bundle
 import android.view.MenuItem
