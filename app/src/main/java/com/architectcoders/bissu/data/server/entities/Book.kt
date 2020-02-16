@@ -14,7 +14,7 @@ data class Book(
     @SerializedName("editorial")
     val editorial: String,
     @SerializedName("category")
-    val category: String,
+    val category: Category,
     @SerializedName("description")
     val description: String,
     @SerializedName("photoUrl")

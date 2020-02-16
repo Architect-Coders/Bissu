@@ -6,7 +6,7 @@ data class Book (
     val author: String,
     val pages: String,
     val editorial: String,
-    val category: String,
+    val category: Category,
     val description: String,
     val photoUrl: String?
 )

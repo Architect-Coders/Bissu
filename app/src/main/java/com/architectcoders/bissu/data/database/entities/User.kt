@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
  * Created by Anibal Cortez on 2019-12-11.
  */
 @Entity
-@TypeConverters(CategoryConverter::class)
+@TypeConverters(CategoryListConverter::class)
 data class User(
     @PrimaryKey val username: String,
     val email : String,
