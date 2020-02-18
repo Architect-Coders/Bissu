@@ -1,6 +1,6 @@
 package com.architectcoders.bissu.data.database
 
-import com.architectcoders.bissu.data.mappers.toCategory
+import com.architectcoders.bissu.data.mappers.toDomainCategory
 import com.architectcoders.bissu.data.mappers.toRemoteCategory
 import com.architectcoders.bissu.data.mappers.toRoomCategory
 import com.architectcoders.bissu.data.server.login.request.UserRequest
@@ -52,7 +52,7 @@ fun RoomUser.toDomainUser(): User = User(
     firstName = firstName,
     lastName = lastName,
     photoUrl = photoUrl,
-    categories = categories.map { it.toCategory() }
+    categories = categories.map { it.toDomainCategory() }
 )
 
 fun RemoteUser.toDomainUser(): User = User(
@@ -62,6 +62,6 @@ fun RemoteUser.toDomainUser(): User = User(
     firstName =  firstName,
     lastName = lastName,
     photoUrl = photoUrl,
-    categories = categories.map { it.toCategory() }
+    categories = categories.map { it.toDomainCategory() }
 )
 
