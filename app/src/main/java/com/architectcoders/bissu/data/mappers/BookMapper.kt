@@ -21,7 +21,7 @@ fun RoomBook.toDomainBook(): Book = Book(
     author = author,
     pages = pages,
     editorial = editorial,
-    category = category.toCategory(),
+    category = category.toDomainCategory(),
     description = description,
     photoUrl = photoUrl
 )
@@ -32,7 +32,7 @@ fun RemoteBook.toDomainBook(): Book = Book(
     author = author,
     pages = pages,
     editorial = editorial,
-    category = category.toCategory(),
+    category = category.toDomainCategory(),
     description = description,
     photoUrl = photoUrl
 )

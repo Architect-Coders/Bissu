@@ -18,11 +18,11 @@ fun Category.toRemoteCategory() : RemoteCategory = RemoteCategory(
     name = name
 )
 
-fun RomCategory.toCategory() : Category = Category(
+fun RomCategory.toDomainCategory() : Category = Category(
     id = id,
     name = name
 )
-fun RemoteCategory.toCategory() : Category = Category(
+fun RemoteCategory.toDomainCategory() : Category = Category(
     id =  _id,
     name = name
 )

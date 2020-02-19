@@ -9,8 +9,9 @@ class BookRepository(
     private val remoteDatasource: BookRemoteDatasource
 ) {
 
-    suspend fun getBooks(): List<Book> {
-        if (localDataSource.isEmpty()) {
+    suspend fun getBooks(forceRefresh: Boolean): List<Book> {
+
+        if (localDataSource.isEmpty() || forceRefresh) {
             remoteDatasource.getBooks().let {
                 localDataSource.saveBooks(it)
             }
@@ -21,4 +22,19 @@ class BookRepository(
     suspend fun getBook(id: String): Book {
         return localDataSource.getBook(id)
     }
+
+
+    suspend fun createBook(
+        title: String,
+        author: String,
+        pages: String,
+        editorial: String,
+        categoryId: String,
+        description: String
+    ): Boolean {
+        val book = remoteDatasource.createBook(title, author, pages, editorial, categoryId, description)
+        // insert book
+        return true
+    }
+
 }

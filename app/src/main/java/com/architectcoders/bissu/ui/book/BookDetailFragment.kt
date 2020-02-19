@@ -66,9 +66,9 @@ class BookDetailFragment : Fragment() {
                     BookRepository(
                         BookDataSource(
                             activity!!.app.db
-                        ),
-                        BookDatasource()
-                    )
+                            ),
+                    BookDatasource()
+                )
                 ),
                 GetObservations(
                     ObservationRepository(
