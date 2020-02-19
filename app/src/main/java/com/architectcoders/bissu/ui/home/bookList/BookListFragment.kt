@@ -12,6 +12,7 @@ import com.architectcoders.bissu.R
 import com.architectcoders.bissu.data.database.book.BookDataSource
 import com.architectcoders.bissu.data.server.book.BookDatasource
 import com.architectcoders.bissu.ui.book.BookDetailActivity
+import com.architectcoders.bissu.ui.book.activities.CreateBookActivity
 import com.architectcoders.bissu.ui.book.fragments.CreateBookFragment
 import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.common.base.adapters.AdapterClick
@@ -87,11 +88,8 @@ class BookListFragment : Fragment(), AdapterListener {
             is UiModel.Loading -> progressVisibility(model.value)
             is UiModel.Content -> processBooks(model.books)
             is UiModel.Navigation -> {
-                val fragmentManager = activity!!.supportFragmentManager
-                val fragmentTransaction = fragmentManager.beginTransaction()
-                val fragment = CreateBookFragment()
-                fragmentTransaction.replace(R.id.content_main, fragment)
-                fragmentTransaction.commit()
+                val intent = Intent(activity, CreateBookActivity::class.java)
+                startActivity(intent)
             }
         }
     }
