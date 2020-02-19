@@ -4,6 +4,7 @@ import androidx.room.*
 
 @Dao
 interface BookDao {
+
     @Query("SELECT * FROM Book")
     fun getBooks(): List<Book>
 
