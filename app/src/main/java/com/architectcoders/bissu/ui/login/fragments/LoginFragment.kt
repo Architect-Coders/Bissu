@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUi(model: LoginViewModel.UiModel) {
-        progress_bar.visibility =
+        progress_bar_view.visibility =
             if (model is LoginViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
             is LoginViewModel.UiModel.Content -> {

@@ -110,8 +110,8 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         list.map {
             categoryList.add(it.name.toUpperCase())
         }
-        val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, categoryList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(context!!, R.layout.simple_spinner_layout_custom, categoryList)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_custom)
 
         category_list_spinner.adapter = adapter
 
