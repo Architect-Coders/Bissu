@@ -1,38 +1,66 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+<!--    &lt;!&ndash; Base application theme. &ndash;&gt;-->
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--    </style>-->
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
+<!--    <style name="AppTheme.NoActionBar">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--    </style>-->
+
+
+
+
+
+
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="buttonStyle">@style/ButtonAppTheme</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="AppTheme.Title" parent="AppTheme">
-        <item name="android:textSize">@dimen/text_lg</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
+    <!-- Begin button style -->
+    <style name="ButtonAppTheme" parent="android:Widget.Material.Button">
+        <item name="android:colorButtonNormal">@color/primary</item>
+        <item name="android:textAppearanceButton">@color/white</item>
     </style>
+    <!-- End button style-->
 
-    <style name="AppTheme.Content" parent="AppTheme">
-        <item name="android:textSize">@dimen/text_default</item>
-    </style>
 
-    <style name="AppTheme.Observation.Title" parent="AppTheme">
-        <item name="android:textSize">@dimen/text_sm</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+        <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.Observation.Content" parent="AppTheme">
-        <item name="android:textSize">@dimen/text_xs</item>
-    </style>
+        <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+        <style name="AppTheme.Title" parent="MyMaterialTheme">
+            <item name="android:textSize">@dimen/text_lg</item>
+            <item name="android:textStyle">bold</item>
+            <item name="android:textAllCaps">true</item>
+        </style>
+
+        <style name="AppTheme.Content" parent="MyMaterialTheme">
+            <item name="android:textSize">@dimen/text_default</item>
+        </style>
+
+        <style name="AppTheme.Observation.Title" parent="MyMaterialTheme">
+            <item name="android:textSize">@dimen/text_sm</item>
+            <item name="android:textStyle">bold</item>
+        </style>
+
+        <style name="AppTheme.Observation.Content" parent="MyMaterialTheme">
+            <item name="android:textSize">@dimen/text_xs</item>
+        </style>
+
+
 </resources>
