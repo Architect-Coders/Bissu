@@ -9,6 +9,7 @@ import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.login.LoginActivity
 import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
 import com.architectcoders.bissu.ui.profile.ProfileActivity
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +17,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar.let {
+            setSupportActionBar(toolbar)
+            it?.setDisplayShowHomeEnabled(true)
+            it?.setDisplayHomeAsUpEnabled(true)
+        }
         val pref = AndroidApplication.prefs
 
         if(pref!!.isUserLogged){

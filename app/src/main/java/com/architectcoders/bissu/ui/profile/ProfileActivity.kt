@@ -5,7 +5,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
-
+import kotlinx.android.synthetic.main.activity_profile.*
+import androidx.appcompat.widget.Toolbar
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -14,7 +15,11 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar.let {
+            setSupportActionBar(toolbarProfile as Toolbar?)
+            it?.setDisplayHomeAsUpEnabled(true)
+            it?.setDisplayShowHomeEnabled(true)
+        }
 
         startEditProfile()
     }
