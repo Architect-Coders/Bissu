@@ -1,4 +1,4 @@
-import android.annotation.SuppressLint
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.book.BookDetailActivity
+import com.architectcoders.bissu.ui.book.activities.CreateBookActivity
+import com.architectcoders.bissu.ui.book.fragments.CreateBookFragment
+import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.common.base.adapters.AdapterClick
 import com.architectcoders.bissu.ui.common.base.adapters.AdapterListener
 import com.architectcoders.bissu.ui.home.bookList.BookAdapter
@@ -30,25 +33,26 @@ class BookListFragment : Fragment(), AdapterListener {
 
     private val viewModel: BookListViewModel by currentScope.viewModel(this)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         return inflater.inflate(R.layout.fragment_book_list, container, false)
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel.getBooks()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
+
+        vRefreshLayout.setOnRefreshListener {
+            viewModel.refreshBooks()
+        }
+
+        fab.setOnClickListener {
+            viewModel.addBookClicked();
+        }
+
         initializeAdapter()
+
+        viewModel.getBooks()
     }
 
     private fun initializeAdapter() {
@@ -60,9 +64,18 @@ class BookListFragment : Fragment(), AdapterListener {
 
     private fun updateUi(model: UiModel?) {
         when (model) {
+            is UiModel.Refresh -> swipeRefresh(model.value)
             is UiModel.Loading -> progressVisibility(model.value)
             is UiModel.Content -> processBooks(model.books)
+            is UiModel.Navigation -> {
+                val intent = Intent(activity, CreateBookActivity::class.java)
+                startActivity(intent)
+            }
         }
+    }
+
+    private fun swipeRefresh(value :Boolean){
+        vRefreshLayout.isRefreshing = if (value) true else false;
     }
 
     private fun progressVisibility(value: Boolean) {

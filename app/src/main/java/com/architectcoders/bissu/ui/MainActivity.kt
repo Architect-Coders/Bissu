@@ -8,6 +8,9 @@ import com.architectcoders.bissu.R
 import com.architectcoders.bissu.data.database.Prefs
 import com.architectcoders.bissu.ui.login.LoginActivity
 import org.koin.android.ext.android.inject
+import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
+import com.architectcoders.bissu.ui.profile.ProfileActivity
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +19,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportActionBar.let {
+            setSupportActionBar(toolbar)
+            it?.setDisplayShowHomeEnabled(true)
+            it?.setDisplayHomeAsUpEnabled(true)
+        }
 
         if(session.isUserLogged){
             goToHome()

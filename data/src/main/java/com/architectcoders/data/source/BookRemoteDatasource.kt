@@ -4,8 +4,7 @@ import com.architectcoders.domain.Book
 
 
 interface BookRemoteDatasource {
-    suspend fun getBook(id: String): Book?
     suspend fun getBooks(): List<Book>
-    suspend fun addBook(book: Book) : Book
-    suspend fun updateBook(book: Book) : Book
+    suspend fun createBook(title: String, author: String, pages: String, editorial: String, categoryId: String, description: String): Book
+
 }

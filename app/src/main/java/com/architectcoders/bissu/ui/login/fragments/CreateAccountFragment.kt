@@ -81,7 +81,7 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun updateUi(model: LoginCreateAccountViewModel.UiModel) {
-        progress_bar.visibility =
+        progress_bar_view.visibility =
             if (model is LoginCreateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
             is LoginCreateAccountViewModel.UiModel.Content -> {

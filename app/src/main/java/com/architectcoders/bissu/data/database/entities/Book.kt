@@ -2,11 +2,10 @@ package com.architectcoders.bissu.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 
-/**
- * Created by Anibal Cortez on 2019-12-11.
- */
 @Entity
+@TypeConverters(CategoryConverter::class)
 data class Book(
     @PrimaryKey val id: String,
     val title: String,
@@ -14,6 +13,6 @@ data class Book(
     val author: String,
     val description: String,
     val pages: String,
-    val category: String,
+    val category: Category,
     val photoUrl: String?
 )

@@ -4,6 +4,7 @@ import com.architectcoders.bissu.data.mappers.toDomainObservation
 import com.architectcoders.bissu.data.server.RetrofitClient
 import com.architectcoders.data.source.ObservationRemoteDatasource
 import com.architectcoders.domain.Book
+import com.architectcoders.domain.Category
 import com.architectcoders.domain.Observation
 import com.architectcoders.domain.User
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,7 @@ class ObservationDatasource : ObservationRemoteDatasource {
                         "",
                         "",
                         "",
-                        "",
+                        Category("5e153c8c2d006880f96db07a", "accion"),
                         "",
                         "https://media.npr.org/assets/img/2018/11/18/gettyimages-865109088-170667a_wide-f4e3c4a58ad5e1268dec3654c0b2d490e320bba6-s800-c85.jpg"
                     ),
@@ -44,7 +45,7 @@ class ObservationDatasource : ObservationRemoteDatasource {
                         "",
                         "",
                         "",
-                        "",
+                        Category("5e153c8c2d006880f96db07a", "accion"),
                         "",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8l638YWxifwX3KmAWAbzpxv2OeRI_P3oj2qjdLRTq-PCkAuok&s"
                     ),
@@ -68,7 +69,7 @@ class ObservationDatasource : ObservationRemoteDatasource {
                         "",
                         "",
                         "",
-                        "",
+                        Category("5e153c8c2d006880f96db07a", "accion"),
                         "",
                         "https://trojantimes.net/wp-content/uploads/2019/03/top-10-confidence-books.jpg"
                     ),
@@ -96,7 +97,7 @@ class ObservationDatasource : ObservationRemoteDatasource {
                         "",
                         "",
                         "",
-                        "",
+                        Category("5e153c8c2d006880f96db07a", "accion"),
                         "",
                         "https://media.npr.org/assets/img/2018/11/18/gettyimages-865109088-170667a_wide-f4e3c4a58ad5e1268dec3654c0b2d490e320bba6-s800-c85.jpg"
                     ),
@@ -112,7 +113,7 @@ class ObservationDatasource : ObservationRemoteDatasource {
                         "",
                         "",
                         "",
-                        "",
+                        Category("5e153c8c2d006880f96db07a", "accion"),
                         "",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8l638YWxifwX3KmAWAbzpxv2OeRI_P3oj2qjdLRTq-PCkAuok&s"
                     ),
@@ -136,7 +137,7 @@ class ObservationDatasource : ObservationRemoteDatasource {
                         "",
                         "",
                         "",
-                        "",
+                        Category("5e153c8c2d006880f96db07a", "accion"),
                         "",
                         "https://trojantimes.net/wp-content/uploads/2019/03/top-10-confidence-books.jpg"
                     ),

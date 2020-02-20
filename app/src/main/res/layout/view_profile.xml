@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:text="username"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/primary_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image" />
@@ -41,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="firstname"
+        android:textColor="@color/secondary_text"
         app:layout_constraintEnd_toEndOf="@+id/profile_username"
         app:layout_constraintStart_toStartOf="@+id/profile_username"
         app:layout_constraintTop_toBottomOf="@+id/profile_username" />
@@ -50,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test@gmail"
+        android:textColor="@color/secondary_text"
         app:layout_constraintEnd_toEndOf="@+id/profile_name"
         app:layout_constraintStart_toStartOf="@+id/profile_name"
         app:layout_constraintTop_toBottomOf="@+id/profile_name" />
@@ -62,4 +65,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icons8_editar_64" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

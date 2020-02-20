@@ -10,7 +10,7 @@ import com.architectcoders.bissu.data.database.entities.*
  * Created by Anibal Cortez on 2019-12-11.
  */
 @Database(
-    entities = [User::class, Book::class, Observation::class],
+    entities = [User::class, Book::class, Observation::class, Category::class],
     version = 1,
     exportSchema = false
 )
@@ -26,5 +26,6 @@ abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
     abstract fun bookData(): BookDao
+    abstract fun categoryDao() : CategoryDao
     abstract fun observationDao(): ObservationDao
 }
