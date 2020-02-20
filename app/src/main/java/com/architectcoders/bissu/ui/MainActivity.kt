@@ -3,13 +3,10 @@ package com.architectcoders.bissu.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.architectcoders.bissu.AndroidApplication
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.data.database.Prefs
 import com.architectcoders.bissu.ui.login.LoginActivity
 import org.koin.android.ext.android.inject
-import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
-import com.architectcoders.bissu.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity() {

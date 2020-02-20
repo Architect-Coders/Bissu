@@ -7,10 +7,14 @@ import com.architectcoders.bissu.data.database.book.BookDataSource
 import com.architectcoders.bissu.data.database.login.LoginDataSource
 import com.architectcoders.bissu.data.database.observation.ObservationDataSource
 import com.architectcoders.bissu.data.server.book.BookDatasource
+import com.architectcoders.bissu.data.server.category.CategoryDatasource as CategoryRemotelDataSource
+import com.architectcoders.bissu.data.database.category.CategoryDatasource as CategoryLocalDataSource
 import com.architectcoders.bissu.data.server.login.LoginDatasource
 import com.architectcoders.bissu.data.server.observation.ObservationDatasource
 import com.architectcoders.bissu.ui.book.BookDetailFragment
 import com.architectcoders.bissu.ui.book.BookDetailViewModel
+import com.architectcoders.bissu.ui.book.CreateBookViewModel
+import com.architectcoders.bissu.ui.book.fragments.CreateBookFragment
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel
 import com.architectcoders.bissu.ui.home.myObservations.MyObservationsFragment
 import com.architectcoders.bissu.ui.home.myObservations.MyObservationsViewModel
@@ -23,6 +27,7 @@ import com.architectcoders.bissu.ui.login.fragments.LoginFragment
 import com.architectcoders.bissu.ui.observation.ObservationFragment
 import com.architectcoders.bissu.ui.observation.ObservationViewModel
 import com.architectcoders.data.repository.BookRepository
+import com.architectcoders.data.repository.CategoryRepository
 import com.architectcoders.data.repository.ObservationRepository
 import com.architectcoders.data.repository.UserRepository
 import com.architectcoders.data.source.*
@@ -55,12 +60,15 @@ private val dataModule = module {
     factory<LoginLocalDataSource> { LoginDataSource(get()) }
     factory<BookLocalDataSource> { BookDataSource(get()) }
     factory<ObservationLocalDataSource> { ObservationDataSource(get()) }
+    factory<CategoryLocalDatasource> { CategoryLocalDataSource(get()) }
+    factory<CategoryRemoteDatasource> { CategoryRemotelDataSource() }
     factory<LoginRemoteDatasource> { LoginDatasource() }
     factory<BookRemoteDatasource> { BookDatasource() }
     factory<ObservationRemoteDatasource> { ObservationDatasource() }
     factory { UserRepository(get(), get()) }
     factory { BookRepository(get(), get()) }
     factory { ObservationRepository(get(), get()) }
+    factory { CategoryRepository(get(), get()) }
 }
 
 private val scopesModule = module {
@@ -101,5 +109,11 @@ private val scopesModule = module {
         scoped { GetAccount(get()) }
         scoped { GetBook(get()) }
         scoped { CreateObservation(get()) }
+    }
+
+    scope(named<CreateBookFragment>()) {
+        viewModel { CreateBookViewModel(get(), get()) }
+        scoped { GetCategories(get()) }
+        scoped { CreateBook(get()) }
     }
 }

@@ -90,7 +90,12 @@ class CreateAccountFragment : Fragment() {
                 } else Toast.makeText(context, "User not registered", Toast.LENGTH_LONG).show()
             }
             is LoginCreateAccountViewModel.UiModel.ContentEdit -> {
-                val bm = StringToBitMap(model.user.photoUrl!!)
+                var bm: Bitmap? = null
+
+                model.user.photoUrl?.let{
+                    bm = StringToBitMap(it)
+                }
+
                 model.user.apply {
                     create_account_title_text.setText(getString(R.string.edit_profile_title))
                     email_edit_text.setText(email)

@@ -2,6 +2,7 @@ package com.architectcoders.bissu.ui.home.profile.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.common.StringToBitMap
 import com.architectcoders.bissu.ui.home.profile.ProfileActivity
 import com.architectcoders.bissu.ui.home.profile.ProfileViewModel
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.view_profile.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,7 +37,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
         viewModel.doRefresh()
 
@@ -50,10 +51,17 @@ class ProfileFragment : Fragment() {
                 startActivity(Intent(context, ProfileActivity::class.java))
             }
             is ProfileViewModel.UiModel.Content -> {
+
+                Log.d("testingcrazy", Gson().toJson(model.user))
+
                 profile_username.text = model.user.username
                 profile_name.text = model.user.firstName + model.user.lastName
                 profile_email.text = model.user.email
-                profile_image.setImageBitmap(StringToBitMap(model.user.photoUrl!!))
+
+                model.user.photoUrl?.let {
+                    profile_image.setImageBitmap(StringToBitMap(it))
+                }
+
             }
         }
     }

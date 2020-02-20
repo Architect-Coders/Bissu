@@ -10,50 +10,25 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.data.database.book.BookDataSource
-import com.architectcoders.bissu.data.server.book.BookDatasource
-import com.architectcoders.bissu.data.server.category.CategoryDatasource as CategoryRemotelDatasource
-import com.architectcoders.bissu.data.database.category.CategoryDatasource as CategoryLocalDatasource
 import com.architectcoders.bissu.ui.book.CreateBookViewModel
-import com.architectcoders.bissu.ui.common.app
-import com.architectcoders.bissu.ui.common.getViewModel
-import com.architectcoders.data.repository.BookRepository
-import com.architectcoders.data.repository.CategoryRepository
 import com.architectcoders.domain.Category
-import com.architectcoders.usecases.CreateBook
-import com.architectcoders.usecases.GetCategories
 import kotlinx.android.synthetic.main.fragmet_create_book.*
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Anibal Cortez on 2020-02-16.
  */
 class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    private lateinit var viewModel: CreateBookViewModel
+    private val viewModel: CreateBookViewModel by currentScope.viewModel(this)
 
     private lateinit var categoryList: List<Category>
     private var categorySelected: Category? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = getViewModel {
-            CreateBookViewModel(
-                GetCategories(
-                    CategoryRepository(
-                        CategoryLocalDatasource(activity!!.app.db),
-                        CategoryRemotelDatasource()
-                    )
-                ),
-                CreateBook(
-                    BookRepository(
-                        BookDataSource(
-                            activity!!.app.db
-                        ),
-                        BookDatasource()
-                    )
-                )
-            )
-        }
+
     }
 
     override fun onCreateView(
@@ -67,10 +42,10 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.model.observe(this, Observer(::updateUi))
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
 
         create_book_button.setOnClickListener {
-            createBook();
+            createBook()
         }
 
         viewModel.getCategories()
@@ -84,23 +59,29 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 categoryList = model.list
                 initSpinner(categoryList)
             }
-            is CreateBookViewModel.UiModel.CreateBook ->{
-               if(model.boolean)
+            is CreateBookViewModel.UiModel.CreateBook -> {
+                if (model.boolean)
                     activity?.finish()
-                else  Toast.makeText(context, "Error to create the book", Toast.LENGTH_LONG).show()
+                else Toast.makeText(context, "Error to create the book", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun createBook(){
-        if(title_edit_text.text.isNullOrEmpty() || categorySelected == null || editorial_edit_text.text.isNullOrEmpty() || author_edit_text.text.isNullOrEmpty()
-            || pages_edit_text.text.isNullOrEmpty() || description_edit_text.text.isNullOrEmpty()){
+    private fun createBook() {
+        if (title_edit_text.text.isNullOrEmpty() || categorySelected == null || editorial_edit_text.text.isNullOrEmpty() || author_edit_text.text.isNullOrEmpty()
+            || pages_edit_text.text.isNullOrEmpty() || description_edit_text.text.isNullOrEmpty()
+        ) {
 
             Toast.makeText(context, "complete all values", Toast.LENGTH_LONG).show()
-        }
-        else{
-            viewModel.createBook(title_edit_text.text.toString(), author_edit_text.text.toString(),editorial_edit_text.text.toString(),
-                pages_edit_text.text.toString(),categorySelected!!.id,description_edit_text.text.toString())
+        } else {
+            viewModel.createBook(
+                title_edit_text.text.toString(),
+                author_edit_text.text.toString(),
+                editorial_edit_text.text.toString(),
+                pages_edit_text.text.toString(),
+                categorySelected!!.id,
+                description_edit_text.text.toString()
+            )
         }
 
     }

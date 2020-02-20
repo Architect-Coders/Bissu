@@ -4,19 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.profile.ProfileActivity">
-
-
-    <include
-        android:id="@+id/toolbarProfile"
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    tools:context=".ui.login.LoginActivity">
 
     <FrameLayout
-        android:id="@+id/content_profile"
+        android:id="@+id/content_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </FrameLayout>
+
 </LinearLayout>

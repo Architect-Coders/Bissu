@@ -12,7 +12,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         startLoginFragment()
     }
 
@@ -23,15 +23,4 @@ class LoginActivity : AppCompatActivity() {
         fragmentTransaction.add(R.id.content_main, fragment)
         fragmentTransaction.commit()
     }
-
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-
 }

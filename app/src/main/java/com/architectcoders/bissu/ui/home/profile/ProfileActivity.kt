@@ -15,8 +15,9 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        setSupportActionBar(toolbarProfile as Toolbar?)
+
         supportActionBar.let {
-            setSupportActionBar(toolbarProfile as Toolbar?)
             it?.setDisplayHomeAsUpEnabled(true)
             it?.setDisplayShowHomeEnabled(true)
         }
