@@ -1,11 +1,13 @@
 package com.architectcoders.bissu.ui.observation
 
-import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.common.ScopedViewModel
+import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel.*
 import com.architectcoders.domain.Book
 import com.architectcoders.domain.Observation
+import com.architectcoders.domain.User
 import com.architectcoders.usecases.CreateObservation
 import com.architectcoders.usecases.GetAccount
 import com.architectcoders.usecases.GetBook
@@ -26,8 +28,7 @@ class ObservationViewModel(
     sealed class UiModel {
         class Loading(val value: Boolean) : UiModel()
         class ContentBook(val book: Book?) : UiModel()
-        class Content(val value: Boolean) : UiModel()
-        class ValidateObservation() : UiModel()
+        class ShowToast(val value: Int) : UiModel()
     }
 
     init {
@@ -36,33 +37,57 @@ class ObservationViewModel(
 
     fun getBook(bookId: String) {
         launch {
-            _model.value = UiModel.Loading(true)
-            _model.value = UiModel.ContentBook(getBook.invoke(bookId))
-            _model.value = UiModel.Loading(false)
+            _model.value = Loading(true)
+            _model.value = ContentBook(getBook.invoke(bookId))
+            _model.value = Loading(false)
         }
     }
 
-    fun createObservation(book: Book?, description: String?, page: String) {
+    private fun createObservation(user: User, book: Book, description: String, page: String) {
         launch {
-            _model.value = UiModel.Loading(true)
+            _model.value = Loading(true)
 
-            val user = getAccount.invoke()
+            val observation = Observation("", user, book, description, page)
 
-            if (user == null || description.isNullOrEmpty() || page.isEmpty() || book == null) {
-                _model.value = UiModel.Content(false)
-            }else{
-                val observation = Observation("", user, book, description, page)
-
-                createObservation.invoke(observation).let {
-                    _model.value = UiModel.Content(it)
+            createObservation.invoke(observation).let {
+                if(it != null){
+                    _model.value = ShowToast(R.string.observationfragment_observationcreated)
+                }else{
+                    _model.value = ShowToast(R.string.observationfragment_cantcreateobservation)
                 }
             }
 
-            _model.value = UiModel.Loading(false)
+            _model.value = Loading(false)
         }
     }
 
-    fun onCreateClicked() {
-        _model.value = UiModel.ValidateObservation()
+    fun onCreateClicked(
+        book: Book?,
+        selectedItemPosition: Int,
+        page: String?,
+        description: String?
+    ) {
+        launch {
+            getAccount.invoke().let { user ->
+                when {
+                    selectedItemPosition == 0 || page == null -> {
+                        _model.value = ShowToast(R.string.observationfragment_selectpage)
+                    }
+                    description.isNullOrEmpty() -> {
+                        _model.value =
+                            ShowToast(R.string.observationfragment_addobservation)
+                    }
+                    book == null -> {
+                        _model.value = ShowToast(R.string.observationfragment_processissue)
+                    }
+                    user == null -> {
+                        _model.value = ShowToast(R.string.observationfragment_processissue)
+                    }
+                    else -> {
+                        createObservation(user, book, description, page)
+                    }
+                }
+            }
+        }
     }
 }

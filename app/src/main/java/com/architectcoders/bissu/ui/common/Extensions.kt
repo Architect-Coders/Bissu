@@ -6,7 +6,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -78,3 +80,11 @@ inline fun <reified T : ViewModel> Fragment.getViewModel(crossinline factory: ()
 
 val Context.app: AndroidApplication
     get() = applicationContext as AndroidApplication
+
+fun Context.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, text, duration).show()
+}
+
+fun Context.showToast(text: Int, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, this.getString(text), duration).show()
+}

@@ -24,4 +24,9 @@
     <string name="observationfragment_observation">Observation</string>
     <string name="observationfragment_submit">Submit</string>
     <string name="observation_adddescription">Add description</string>
+    <string name="observationfragment_selectpage">Please, select a page</string>
+    <string name="observationfragment_addobservation">Please, add the observation</string>
+    <string name="observationfragment_processissue">We couldn\'t process the reques</string>
+    <string name="observationfragment_cantcreateobservation">We couldn\'t create de obsrvation</string>
+    <string name="observationfragment_observationcreated">Observation created</string>
 </resources>

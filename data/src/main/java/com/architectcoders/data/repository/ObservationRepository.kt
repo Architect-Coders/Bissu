@@ -3,6 +3,7 @@ package com.architectcoders.data.repository
 import com.architectcoders.data.source.ObservationLocalDataSource
 import com.architectcoders.data.source.ObservationRemoteDatasource
 import com.architectcoders.domain.Observation
+import java.lang.Exception
 
 class ObservationRepository(
     private val localDataSource: ObservationLocalDataSource,
@@ -46,7 +47,11 @@ class ObservationRepository(
         return localDataSource.getObservationsByOwner(userId)
     }
 
-    suspend fun createObservation(observation: Observation): Boolean {
-        return remoteDataSource.createObservation(observation)
+    suspend fun createObservation(observation: Observation): Observation? {
+        return try {
+            remoteDataSource.createObservation(observation)
+        }catch (exceptio: Exception){
+            null
+        }
     }
 }

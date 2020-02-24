@@ -1,14 +1,17 @@
 package com.architectcoders.bissu.ui.observation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
+import com.architectcoders.bissu.ui.common.showToast
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel.*
 import com.architectcoders.domain.Book
@@ -71,37 +74,29 @@ class ObservationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setupPageSpinner() {
-        book?.pages?.toInt()?.let {
-            val dataAdapter: ArrayAdapter<String> = ArrayAdapter(
-                context,
-                android.R.layout.simple_spinner_item,
-                (1..it).toList().map { item -> item.toString() }
-            )
+        var pages = 2
 
-            dataAdapter.insert("Select page", 0)
-
-            observationfragment_pagenumber.adapter = dataAdapter
+        book?.pages?.toIntOrNull()?.let {
+            pages = it
         }
+
+        val dataAdapter: ArrayAdapter<String> = ArrayAdapter(
+            context,
+            android.R.layout.simple_spinner_item,
+            (1..pages).toList().map { item -> item.toString() }
+        )
+
+        dataAdapter.insert("Select page", 0)
+
+        observationfragment_pagenumber.adapter = dataAdapter
     }
 
     private fun updateUi(model: UiModel?) {
         when (model) {
             is Loading -> progressVisibility(model.value)
-            is Content -> observationUpdated(model.value)
             is ContentBook -> updateBookUi(model.book)
-            is ValidateObservation -> validateObservation()
+            is ShowToast -> context?.showToast(model.value)
         }
-    }
-
-    private fun validateObservation() {
-        if (observationfragment_pagenumber.selectedItemPosition == 0) {
-            // TODO message select a page
-        } else {
-            val page = observationfragment_pagenumber.selectedItem.toString()
-            val description = observationfragment_description.text
-            viewModel.createObservation(book, description.toString(), page)
-        }
-
     }
 
     private fun updateBookUi(book: Book?) {
@@ -113,14 +108,13 @@ class ObservationFragment : Fragment(), View.OnClickListener {
         observationfragment_progress.visibility = if (value) View.VISIBLE else View.GONE
     }
 
-    private fun observationUpdated(value: Boolean) {
-
-    }
-
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.observationfragment_create -> {
-                viewModel.onCreateClicked()
+                viewModel.onCreateClicked(book,
+                    observationfragment_pagenumber.selectedItemPosition,
+                    observationfragment_pagenumber.selectedItem.toString(),
+                    observationfragment_description.text.toString())
             }
         }
     }
