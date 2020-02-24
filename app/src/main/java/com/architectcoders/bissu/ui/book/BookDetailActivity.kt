@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.bissu.R
+import kotlinx.android.synthetic.main.toolbar.*
 
 
 class BookDetailActivity : AppCompatActivity() {
@@ -24,8 +25,12 @@ class BookDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar.let {
+            setSupportActionBar(toolbar)
+            it?.setDisplayHomeAsUpEnabled(true)
+            it?.setDisplayShowHomeEnabled(true)
+        }
         intent?.extras?.apply {
             startEditProfile(getString(BOOK_ID, ""))
         }

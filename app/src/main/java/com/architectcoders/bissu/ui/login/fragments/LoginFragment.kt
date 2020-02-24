@@ -83,7 +83,7 @@ class LoginFragment : Fragment() {
                 val fragmentManager = activity!!.supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 val fragment = CreateAccountFragment()
-                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.replace(R.id.content_main_without_toolbar, fragment)
                 fragmentTransaction.commit()
             }
         }

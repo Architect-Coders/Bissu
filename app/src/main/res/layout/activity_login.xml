@@ -5,16 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.login.LoginActivity">
 
-
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <FrameLayout
-        android:id="@+id/content_main"
+        android:id="@+id/content_main_without_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

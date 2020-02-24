@@ -70,7 +70,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         viewModel.model.observe(this, Observer(::updateUi))
 
         create_book_button.setOnClickListener {
-            createBook();
+            createBook()
         }
 
         viewModel.getCategories()
@@ -99,8 +99,8 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
             Toast.makeText(context, "complete all values", Toast.LENGTH_LONG).show()
         }
         else{
-            viewModel.createBook(title_edit_text.text.toString(), author_edit_text.text.toString(),editorial_edit_text.text.toString(),
-                pages_edit_text.text.toString(),categorySelected!!.id,description_edit_text.text.toString())
+            viewModel.createBook(title_edit_text.text.toString(), author_edit_text.text.toString(),
+                pages_edit_text.text.toString(),editorial_edit_text.text.toString(), categorySelected!!.id,description_edit_text.text.toString())
         }
 
     }
