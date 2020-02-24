@@ -70,7 +70,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         viewModel.model.observe(this, Observer(::updateUi))
 
         create_book_button.setOnClickListener {
-            createBook();
+            createBook()
         }
 
         viewModel.getCategories()
@@ -99,8 +99,8 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
             Toast.makeText(context, "complete all values", Toast.LENGTH_LONG).show()
         }
         else{
-            viewModel.createBook(title_edit_text.text.toString(), author_edit_text.text.toString(),editorial_edit_text.text.toString(),
-                pages_edit_text.text.toString(),categorySelected!!.id,description_edit_text.text.toString())
+            viewModel.createBook(title_edit_text.text.toString(), author_edit_text.text.toString(),
+                pages_edit_text.text.toString(),editorial_edit_text.text.toString(), categorySelected!!.id,description_edit_text.text.toString())
         }
 
     }
@@ -110,8 +110,8 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         list.map {
             categoryList.add(it.name.toUpperCase())
         }
-        val adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, categoryList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(context!!, R.layout.simple_spinner_layout_custom, categoryList)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_custom)
 
         category_list_spinner.adapter = adapter
 

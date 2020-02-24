@@ -100,7 +100,7 @@ class CreateAccountFragment : Fragment() {
     }
 
     private fun updateUi(model: LoginCreateAccountViewModel.UiModel) {
-        progress_bar.visibility =
+        progress_bar_view.visibility =
             if (model is LoginCreateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
             is LoginCreateAccountViewModel.UiModel.Content -> {
@@ -157,10 +157,19 @@ class CreateAccountFragment : Fragment() {
         else if (!password.equals(repeatPassword))
             Toast.makeText(context, "passwords must be the same", Toast.LENGTH_LONG).show()
         else {
-            var bm: Bitmap?
-            user_photo.getDrawable().let {
-                bm = (it as BitmapDrawable).bitmap
-            }
+            var bm: Bitmap? = null
+
+                user_photo.getDrawable().let {
+                    it?.let {
+                        try {
+                            bm = (it as BitmapDrawable).bitmap
+                        } catch (e: Exception) {
+                            bm = null
+                        }
+
+                    }
+                }
+
             var userData = User(
                 id = USER_ID_EDIT,
                 username = username,

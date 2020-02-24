@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUi(model: LoginViewModel.UiModel) {
-        progress_bar.visibility =
+        progress_bar_view.visibility =
             if (model is LoginViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
             is LoginViewModel.UiModel.Content -> {
@@ -83,7 +83,7 @@ class LoginFragment : Fragment() {
                 val fragmentManager = activity!!.supportFragmentManager
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 val fragment = CreateAccountFragment()
-                fragmentTransaction.replace(R.id.content_main, fragment)
+                fragmentTransaction.replace(R.id.content_main_without_toolbar, fragment)
                 fragmentTransaction.commit()
             }
         }
