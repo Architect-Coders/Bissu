@@ -12,7 +12,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         startLoginFragment()
     }
 
@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = LoginFragment()
-        fragmentTransaction.add(R.id.content_main, fragment)
+        fragmentTransaction.add(R.id.content_main_without_toolbar, fragment)
         fragmentTransaction.commit()
     }
 
