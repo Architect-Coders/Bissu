@@ -1,5 +1,6 @@
 package com.architectcoders.bissu.data.server.login
 
+import android.util.Log
 import com.architectcoders.bissu.data.database.toDomainUser
 import com.architectcoders.bissu.data.database.toRequestUser
 import com.architectcoders.bissu.data.database.toRequestUserUpdate
@@ -7,6 +8,7 @@ import com.architectcoders.bissu.data.server.RetrofitClient
 import com.architectcoders.bissu.data.server.login.request.LoginRequest
 import com.architectcoders.data.source.LoginRemoteDatasource
 import com.architectcoders.domain.User
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -17,10 +19,15 @@ class LoginDatasource : LoginRemoteDatasource {
 
     override suspend fun createAccount(user: User, password: String): User? =
         withContext(Dispatchers.IO) {
-            RetrofitClient().loginService
-                .register(user.toRequestUser(password))
-                .await()
-                .user?.toDomainUser()
+            try {
+                RetrofitClient().loginService
+                    .register(user.toRequestUser(password))
+                    .await()
+                    .user?.toDomainUser()
+            } catch (e: Exception) {
+                Log.d("ERROR", e.message)
+                null
+            }
         }
 
     override suspend fun doLogin(username: String, password: String): User? =
