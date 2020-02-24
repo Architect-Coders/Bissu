@@ -71,14 +71,13 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         if (title_edit_text.text.isNullOrEmpty() || categorySelected == null || editorial_edit_text.text.isNullOrEmpty() || author_edit_text.text.isNullOrEmpty()
             || pages_edit_text.text.isNullOrEmpty() || description_edit_text.text.isNullOrEmpty()
         ) {
-
             Toast.makeText(context, "complete all values", Toast.LENGTH_LONG).show()
         } else {
             viewModel.createBook(
                 title_edit_text.text.toString(),
                 author_edit_text.text.toString(),
-                editorial_edit_text.text.toString(),
                 pages_edit_text.text.toString(),
+                editorial_edit_text.text.toString(),
                 categorySelected!!.id,
                 description_edit_text.text.toString()
             )
@@ -96,7 +95,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         category_list_spinner.adapter = adapter
 
-        category_list_spinner.setOnItemSelectedListener(this)
+        category_list_spinner.onItemSelectedListener = this
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
