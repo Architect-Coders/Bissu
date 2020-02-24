@@ -1,10 +1,13 @@
 package com.architectcoders.bissu.data.server.observation
 
+import com.architectcoders.bissu.data.server.observation.request.CreateObservationRequest
 import com.architectcoders.bissu.data.server.observation.response.ObservationResponse
 import com.architectcoders.bissu.data.server.observation.response.ObservationsResponse
-import com.architectcoders.domain.Observation
 import kotlinx.coroutines.Deferred
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 interface ObservationServices {
 
@@ -17,5 +20,5 @@ interface ObservationServices {
     fun getObservationsByUser(@Field("id") id: String): Deferred<ObservationsResponse>
 
     @POST("/api/observation/add")
-    fun createObservation(@Body body: Observation): Deferred<ObservationResponse>
+    fun createObservation(@Body body: CreateObservationRequest): Deferred<ObservationResponse>
 }
