@@ -3,6 +3,8 @@ package com.architectcoders.bissu.ui.book
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.architectcoders.bissu.R
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -31,7 +33,6 @@ class BookDetailActivity : AppCompatActivity() {
             it?.setDisplayHomeAsUpEnabled(true)
             it?.setDisplayShowHomeEnabled(true)
         }
-
 
         intent?.extras?.apply {
             startEditProfile(getString(BOOK_ID, ""))

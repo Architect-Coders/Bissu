@@ -106,6 +106,7 @@ class BookDetailFragment : Fragment() {
             val fragmentTransaction = fragmentManager.beginTransaction()
             val fragment = ObservationFragment.newInstance(book.id)
             fragmentTransaction.replace(R.id.content_main, fragment, fragment.tag)
+            fragmentTransaction.addToBackStack(fragment.tag)
             fragmentTransaction.commit()
 
         }
