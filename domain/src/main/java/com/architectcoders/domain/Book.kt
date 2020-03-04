@@ -8,5 +8,9 @@ data class Book (
     val editorial: String,
     val category: Category,
     val description: String,
-    val photoUrl: String?
-)
+    var photoUrl: String?
+){
+    init {
+        photoUrl = "https://www.booksbythefoot.com/shop/pc/catalog/vdc_492_detail.jpg"
+    }
+}

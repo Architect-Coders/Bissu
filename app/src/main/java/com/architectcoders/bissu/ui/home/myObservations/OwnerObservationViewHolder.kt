@@ -12,7 +12,7 @@ class OwnerObservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         if (!item.user.photoUrl.isNullOrEmpty()) {
             Glide
                 .with(itemView)
-                .load(item.book.photoUrl)
+                .load(item.user.photoUrl)
                 .centerCrop()
                 .into(itemView.observationitem_profileicon)
         } else {

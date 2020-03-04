@@ -44,7 +44,7 @@ class MyObservationsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.getObservationsByOwner()
+        //viewModel.getObservationsByOwner()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

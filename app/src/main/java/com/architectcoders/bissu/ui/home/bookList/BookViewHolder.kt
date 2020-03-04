@@ -2,6 +2,7 @@ package com.architectcoders.bissu.ui.home.bookList
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.architectcoders.bissu.R
 import com.architectcoders.domain.Book
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_book.view.*
@@ -12,6 +13,7 @@ class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             Glide
                 .with(itemView)
                 .load(book.photoUrl)
+                .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .into(itemView.bookitem_img)
         }
