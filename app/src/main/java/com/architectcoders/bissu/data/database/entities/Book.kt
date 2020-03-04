@@ -13,6 +13,6 @@ data class Book(
     val author: String,
     val description: String,
     val pages: String,
-    val category: Category,
+    val category: Category?,
     val photoUrl: String?
 )

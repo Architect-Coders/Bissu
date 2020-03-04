@@ -16,7 +16,6 @@ class ObservationDatasource : ObservationRemoteDatasource {
                     .await()
                     .observations
                     .map { it.toDomainObservation() })
-            ArrayList<Observation>()
         }
 
     override suspend fun getObservationsByOwner(userId: String): ArrayList<Observation> =

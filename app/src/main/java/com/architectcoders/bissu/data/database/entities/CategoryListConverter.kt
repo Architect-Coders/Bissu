@@ -9,15 +9,13 @@ import com.google.gson.Gson
 object CategoryListConverter {
     @TypeConverter
     @JvmStatic
-    fun saveCategories(categories : List<Category>) : String{
-        val gson = Gson()
-        return gson.toJson(categories)
+    fun saveCategories(categories : List<Category?>) : String{
+        return Gson().toJson(categories)
     }
 
     @TypeConverter
     @JvmStatic
-    fun getCategories(categories : String) : List<Category>{
-        val gson = Gson()
-        return gson.fromJson(categories, Array<Category>::class.java).toList()
+    fun getCategories(categories : String) : List<Category?>{
+        return Gson().fromJson(categories, Array<Category>::class.java).toList()
     }
 }

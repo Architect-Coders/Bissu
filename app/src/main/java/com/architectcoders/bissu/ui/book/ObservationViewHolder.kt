@@ -14,6 +14,7 @@ class ObservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             Glide
                 .with(itemView)
                 .load(item.user.photoUrl)
+                .placeholder(R.drawable.ic_profile_placeholder)
                 .centerCrop()
                 .into(itemView.observationitem_profileicon)
         } else {

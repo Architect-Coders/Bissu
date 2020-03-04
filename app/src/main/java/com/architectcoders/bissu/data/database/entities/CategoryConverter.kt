@@ -6,13 +6,13 @@ import com.google.gson.Gson
 object CategoryConverter {
     @TypeConverter
     @JvmStatic
-    fun saveCategories(categorie: Category): String {
-        return Gson().toJson(categorie)
+    fun saveCategories(category: Category?): String {
+        return Gson().toJson(category)
     }
 
     @TypeConverter
     @JvmStatic
-    fun getCategories(categories: String): Category {
+    fun getCategories(categories: String): Category? {
         return Gson().fromJson(categories, Category::class.java)
     }
 }

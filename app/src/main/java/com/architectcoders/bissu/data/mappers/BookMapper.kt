@@ -1,6 +1,8 @@
 package com.architectcoders.bissu.data.mappers
 
+import com.architectcoders.bissu.data.server.entities.ObservationBook
 import com.architectcoders.domain.Book
+import com.architectcoders.domain.Category
 import com.architectcoders.bissu.data.server.entities.Book as RemoteBook
 import com.architectcoders.bissu.data.database.entities.Book as RoomBook
 
@@ -10,7 +12,7 @@ fun Book.toRoomBook(): RoomBook = RoomBook(
     author = author,
     pages = pages,
     editorial = editorial,
-    category = category.toRoomCategory(),
+    category = category?.toRoomCategory(),
     description = description,
     photoUrl = photoUrl
 )
@@ -21,7 +23,7 @@ fun RoomBook.toDomainBook(): Book = Book(
     author = author,
     pages = pages,
     editorial = editorial,
-    category = category.toDomainCategory(),
+    category = category?.toDomainCategory(),
     description = description,
     photoUrl = photoUrl
 )
@@ -33,6 +35,17 @@ fun RemoteBook.toDomainBook(): Book = Book(
     pages = pages,
     editorial = editorial,
     category = category.toDomainCategory(),
+    description = description,
+    photoUrl = photoUrl
+)
+
+fun ObservationBook.toDomainBook(): Book = Book(
+    id = _id,
+    title = title,
+    author = author,
+    pages = pages,
+    editorial = editorial,
+    category = null,
     description = description,
     photoUrl = photoUrl
 )

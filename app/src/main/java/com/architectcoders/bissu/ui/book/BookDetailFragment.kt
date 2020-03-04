@@ -160,7 +160,7 @@ class BookDetailFragment : Fragment() {
             bookdetail_bookpages.text = book.pages
             bookdetail_bookauthor.text = book.author
             bookdetail_bookeditorial.text = book.editorial
-            bookdetail_bookcategory.text = book.category.name
+            bookdetail_bookcategory.text = book.category?.name
             bookdetail_bookdescription.text = book.description
         }
     }
