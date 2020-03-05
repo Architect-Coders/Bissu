@@ -1,12 +1,10 @@
 package com.architectcoders.bissu.ui.observation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,7 +12,7 @@ import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.common.showToast
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel.*
-import com.architectcoders.domain.Book
+import com.architectcoders.domain.entities.Book
 import kotlinx.android.synthetic.main.fragment_observation.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel

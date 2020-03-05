@@ -2,24 +2,16 @@ package com.architectcoders.bissu.ui.login.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.preference.Preference
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.architectcoders.bissu.AndroidApplication
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.data.database.Prefs
-import com.architectcoders.bissu.data.database.login.LoginDataSource
-import com.architectcoders.bissu.data.server.login.LoginDatasource
+import com.architectcoders.framework.database.Prefs
 import com.architectcoders.bissu.ui.MainActivity
-import com.architectcoders.bissu.ui.common.app
-import com.architectcoders.bissu.ui.common.getViewModel
 import com.architectcoders.bissu.ui.login.LoginViewModel
-import com.architectcoders.data.repository.UserRepository
-import com.architectcoders.usecases.DoLogin
 import kotlinx.android.synthetic.main.login_view.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.currentScope

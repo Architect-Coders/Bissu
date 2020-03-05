@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.data.database.Prefs
+import com.architectcoders.framework.database.Prefs
 import com.architectcoders.bissu.ui.login.LoginActivity
 import org.koin.android.ext.android.inject
 import kotlinx.android.synthetic.main.toolbar.*

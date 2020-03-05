@@ -3,7 +3,7 @@ package com.architectcoders.bissu.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.usecases.DoLogin
+import com.architectcoders.domain.usecases.DoLogin
 import kotlinx.coroutines.launch
 
 /**

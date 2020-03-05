@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.common.ScopedViewModel
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel.*
-import com.architectcoders.domain.Book
-import com.architectcoders.domain.Observation
-import com.architectcoders.domain.User
-import com.architectcoders.usecases.CreateObservation
-import com.architectcoders.usecases.GetAccount
-import com.architectcoders.usecases.GetBook
+import com.architectcoders.domain.entities.Book
+import com.architectcoders.domain.entities.Observation
+import com.architectcoders.domain.entities.User
+import com.architectcoders.domain.usecases.CreateObservation
+import com.architectcoders.domain.usecases.GetAccount
+import com.architectcoders.domain.usecases.GetBook
 import kotlinx.coroutines.launch
 
 class ObservationViewModel(
@@ -47,7 +47,8 @@ class ObservationViewModel(
         launch {
             _model.value = Loading(true)
 
-            val observation = Observation("", user, book, description, page)
+            val observation =
+                Observation("", user, book, description, page)
 
             createObservation.invoke(observation).let {
                 if(it != null){

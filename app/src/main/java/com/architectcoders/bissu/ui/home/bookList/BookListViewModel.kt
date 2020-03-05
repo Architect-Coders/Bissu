@@ -3,8 +3,8 @@ package com.architectcoders.bissu.ui.home.bookList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.domain.Book
-import com.architectcoders.usecases.GetBooks
+import com.architectcoders.domain.entities.Book
+import com.architectcoders.domain.usecases.GetBooks
 import kotlinx.coroutines.launch
 
 class BookListViewModel(private val getBooks: GetBooks) : ScopedViewModel() {

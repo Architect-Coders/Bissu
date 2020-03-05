@@ -50,7 +50,7 @@ dependencies {
 
     implementation project(":data")
     implementation project(":domain")
-    implementation project(":usecases")
+    implementation project(":framework")
 
     /**
      * Room database

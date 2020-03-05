@@ -2,16 +2,17 @@ package com.architectcoders.data.repository
 
 import com.architectcoders.data.source.ObservationLocalDataSource
 import com.architectcoders.data.source.ObservationRemoteDatasource
-import com.architectcoders.domain.Observation
+import com.architectcoders.domain.entities.Observation
+import com.architectcoders.domain.interfaces.ObservationRepository
 import java.lang.Exception
 
 class ObservationRepository(
     private val localDataSource: ObservationLocalDataSource,
     private val remoteDataSource: ObservationRemoteDatasource
-) {
+) : ObservationRepository{
 
 
-    suspend fun getObservations(id: String): ArrayList<Observation> {
+    override suspend fun getObservations(id: String): ArrayList<Observation> {
 
         if (localDataSource.isEmpty()) {
             remoteDataSource.getObservationsByBook(id).let {
@@ -29,7 +30,7 @@ class ObservationRepository(
         return ArrayList(localDataSource.getObservations(id))
     }
 
-    suspend fun getOwnerObservations(userId: String): List<Observation> {
+    override suspend fun getOwnerObservations(userId: String): List<Observation> {
 
         if (localDataSource.isEmpty()) {
             remoteDataSource.getObservationsByOwner(userId).let {
@@ -47,7 +48,7 @@ class ObservationRepository(
         return localDataSource.getObservationsByOwner(userId)
     }
 
-    suspend fun createObservation(observation: Observation): Observation? {
+    override suspend fun createObservation(observation: Observation): Observation? {
         return try {
             remoteDataSource.createObservation(observation)
         }catch (exceptio: Exception){

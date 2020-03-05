@@ -1,6 +1,6 @@
 package com.architectcoders.data.source
 
-import com.architectcoders.domain.Observation
+import com.architectcoders.domain.entities.Observation
 
 
 interface ObservationRemoteDatasource {

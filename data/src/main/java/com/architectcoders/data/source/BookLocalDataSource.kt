@@ -1,6 +1,6 @@
 package com.architectcoders.data.source
 
-import com.architectcoders.domain.Book
+import com.architectcoders.domain.entities.Book
 
 interface BookLocalDataSource {
     suspend fun isEmpty(): Boolean

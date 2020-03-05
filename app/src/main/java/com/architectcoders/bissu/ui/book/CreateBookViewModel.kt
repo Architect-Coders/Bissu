@@ -3,9 +3,9 @@ package com.architectcoders.bissu.ui.book
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.domain.Category
-import com.architectcoders.usecases.CreateBook
-import com.architectcoders.usecases.GetCategories
+import com.architectcoders.domain.entities.Category
+import com.architectcoders.domain.usecases.CreateBook
+import com.architectcoders.domain.usecases.GetCategories
 import kotlinx.coroutines.launch
 
 /**

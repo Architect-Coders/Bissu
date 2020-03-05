@@ -1,16 +1,16 @@
 package com.architectcoders.bissu
 
 import BookListFragment
-import com.architectcoders.bissu.data.database.LocalDatabase
-import com.architectcoders.bissu.data.database.Prefs
-import com.architectcoders.bissu.data.database.book.BookDataSource
-import com.architectcoders.bissu.data.database.login.LoginDataSource
-import com.architectcoders.bissu.data.database.observation.ObservationDataSource
-import com.architectcoders.bissu.data.server.book.BookDatasource
-import com.architectcoders.bissu.data.server.category.CategoryDatasource as CategoryRemotelDataSource
-import com.architectcoders.bissu.data.database.category.CategoryDatasource as CategoryLocalDataSource
-import com.architectcoders.bissu.data.server.login.LoginDatasource
-import com.architectcoders.bissu.data.server.observation.ObservationDatasource
+import com.architectcoders.framework.database.LocalDatabase
+import com.architectcoders.framework.database.Prefs
+import com.architectcoders.framework.database.book.BookDataSource
+import com.architectcoders.framework.database.login.LoginDataSource
+import com.architectcoders.framework.database.observation.ObservationDataSource
+import com.architectcoders.framework.server.book.BookDatasource
+import com.architectcoders.framework.server.category.CategoryDatasource as CategoryRemotelDataSource
+import com.architectcoders.framework.database.category.CategoryDatasource as CategoryLocalDataSource
+import com.architectcoders.framework.server.login.LoginDatasource
+import com.architectcoders.framework.server.observation.ObservationDatasource
 import com.architectcoders.bissu.ui.book.BookDetailFragment
 import com.architectcoders.bissu.ui.book.BookDetailViewModel
 import com.architectcoders.bissu.ui.book.CreateBookViewModel
@@ -30,8 +30,14 @@ import com.architectcoders.data.repository.BookRepository
 import com.architectcoders.data.repository.CategoryRepository
 import com.architectcoders.data.repository.ObservationRepository
 import com.architectcoders.data.repository.UserRepository
+
+import com.architectcoders.domain.interfaces.UserRepository as UserRepositoryDomain
+import com.architectcoders.domain.interfaces.ObservationRepository as ObservationRepositoryDomain
+import com.architectcoders.domain.interfaces.CategoryRepository as CategoryRepositoryDomain
+import com.architectcoders.domain.interfaces.BookRepository as BookRepositoryDomain
+
 import com.architectcoders.data.source.*
-import com.architectcoders.usecases.*
+import com.architectcoders.domain.usecases.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
@@ -65,10 +71,11 @@ private val dataModule = module {
     factory<LoginRemoteDatasource> { LoginDatasource() }
     factory<BookRemoteDatasource> { BookDatasource() }
     factory<ObservationRemoteDatasource> { ObservationDatasource() }
-    factory { UserRepository(get(), get()) }
-    factory { BookRepository(get(), get()) }
-    factory { ObservationRepository(get(), get()) }
-    factory { CategoryRepository(get(), get()) }
+
+    factory<UserRepositoryDomain> { UserRepository(get(), get()) }
+    factory<BookRepositoryDomain> { BookRepository(get(), get()) }
+    factory<ObservationRepositoryDomain> { ObservationRepository(get(), get()) }
+    factory<CategoryRepositoryDomain> { CategoryRepository(get(), get()) }
 }
 
 private val scopesModule = module {

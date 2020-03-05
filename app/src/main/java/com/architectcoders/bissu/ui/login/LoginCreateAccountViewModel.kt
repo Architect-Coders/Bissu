@@ -3,8 +3,8 @@ package com.architectcoders.bissu.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.domain.User
-import com.architectcoders.usecases.CreateAccount
+import com.architectcoders.domain.entities.User
+import com.architectcoders.domain.usecases.CreateAccount
 import kotlinx.coroutines.launch
 
 /**

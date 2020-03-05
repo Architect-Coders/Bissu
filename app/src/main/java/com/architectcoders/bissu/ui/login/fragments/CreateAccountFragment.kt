@@ -17,7 +17,7 @@ import com.architectcoders.bissu.ui.common.BitMapToString
 import com.architectcoders.bissu.ui.common.StringToBitMap
 import com.architectcoders.bissu.ui.home.profile.ProfileActivity
 import com.architectcoders.bissu.ui.login.LoginCreateAccountViewModel
-import com.architectcoders.domain.User
+import com.architectcoders.domain.entities.User
 import kotlinx.android.synthetic.main.login_create_account_view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel

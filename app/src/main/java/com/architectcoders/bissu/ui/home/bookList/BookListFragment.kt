@@ -10,15 +10,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.book.BookDetailActivity
 import com.architectcoders.bissu.ui.book.activities.CreateBookActivity
-import com.architectcoders.bissu.ui.book.fragments.CreateBookFragment
-import com.architectcoders.bissu.ui.common.app
 import com.architectcoders.bissu.ui.common.base.adapters.AdapterClick
 import com.architectcoders.bissu.ui.common.base.adapters.AdapterListener
 import com.architectcoders.bissu.ui.home.bookList.BookAdapter
 import com.architectcoders.bissu.ui.home.bookList.BookItem
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel.UiModel
-import com.architectcoders.domain.Book
+import com.architectcoders.domain.entities.Book
 import kotlinx.android.synthetic.main.fragment_book_list.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel

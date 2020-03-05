@@ -1,13 +1,11 @@
 package com.architectcoders.bissu.ui.home.myObservations
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.domain.Observation
-import com.architectcoders.usecases.GetAccount
-import com.architectcoders.usecases.GetOwnerObservations
-import com.google.gson.Gson
+import com.architectcoders.domain.entities.Observation
+import com.architectcoders.domain.usecases.GetAccount
+import com.architectcoders.domain.usecases.GetOwnerObservations
 import kotlinx.coroutines.launch
 
 class MyObservationsViewModel(

@@ -1,10 +1,9 @@
 package com.architectcoders.bissu.ui.book
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.architectcoders.bissu.R
-import com.architectcoders.domain.Observation
+import com.architectcoders.domain.entities.Observation
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_observation.view.*
 

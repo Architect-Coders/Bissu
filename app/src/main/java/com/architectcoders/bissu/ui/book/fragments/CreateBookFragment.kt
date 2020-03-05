@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.book.CreateBookViewModel
-import com.architectcoders.domain.Category
+import com.architectcoders.domain.entities.Category
 import kotlinx.android.synthetic.main.fragmet_create_book.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
