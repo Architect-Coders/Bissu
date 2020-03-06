@@ -31,7 +31,8 @@ class BookRepository(
         pages: String,
         editorial: String,
         categoryId: String,
-        description: String
+        description: String,
+        photoUrl: String?
     ): Boolean {
        // val book = remoteDatasource.createBook(title, author, pages, editorial, categoryId, description)
         // insert book
