@@ -1,6 +1,11 @@
 package com.architectcoders.bissu.ui.book.fragments
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.book.CreateBookViewModel
+import com.architectcoders.bissu.ui.common.BitMapToString
 import com.architectcoders.domain.entities.Category
 import kotlinx.android.synthetic.main.fragmet_create_book.*
+import kotlinx.android.synthetic.main.login_create_account_view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +29,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val viewModel: CreateBookViewModel by currentScope.viewModel(this)
-
+    val REQUEST_IMAGE_CAPTURE = 1
+    var USER_ID_EDIT = ""
     private lateinit var categoryList: List<Category>
     private var categorySelected: Category? = null
 
@@ -49,6 +57,14 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         viewModel.getCategories()
+
+        camera_image_view.setOnClickListener {
+            dispatcheTakePictureIntent()
+        }
+
+        portada_image_view.setOnClickListener {
+            dispatcheTakePictureIntent()
+        }
     }
 
     private fun updateUi(model: CreateBookViewModel.UiModel) {
@@ -73,13 +89,26 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         ) {
             Toast.makeText(context, "complete all values", Toast.LENGTH_LONG).show()
         } else {
+            var bm: Bitmap? = null
+
+            portada_image_view.getDrawable().let {
+                it?.let {
+                    try {
+                        bm = (it as BitmapDrawable).bitmap
+                    } catch (e: Exception) {
+                        bm = null
+                    }
+
+                }
+            }
             viewModel.createBook(
                 title_edit_text.text.toString(),
                 author_edit_text.text.toString(),
                 pages_edit_text.text.toString(),
                 editorial_edit_text.text.toString(),
                 categorySelected!!.id,
-                description_edit_text.text.toString()
+                description_edit_text.text.toString(),
+                BitMapToString(bm)
             )
         }
 
@@ -104,5 +133,22 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>, p1: View, position: Int, p3: Long) {
         categorySelected = categoryList[position]
+    }
+
+    private fun dispatcheTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+
+            }
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data!!.extras.get("data") as Bitmap
+            portada_image_view.setImageBitmap(imageBitmap)
+        }
     }
 }

@@ -36,10 +36,10 @@ class CreateBookViewModel(private val getCategories : GetCategories, private val
         }
     }
 
-    fun createBook( title: String, author: String,pages: String,editorial: String,categoryId: String, description: String){
+    fun createBook( title: String, author: String,pages: String,editorial: String,categoryId: String, description: String, photoUrl: String?){
         launch {
             _model.value = UiModel.Loading
-            _model.value = UiModel.CreateBook(createBook.invoke(title,author, pages, editorial,categoryId, description))
+            _model.value = UiModel.CreateBook(createBook.invoke(title,author, pages, editorial,categoryId, description, photoUrl))
         }
     }
 

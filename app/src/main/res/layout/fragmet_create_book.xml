@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -132,20 +133,54 @@
             app:layout_constraintTop_toBottomOf="@+id/pages_edit_text"
             app:layout_constraintVertical_chainStyle="packed" />
 
+        <ImageView
+            android:id="@+id/camera_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/portada_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/portada_image_view"
+            app:layout_constraintTop_toTopOf="@+id/portada_image_view"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
         <Button
             android:id="@+id/create_book_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="Create"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_edit_text"
             app:layout_constraintVertical_chainStyle="packed" />
+
+        <ImageView
+            android:id="@+id/portada_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/preview_image_view"
+            app:layout_constraintEnd_toStartOf="@+id/camera_image_view"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/preview_image_view"
+            app:layout_constraintTop_toTopOf="@+id/preview_image_view"
+            app:srcCompat="@drawable/ic_books" />
+
+        <TextView
+            android:id="@+id/preview_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Foto portada"
+            app:layout_constraintBottom_toTopOf="@+id/create_book_button"
+            app:layout_constraintEnd_toStartOf="@+id/portada_image_view"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_edit_text" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
