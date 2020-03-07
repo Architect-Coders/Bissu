@@ -27,9 +27,12 @@ class ObservationDatasource : ObservationRemoteDatasource {
                     .map { it.toDomainObservation() })
         }
 
-    override suspend fun createObservation(observation: Observation): Observation =
+    override suspend fun createObservation(observation: Observation): Boolean =
         withContext(Dispatchers.IO) {
-            RetrofitClient().observationService.createObservation(observation.toCreateObservationRequest())
-                .await().observation.toDomainObservation()
+            val response = RetrofitClient()
+                .observationService.createObservation(observation.toCreateObservationRequest())
+                .await()
+
+            return@withContext response.status == "OK"
         }
 }

@@ -94,6 +94,7 @@ class ObservationFragment : Fragment(), View.OnClickListener {
             is Loading -> progressVisibility(model.value)
             is ContentBook -> updateBookUi(model.book)
             is ShowToast -> context?.showToast(model.value)
+            is GoBack -> activity?.onBackPressed()
         }
     }
 

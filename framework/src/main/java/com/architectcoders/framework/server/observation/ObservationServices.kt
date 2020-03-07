@@ -1,6 +1,7 @@
 package com.architectcoders.framework.server.observation
 
 import com.architectcoders.framework.server.observation.request.CreateObservationRequest
+import com.architectcoders.framework.server.observation.response.CreateObservationResponse
 import com.architectcoders.framework.server.observation.response.ObservationResponse
 import com.architectcoders.framework.server.observation.response.ObservationsResponse
 import kotlinx.coroutines.Deferred
@@ -20,5 +21,5 @@ interface ObservationServices {
     fun getObservationsByUser(@Field("id") id: String): Deferred<ObservationsResponse>
 
     @POST("/api/observation/add")
-    fun createObservation(@Body body: CreateObservationRequest): Deferred<ObservationResponse>
+    fun createObservation(@Body body: CreateObservationRequest): Deferred<CreateObservationResponse>
 }

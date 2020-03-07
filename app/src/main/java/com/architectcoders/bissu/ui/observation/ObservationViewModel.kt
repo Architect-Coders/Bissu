@@ -29,6 +29,7 @@ class ObservationViewModel(
         class Loading(val value: Boolean) : UiModel()
         class ContentBook(val book: Book?) : UiModel()
         class ShowToast(val value: Int) : UiModel()
+        class GoBack() : UiModel()
     }
 
     init {
@@ -51,8 +52,9 @@ class ObservationViewModel(
                 Observation("", user, book, description, page)
 
             createObservation.invoke(observation).let {
-                if(it != null){
+                if(it){
                     _model.value = ShowToast(R.string.observationfragment_observationcreated)
+                    _model.value = GoBack()
                 }else{
                     _model.value = ShowToast(R.string.observationfragment_cantcreateobservation)
                 }
