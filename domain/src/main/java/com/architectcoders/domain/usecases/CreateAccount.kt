@@ -8,6 +8,6 @@ import com.architectcoders.domain.interfaces.UserRepository
  */
 class CreateAccount(private val userRepository : UserRepository) {
     suspend fun invoke(user: User, password : String) : Boolean = userRepository.createAccount(user, password)
-    suspend fun invoke() : User? = userRepository.getUser()
-    suspend fun update(user: User, password : String) : Boolean = userRepository.updateUser(user, password)
+   // suspend fun invoke() : User? = userRepository.getUser()
+   // suspend fun update(user: User, password : String) : Boolean = userRepository.updateUser(user, password)
 }

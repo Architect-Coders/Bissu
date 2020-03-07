@@ -18,19 +18,19 @@ class ProfileViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
         }
 
     sealed class UiModel() {
-        class Content(val user: User) : UiModel()
-        class Navigation(val user: User): UiModel()
+        class Content(val user: User?) : UiModel()
+        class Navigation(): UiModel()
     }
 
-    fun doRefresh() {
+    fun getAccount() {
         launch {
-            _model.value = UiModel.Content( getAccount.invoke()!!)
+            _model.value = UiModel.Content( getAccount.invoke())
         }
     }
 
     fun onProfileEditClicked() {
         launch {
-            _model.value = UiModel.Navigation( getAccount.invoke()!!)
+            _model.value = UiModel.Navigation()
         }
     }
 

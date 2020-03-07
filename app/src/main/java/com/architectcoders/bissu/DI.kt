@@ -20,22 +20,22 @@ import com.architectcoders.bissu.ui.home.myObservations.MyObservationsFragment
 import com.architectcoders.bissu.ui.home.myObservations.MyObservationsViewModel
 import com.architectcoders.bissu.ui.home.profile.ProfileViewModel
 import com.architectcoders.bissu.ui.home.profile.fragments.ProfileFragment
-import com.architectcoders.bissu.ui.login.LoginCreateAccountViewModel
+import com.architectcoders.bissu.ui.login.CreateAccountViewModel
 import com.architectcoders.bissu.ui.login.LoginViewModel
+import com.architectcoders.bissu.ui.login.UpdateAccountViewModel
 import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
 import com.architectcoders.bissu.ui.login.fragments.LoginFragment
+import com.architectcoders.bissu.ui.login.fragments.UpdateAccountFragment
 import com.architectcoders.bissu.ui.observation.ObservationFragment
 import com.architectcoders.bissu.ui.observation.ObservationViewModel
 import com.architectcoders.data.repository.BookRepository
 import com.architectcoders.data.repository.CategoryRepository
 import com.architectcoders.data.repository.ObservationRepository
 import com.architectcoders.data.repository.UserRepository
-
 import com.architectcoders.domain.interfaces.UserRepository as UserRepositoryDomain
 import com.architectcoders.domain.interfaces.ObservationRepository as ObservationRepositoryDomain
 import com.architectcoders.domain.interfaces.CategoryRepository as CategoryRepositoryDomain
 import com.architectcoders.domain.interfaces.BookRepository as BookRepositoryDomain
-
 import com.architectcoders.data.source.*
 import com.architectcoders.domain.usecases.*
 import kotlinx.coroutines.CoroutineDispatcher
@@ -85,9 +85,16 @@ private val scopesModule = module {
     }
 
     scope(named<CreateAccountFragment>()) {
-        viewModel { LoginCreateAccountViewModel(get()) }
+        viewModel { CreateAccountViewModel(get()) }
         scoped { CreateAccount(get()) }
     }
+
+    scope(named<UpdateAccountFragment>()) {
+        viewModel { UpdateAccountViewModel(get(), get()) }
+        scoped { UpdateAccount(get()) }
+        scoped { GetAccount(get()) }
+    }
+
 
     scope(named<BookListFragment>()) {
         viewModel { BookListViewModel(get()) }

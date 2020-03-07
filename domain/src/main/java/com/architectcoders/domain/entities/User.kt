@@ -9,6 +9,6 @@ data class User (
     val email : String,
     val firstName: String,
     val lastName: String,
-    val photoUrl: String?,
+    val photoUrl: String? = null,
     val categories : List<Category>
 )

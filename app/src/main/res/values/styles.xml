@@ -14,11 +14,6 @@
 <!--    </style>-->
 
 
-
-
-
-
-
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
 
     </style>
@@ -38,7 +33,6 @@
         <item name="android:textAppearanceButton">@color/white</item>
     </style>
     <!-- End button style-->
-
 
         <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

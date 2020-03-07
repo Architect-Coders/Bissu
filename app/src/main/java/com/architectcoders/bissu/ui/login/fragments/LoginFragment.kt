@@ -25,11 +25,7 @@ class LoginFragment : Fragment() {
     private val session: Prefs by inject()
     private val viewModel: LoginViewModel by currentScope.viewModel(this)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         return inflater.inflate(R.layout.login_view, container, false)
     }
 

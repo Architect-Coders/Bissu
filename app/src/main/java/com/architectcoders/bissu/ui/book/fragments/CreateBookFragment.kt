@@ -16,10 +16,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.book.CreateBookViewModel
-import com.architectcoders.bissu.ui.common.BitMapToString
+import com.architectcoders.bissu.ui.common.toBase64
 import com.architectcoders.domain.entities.Category
 import kotlinx.android.synthetic.main.fragmet_create_book.*
-import kotlinx.android.synthetic.main.login_create_account_view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -108,7 +107,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 editorial_edit_text.text.toString(),
                 categorySelected!!.id,
                 description_edit_text.text.toString(),
-                BitMapToString(bm)
+                bm?.toBase64()
             )
         }
 

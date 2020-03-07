@@ -2,17 +2,15 @@ package com.architectcoders.bissu.ui.home.profile.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.ui.common.StringToBitMap
+import com.architectcoders.bissu.ui.common.toBitmap
 import com.architectcoders.bissu.ui.home.profile.ProfileActivity
 import com.architectcoders.bissu.ui.home.profile.ProfileViewModel
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.view_profile.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,11 +24,7 @@ class ProfileFragment : Fragment() {
         fun newInstance() = ProfileFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.view_profile, container, false)
         return view
     }
@@ -38,11 +32,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
-        viewModel.doRefresh()
 
         btn_edit_profile.setOnClickListener {
             viewModel.onProfileEditClicked()
         }
+
+        viewModel.getAccount()
     }
 
     private fun updateUi(model: ProfileViewModel.UiModel) {
@@ -52,16 +47,15 @@ class ProfileFragment : Fragment() {
             }
             is ProfileViewModel.UiModel.Content -> {
 
-                Log.d("testingcrazy", Gson().toJson(model.user))
+                model.user?.let {
+                    profile_username.text = it.username
+                    profile_name.text = it.firstName + it.lastName
+                    profile_email.text = model.user.email
 
-                profile_username.text = model.user.username
-                profile_name.text = model.user.firstName + model.user.lastName
-                profile_email.text = model.user.email
-
-                model.user.photoUrl?.let {
-                    profile_image.setImageBitmap(StringToBitMap(it))
+                    it.photoUrl?.let { image ->
+                        profile_image.setImageBitmap(image.toBitmap())
+                    }
                 }
-
             }
         }
     }

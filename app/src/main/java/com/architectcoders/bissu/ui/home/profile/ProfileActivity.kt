@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
 import kotlinx.android.synthetic.main.activity_profile.*
 import androidx.appcompat.widget.Toolbar
+import com.architectcoders.bissu.ui.login.fragments.UpdateAccountFragment
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -17,20 +17,18 @@ class ProfileActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbarProfile as Toolbar?)
 
-        supportActionBar.let {
-            it?.setDisplayHomeAsUpEnabled(true)
-            it?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
         }
 
         startEditProfile()
     }
 
     private fun startEditProfile() {
-        val bundle = Bundle()
-        bundle.putString("OPTION_FORM", getString(R.string.edit_profile_option_form))
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = CreateAccountFragment.newInstance(bundle)
+        val fragment = UpdateAccountFragment()
         fragmentTransaction.replace(R.id.content_profile, fragment)
         fragmentTransaction.commit()
     }
