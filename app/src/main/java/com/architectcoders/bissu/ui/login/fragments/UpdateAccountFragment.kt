@@ -19,7 +19,7 @@ import com.architectcoders.bissu.ui.home.profile.ProfileActivity
 import com.architectcoders.bissu.ui.login.UpdateAccountViewModel
 import com.architectcoders.domain.entities.Category
 import com.architectcoders.domain.entities.User
-import kotlinx.android.synthetic.main.login_create_account_view.*
+import kotlinx.android.synthetic.main.login_create_account.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,7 +37,7 @@ class UpdateAccountFragment : Fragment() {
     private val viewModel: UpdateAccountViewModel by currentScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.login_create_account_view, container, false)
+        return inflater.inflate(R.layout.login_create_account, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -135,7 +135,7 @@ class UpdateAccountFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            val imageBitmap = data!!.extras.get("data") as Bitmap
+            val imageBitmap = data!!.extras?.get("data") as Bitmap
             user_photo.setImageBitmap(imageBitmap)
         }
     }

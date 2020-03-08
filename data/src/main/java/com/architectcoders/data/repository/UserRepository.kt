@@ -19,8 +19,8 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
         return false
     }
 
-    override suspend fun createAccount(user: User, password: String): Boolean {
-        val remoteUser : User? = remoteDatasource.createAccount(user, password)
+    override suspend fun createAccount(username: String, email: String,firstName: String, lastName: String, password: String , photoUrl : String?): Boolean {
+        val remoteUser : User? = remoteDatasource.createAccount(username, email,firstName, lastName, password , photoUrl)
         remoteUser?.let {
             return true
         }

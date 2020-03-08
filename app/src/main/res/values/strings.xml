@@ -27,6 +27,38 @@
     <string name="observationfragment_selectpage">Please, select a page</string>
     <string name="observationfragment_addobservation">Please, add the observation</string>
     <string name="observationfragment_processissue">We couldn\'t process the reques</string>
-    <string name="observationfragment_cantcreateobservation">We couldn\'t create de obsrvation</string>
+    <string name="observationfragment_cantcreateobservation">We couldn\'t create de observation</string>
     <string name="observationfragment_observationcreated">Observation created</string>
+
+
+    <!-- common -->
+    <string name="agree">Agree</string>
+    <string name="disagre">Disagre</string>
+    <string name="yes">YES</string>
+
+    <string name="no">NO</string>
+    <string name="ok">OK</string>
+
+    <string name="not_registered">The user is not rgistered</string>
+
+    <!-- login -->
+    <string name="login_title">Login</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_button">LOGIN</string>
+    <string name="login_create_account">CREATE ACCOUNT</string>
+    <string name="login_forgot_password">FORGOT PASSWORD ?</string>
+    <string name="login_username_error">The username is required</string>
+    <string name="login_password_error">The password is required</string>
+    <string name="login_error">The user or password is incorrect</string>
+
+    <!-- create account -->
+    <string name="create_account_username_error">The username is required</string>
+    <string name="create_account_email_error">The email is required</string>
+    <string name="create_account_name_error">The name is required</string>
+    <string name="create_account_last_name_error">The last name is required</string>
+    <string name="create_account_password_error">The password is required</string>
+    <string name="create_account_repeat_password_error">The repeat password is required</string>
+    <string name="create_account_validate_password_error">Passwords must be the same</string>
+
 </resources>

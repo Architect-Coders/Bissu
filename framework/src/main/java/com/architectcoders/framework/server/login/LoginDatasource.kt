@@ -6,8 +6,8 @@ import com.architectcoders.framework.server.login.request.LoginRequest
 import com.architectcoders.data.source.LoginRemoteDatasource
 import com.architectcoders.domain.entities.User
 import com.architectcoders.framework.mappers.toDomainUser
-import com.architectcoders.framework.mappers.toRequestUser
 import com.architectcoders.framework.mappers.toRequestUserUpdate
+import com.architectcoders.framework.server.login.request.UserRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -16,11 +16,11 @@ import kotlinx.coroutines.withContext
  */
 class LoginDatasource : LoginRemoteDatasource {
 
-    override suspend fun createAccount(user: User, password: String): User? =
+    override suspend fun createAccount(username: String, email: String,firstName: String, lastName: String, password: String , photoUrl : String?): User? =
         withContext(Dispatchers.IO) {
             try {
                 RetrofitClient().loginService
-                    .register(user.toRequestUser(password))
+                    .register(UserRequest(username, email,password, firstName, lastName, photoUrl, listOf()))
                     .await()
                     .user?.toDomainUser()
             } catch (e: Exception) {
