@@ -15,7 +15,7 @@ import com.architectcoders.bissu.ui.common.closeSession
 import com.architectcoders.bissu.ui.common.showAlertDialog
 import com.architectcoders.bissu.ui.common.toBase64
 import com.architectcoders.bissu.ui.common.toBitmap
-import com.architectcoders.bissu.ui.profile.UpdateAccountViewModel
+import com.architectcoders.bissu.ui.profile.viewmodels.UpdateAccountViewModel
 import com.architectcoders.domain.entities.User
 import kotlinx.android.synthetic.main.login_create_account.email_edit_text
 import kotlinx.android.synthetic.main.login_create_account.email_input_layout

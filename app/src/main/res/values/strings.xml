@@ -70,6 +70,11 @@
     <string name="create_account_repeat_password_error">The repeat password is required</string>
     <string name="create_account_validate_password_error">Passwords must be the same</string>
 
+    <!--profile -->
+    <string name="profile_update_profile">Update profile</string>
+    <string name="profile_update_password">Update password</string>
+    <string name="profile_log_out">LOGOUT</string>
+
     <!-- create account -->
     <string name="update_account_title">Update account</string>
     <string name="update_account_username">Username</string>
@@ -83,7 +88,7 @@
     <string name="update_account_name_error">The name is required</string>
     <string name="update_account_last_name_error">The last name is required</string>
 
-    <!-- create account -->
+    <!-- update password -->
     <string name="change_password_title">Update password</string>
     <string name="change_password_button">Update password</string>
     <string name="change_password_password">Password</string>

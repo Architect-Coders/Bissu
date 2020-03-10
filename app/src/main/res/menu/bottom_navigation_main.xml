@@ -3,13 +3,13 @@
     <item
         android:id="@+id/action_books"
         android:title="@string/mainpagerfragment_books"
-        android:icon="@drawable/ic_books"/>
+        android:icon="@drawable/ic_library_books"/>
     <item
         android:id="@+id/action_yours"
         android:title="@string/mainpagerfragment_yours"
-        android:icon="@drawable/ic_reviews"/>
+        android:icon="@drawable/ic_bookmark"/>
     <item
         android:id="@+id/action_profile"
         android:title="@string/mainpagerfragment_profile"
-        android:icon="@drawable/ic_profile"/>
+        android:icon="@drawable/ic_account_circle"/>
 </menu>

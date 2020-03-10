@@ -9,30 +9,32 @@
         android:id="@+id/vPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/vNavigation"
+        app:layout_constraintBottom_toTopOf="@+id/card_view_botom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/vDivider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/primary_dark"
-        app:layout_constraintBottom_toTopOf="@+id/vNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/vNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:itemBackground="@color/primary"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_main" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_botom_navigation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="1dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/vNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/Widget.BottomNavigationView"
+                app:itemBackground="@color/icons"
+                app:itemIconTint="@android:color/black"
+                app:menu="@menu/bottom_navigation_main" />
+        </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

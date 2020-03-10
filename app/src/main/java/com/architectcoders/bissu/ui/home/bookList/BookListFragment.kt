@@ -24,11 +24,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BookListFragment : Fragment(), AdapterListener {
 
     private val bookAdapter by lazy { BookAdapter(this) }
-
     companion object {
         fun newInstance() = BookListFragment()
     }
-
     private val viewModel: BookListViewModel by currentScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
@@ -91,7 +89,6 @@ class BookListFragment : Fragment(), AdapterListener {
             is BookItem -> {
                 val intent = Intent(activity, BookDetailActivity::class.java)
                 intent.putExtra(BookDetailActivity.BOOK_ID, click.id)
-
                 startActivity(intent)
             }
         }

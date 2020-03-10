@@ -1,4 +1,4 @@
-package com.architectcoders.bissu.ui.login
+package com.architectcoders.bissu.ui.login.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -35,14 +35,20 @@ class CreateAccountViewModel(private val createAccount: CreateAccount) : ScopedV
 
     fun createAccount(username: String, email: String,firstName: String, lastName: String, password: String , photoUrl : String?) {
         launch {
-            _model.value = UiModel.Loading
-            _model.value = UiModel.CreateAccountContent(createAccount.invoke(username, email,firstName,lastName,password,photoUrl))
-            _model.value = UiModel.NavigationLogin
+            _model.value =
+                UiModel.Loading
+            _model.value =
+                UiModel.CreateAccountContent(
+                    createAccount.invoke(username, email, firstName, lastName, password, photoUrl)
+                )
+            _model.value =
+                UiModel.NavigationLogin
         }
     }
 
     fun loginNavigation() {
-        _model.value = UiModel.NavigationLogin
+        _model.value =
+            UiModel.NavigationLogin
     }
 
     fun validateUsername(

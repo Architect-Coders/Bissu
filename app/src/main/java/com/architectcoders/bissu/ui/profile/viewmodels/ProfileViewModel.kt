@@ -1,4 +1,4 @@
-package com.architectcoders.bissu.ui.profile
+package com.architectcoders.bissu.ui.profile.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,12 +22,15 @@ class ProfileViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
     }
 
     fun updateAccountClicked(){
-        _model.value = UiModel.UpdateAccountNavigation
+        _model.value =
+            UiModel.UpdateAccountNavigation
     }
     fun changePasswordClicked(){
-        _model.value = UiModel.ChangePasswordNavigation
+        _model.value =
+            UiModel.ChangePasswordNavigation
     }
     fun logOutClicked(){
-        _model.value = UiModel.CloseSession
+        _model.value =
+            UiModel.CloseSession
     }
 }

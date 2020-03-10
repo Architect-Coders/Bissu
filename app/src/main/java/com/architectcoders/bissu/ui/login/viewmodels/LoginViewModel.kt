@@ -1,4 +1,4 @@
-package com.architectcoders.bissu.ui.login
+package com.architectcoders.bissu.ui.login.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -33,8 +33,12 @@ class LoginViewModel(private val doLogin: DoLogin) : ScopedViewModel() {
     }
     private  fun doLogin(username: String, password: String) {
         launch {
-            _model.value = UiModel.Loading
-            _model.value = UiModel.LoginContent(doLogin.invoke(username, password))
+            _model.value =
+                UiModel.Loading
+            _model.value =
+                UiModel.LoginContent(
+                    doLogin.invoke(username, password)
+                )
         }
     }
 
@@ -44,6 +48,7 @@ class LoginViewModel(private val doLogin: DoLogin) : ScopedViewModel() {
     }
 
     fun onCreateAccountClicked() {
-        _model.value = UiModel.Navigation
+        _model.value =
+            UiModel.Navigation
     }
 }

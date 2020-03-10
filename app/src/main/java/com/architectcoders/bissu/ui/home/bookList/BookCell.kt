@@ -17,11 +17,7 @@ object BookCell : Cell<RecyclerItem>() {
         return BookViewHolder(parent.viewOf(type()))
     }
 
-    override fun bind(
-        holder: RecyclerView.ViewHolder,
-        item: RecyclerItem?,
-        listener: AdapterListener?
-    ) {
+    override fun bind( holder: RecyclerView.ViewHolder,item: RecyclerItem?,listener: AdapterListener?) {
         if (holder is BookViewHolder && item is BookItem) {
             holder.bindView(item.book)
             holder.itemView.setOnClickListener {

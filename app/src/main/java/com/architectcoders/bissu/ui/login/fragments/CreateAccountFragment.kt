@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.common.showAlertDialog
-import com.architectcoders.bissu.ui.login.CreateAccountViewModel
+import com.architectcoders.bissu.ui.login.viewmodels.CreateAccountViewModel
 import kotlinx.android.synthetic.main.login_create_account.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel

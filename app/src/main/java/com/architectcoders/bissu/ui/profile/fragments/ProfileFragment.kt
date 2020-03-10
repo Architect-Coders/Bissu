@@ -13,7 +13,7 @@ import com.architectcoders.bissu.ui.profile.ProfileActivity
 import com.architectcoders.bissu.ui.profile.ProfileActivity.Companion.CHANGE_PASSWORD
 import com.architectcoders.bissu.ui.profile.ProfileActivity.Companion.NAVIGATION
 import com.architectcoders.bissu.ui.profile.ProfileActivity.Companion.UPDATE_CCOUNT
-import com.architectcoders.bissu.ui.profile.ProfileViewModel
+import com.architectcoders.bissu.ui.profile.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.main.profile_home_profile.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel

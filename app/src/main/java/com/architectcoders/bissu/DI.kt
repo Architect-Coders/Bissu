@@ -18,17 +18,17 @@ import com.architectcoders.bissu.ui.book.fragments.CreateBookFragment
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel
 import com.architectcoders.bissu.ui.home.myObservations.MyObservationsFragment
 import com.architectcoders.bissu.ui.home.myObservations.MyObservationsViewModel
-import com.architectcoders.bissu.ui.profile.ProfileViewModel
+import com.architectcoders.bissu.ui.profile.viewmodels.ProfileViewModel
 import com.architectcoders.bissu.ui.profile.fragments.ProfileFragment
-import com.architectcoders.bissu.ui.login.CreateAccountViewModel
-import com.architectcoders.bissu.ui.login.LoginViewModel
-import com.architectcoders.bissu.ui.profile.UpdateAccountViewModel
+import com.architectcoders.bissu.ui.login.viewmodels.CreateAccountViewModel
+import com.architectcoders.bissu.ui.login.viewmodels.LoginViewModel
+import com.architectcoders.bissu.ui.profile.viewmodels.UpdateAccountViewModel
 import com.architectcoders.bissu.ui.login.fragments.CreateAccountFragment
 import com.architectcoders.bissu.ui.login.fragments.LoginFragment
 import com.architectcoders.bissu.ui.profile.fragments.UpdateAccountFragment
 import com.architectcoders.bissu.ui.observation.ObservationFragment
 import com.architectcoders.bissu.ui.observation.ObservationViewModel
-import com.architectcoders.bissu.ui.profile.ChangePasswordViewModel
+import com.architectcoders.bissu.ui.profile.viewmodels.ChangePasswordViewModel
 import com.architectcoders.bissu.ui.profile.fragments.ChangePasswordFragment
 import com.architectcoders.data.repository.BookRepository
 import com.architectcoders.data.repository.CategoryRepository
@@ -82,12 +82,20 @@ private val dataModule = module {
 
 private val scopesModule = module {
     scope(named<LoginFragment>()) {
-        viewModel { LoginViewModel(get()) }
+        viewModel {
+            LoginViewModel(
+                get()
+            )
+        }
         scoped { DoLogin(get()) }
     }
 
     scope(named<CreateAccountFragment>()) {
-        viewModel { CreateAccountViewModel(get()) }
+        viewModel {
+            CreateAccountViewModel(
+                get()
+            )
+        }
         scoped { CreateAccount(get()) }
     }
 
@@ -126,7 +134,11 @@ private val scopesModule = module {
     }
 
     scope(named<ProfileFragment>()) {
-        viewModel { ProfileViewModel(get()) }
+        viewModel {
+            ProfileViewModel(
+                get()
+            )
+        }
         scoped { GetAccount(get()) }
     }
 

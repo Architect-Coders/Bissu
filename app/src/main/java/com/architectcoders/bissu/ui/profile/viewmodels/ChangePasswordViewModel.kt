@@ -1,4 +1,4 @@
-package com.architectcoders.bissu.ui.profile
+package com.architectcoders.bissu.ui.profile.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -42,20 +42,29 @@ class ChangePasswordViewModel( private val updateAccount: UpdateAccount,private 
     }
 
     fun navigateToProfile(){
-        _model.value = UiModel.NavigationToHome
+        _model.value =
+            UiModel.NavigationToHome
     }
 
     fun updateAccount(currentUser : User, password : String ) {
         launch {
-            _model.value = UiModel.Loading
-            _model.value = UiModel.Content(updateAccount.invoke(getUser(currentUser,password)) )
+            _model.value =
+                UiModel.Loading
+            _model.value =
+                UiModel.Content(
+                    updateAccount.invoke(getUser(currentUser, password))
+                )
         }
     }
 
     fun getCurrentUser() {
         launch {
-            _model.value = UiModel.Loading
-            _model.value = UiModel.ContentEdit(getUser.invoke())
+            _model.value =
+                UiModel.Loading
+            _model.value =
+                UiModel.ContentEdit(
+                    getUser.invoke()
+                )
         }
     }
     fun validatePassword(

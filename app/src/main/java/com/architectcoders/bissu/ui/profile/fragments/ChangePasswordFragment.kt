@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.common.closeSession
 import com.architectcoders.bissu.ui.common.showAlertDialog
-import com.architectcoders.bissu.ui.profile.ChangePasswordViewModel
+import com.architectcoders.bissu.ui.profile.viewmodels.ChangePasswordViewModel
 import com.architectcoders.domain.entities.User
 import kotlinx.android.synthetic.main.profile_change_password.*
 import org.koin.androidx.scope.currentScope

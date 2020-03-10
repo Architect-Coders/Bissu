@@ -39,7 +39,7 @@
                 android:layout_centerVertical="true"/>
 
             <TextView
-                android:text="Edit profile"
+                android:text="@string/profile_update_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -93,7 +93,7 @@
                 android:layout_toLeftOf="@+id/change_password_arrow_image"
                 android:layout_toRightOf="@+id/change_password_image"
                 android:fontFamily="@font/opensans_bold"
-                android:text="Change password"
+                android:text="@string/profile_update_password"
                 android:textColor="@color/primary_text"
                 android:textSize="16sp" />
 
@@ -130,7 +130,7 @@
             android:layout_centerVertical="true"/>
 
         <TextView
-            android:text="LOG OUT"
+            android:text="@string/profile_log_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -142,67 +142,5 @@
 
     </RelativeLayout>
 
-    <!---
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/background" />
-
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
-
-        <TextView
-            android:id="@+id/profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="username"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="firstname"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintEnd_toEndOf="@+id/profile_username"
-            app:layout_constraintStart_toStartOf="@+id/profile_username"
-            app:layout_constraintTop_toBottomOf="@+id/profile_username" />
-
-        <TextView
-            android:id="@+id/profile_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test@gmail"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintEnd_toEndOf="@+id/profile_name"
-            app:layout_constraintStart_toStartOf="@+id/profile_name"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_edit_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/icons8_editar_64" /> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import com.architectcoders.bissu.R
 import com.architectcoders.framework.database.Prefs
 import com.architectcoders.bissu.ui.MainActivity
 import com.architectcoders.bissu.ui.common.showAlertDialog
-import com.architectcoders.bissu.ui.login.LoginViewModel
+import com.architectcoders.bissu.ui.login.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.login_login.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.currentScope
