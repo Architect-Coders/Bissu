@@ -146,7 +146,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = data!!.extras.get("data") as Bitmap
+            val imageBitmap = data!!.extras?.get("data") as Bitmap
             portada_image_view.setImageBitmap(imageBitmap)
         }
     }

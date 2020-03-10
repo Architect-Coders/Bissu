@@ -15,7 +15,6 @@ import com.architectcoders.bissu.ui.book.BookDetailFragment
 import com.architectcoders.bissu.ui.book.BookDetailViewModel
 import com.architectcoders.bissu.ui.book.CreateBookViewModel
 import com.architectcoders.bissu.ui.book.fragments.CreateBookFragment
-import com.architectcoders.bissu.ui.common.RoomDatabase
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel
 import com.architectcoders.bissu.ui.home.myObservations.MyObservationsFragment
 import com.architectcoders.bissu.ui.home.myObservations.MyObservationsViewModel

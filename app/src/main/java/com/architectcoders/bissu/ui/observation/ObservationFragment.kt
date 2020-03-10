@@ -78,8 +78,8 @@ class ObservationFragment : Fragment(), View.OnClickListener {
             pages = it
         }
 
-        val dataAdapter: ArrayAdapter<String> = ArrayAdapter(
-            context,
+        val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            context!!,
             android.R.layout.simple_spinner_item,
             (1..pages).toList().map { item -> item.toString() }
         )
