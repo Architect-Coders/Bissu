@@ -11,14 +11,14 @@ import com.architectcoders.framework.server.entities.User as RemoteUser
  */
 
 fun User.toRoomUser(): RoomUser = RoomUser(
+    id = id,
     username = username,
     email = email,
+    password = password,
     firstName = firstName,
     lastName = lastName,
     photoUrl = photoUrl,
-    categories = categories.map { it.toRoomCategory()
-    },
-    id = id
+    categories = categories.map { it.toRoomCategory()}
 )
 
 fun User.toRequestUser(password : String): UserRequest =
@@ -32,7 +32,7 @@ fun User.toRequestUser(password : String): UserRequest =
         categories = categories.map { it.toRemoteCategory() }
     )
 
-fun User.toRequestUserUpdate(password : String): UserRequestUpdate =
+fun User.toRequestUserUpdate(): UserRequestUpdate =
     UserRequestUpdate(
         id = id,
         username = username,
@@ -49,6 +49,7 @@ fun RoomUser.toDomainUser(): User =
         id = id,
         username = username,
         email = email,
+        password = password,
         firstName = firstName,
         lastName = lastName,
         photoUrl = photoUrl,
@@ -60,6 +61,7 @@ fun RemoteUser.toDomainUser(): User =
         id = _id,
         username = username,
         email = email,
+        password = password,
         firstName = firstName,
         lastName = lastName,
         photoUrl = photoUrl,

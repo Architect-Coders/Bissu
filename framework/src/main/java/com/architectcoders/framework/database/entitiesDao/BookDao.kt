@@ -21,4 +21,6 @@ interface BookDao {
     @Update
     fun update(book: Book)
 
+    @Query("DELETE FROM Book")
+    fun deleteAllBooks()
 }

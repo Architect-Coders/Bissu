@@ -29,4 +29,6 @@ interface ObservationDao {
     @Update
     fun update(observation: Observation)
 
+    @Query("DELETE FROM Observation")
+    fun deleteAllObservations()
 }

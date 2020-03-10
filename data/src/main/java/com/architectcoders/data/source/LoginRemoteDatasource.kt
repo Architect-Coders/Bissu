@@ -8,6 +8,5 @@ import com.architectcoders.domain.entities.User
 interface LoginRemoteDatasource {
     suspend fun createAccount(username: String, email: String,firstName: String, lastName: String, password: String , photoUrl : String?): User?
     suspend fun doLogin(username : String, password : String): User?
-    suspend fun existsUsername(username: String) : Boolean
-    suspend fun updateAccount(user: User, password: String): User?
+    suspend fun updateAccount(user: User): User?
 }

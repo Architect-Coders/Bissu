@@ -28,15 +28,12 @@ class UserRepository(private val localDataSource: LoginLocalDataSource, private 
     }
 
     override suspend fun getUser(): User? {
-
-        if (localDataSource.isEmpty())
-            return null
-
+        if (localDataSource.isEmpty()) return null
         return localDataSource.getUser()
     }
 
-    override suspend fun updateUser(user: User, password: String): Boolean {
-        val remoteUser : User? = remoteDatasource.updateAccount(user, password)
+    override suspend fun updateUser(user: User): Boolean {
+        val remoteUser : User? = remoteDatasource.updateAccount(user)
         remoteUser?.let {
             localDataSource.updateUser(remoteUser)
             return true

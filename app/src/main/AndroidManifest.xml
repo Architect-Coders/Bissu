@@ -23,7 +23,7 @@
         </activity>
         <activity android:name="com.architectcoders.bissu.ui.login.LoginActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.architectcoders.bissu.ui.home.profile.ProfileActivity"
+        <activity android:name="com.architectcoders.bissu.ui.profile.ProfileActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.book.BookDetailActivity" />
         <activity android:name=".ui.book.activities.CreateBookActivity" />

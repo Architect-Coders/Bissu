@@ -12,10 +12,11 @@ import com.architectcoders.framework.database.converters.CategoryListConverter
 @TypeConverters(CategoryListConverter::class)
 data class User(
     @PrimaryKey val username: String,
+    val id: String,
     val email : String,
+    val password : String,
     val firstName: String,
     val lastName: String,
     val photoUrl: String?,
-    val categories : List<Category>,
-    val id: String
+    val categories : List<Category>
 )

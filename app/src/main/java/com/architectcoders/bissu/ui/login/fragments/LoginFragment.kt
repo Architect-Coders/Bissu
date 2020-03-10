@@ -32,6 +32,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
+
         login_button.setOnClickListener {
             doLogin()
         }
@@ -51,7 +52,11 @@ class LoginFragment : Fragment() {
         }
     }
     private fun validateLoginConten(succes : Boolean){
-        if (succes) navigateToHomeActivitity() else context?.showAlertDialog(resources.getString(R.string.login_error))
+
+        if (succes) {
+            session.isUserLogged = true
+            navigateToHomeActivitity()
+        }else context?.showAlertDialog(resources.getString(R.string.login_error))
     }
 
     private fun navigateToHomeActivitity(){

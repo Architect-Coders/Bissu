@@ -53,6 +53,15 @@
     <string name="login_error">The user or password is incorrect</string>
 
     <!-- create account -->
+    <string name="create_account_title">Create account</string>
+    <string name="create_account_username">Username</string>
+    <string name="create_account_email">Email</string>
+    <string name="create_account_first_name">First name</string>
+    <string name="create_account_last_name">Last name</string>
+    <string name="create_account_password">Password</string>
+    <string name="create_account_picture">Take picture</string>
+    <string name="create_account_button">Create account</string>
+    <string name="create_account_repeat_password">Repeat password</string>
     <string name="create_account_username_error">The username is required</string>
     <string name="create_account_email_error">The email is required</string>
     <string name="create_account_name_error">The name is required</string>
@@ -60,5 +69,26 @@
     <string name="create_account_password_error">The password is required</string>
     <string name="create_account_repeat_password_error">The repeat password is required</string>
     <string name="create_account_validate_password_error">Passwords must be the same</string>
+
+    <!-- create account -->
+    <string name="update_account_title">Update account</string>
+    <string name="update_account_username">Username</string>
+    <string name="update_account_email">Email</string>
+    <string name="update_account_first_name">First name</string>
+    <string name="update_account_last_name">Last name</string>
+    <string name="update_account_picture">Take picture</string>
+    <string name="update_account_button">Update account</string>
+    <string name="update_account_username_error">The username is required</string>
+    <string name="update_account_email_error">The email is required</string>
+    <string name="update_account_name_error">The name is required</string>
+    <string name="update_account_last_name_error">The last name is required</string>
+
+    <!-- create account -->
+    <string name="change_password_title">Update password</string>
+    <string name="change_password_button">Update password</string>
+    <string name="change_password_password">Password</string>
+    <string name="change_password_repeat_password">Repeat password</string>
+    <string name="change_password_password_error">The password is required</string>
+    <string name="change_password_repeat_password_error">The repeat password is required</string>
 
 </resources>

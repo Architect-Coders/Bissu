@@ -1,11 +1,20 @@
 package com.architectcoders.bissu.ui.common
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
+import com.architectcoders.bissu.ui.MainActivity
 import java.io.ByteArrayOutputStream
-import java.lang.Exception
 
+
+fun closeSession(activity : Activity){
+    val intent = Intent(activity, MainActivity::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+    //remove all models
+    activity.startActivity(intent)
+}
 
 fun Bitmap.toBase64(): String {
     val baos = ByteArrayOutputStream()

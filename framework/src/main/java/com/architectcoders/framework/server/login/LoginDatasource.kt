@@ -42,15 +42,10 @@ class LoginDatasource : LoginRemoteDatasource {
                 .user?.toDomainUser()
         }
 
-    override suspend fun existsUsername(username: String): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun updateAccount(user: User, password: String): User? =
-
+    override suspend fun updateAccount(user: User): User? =
         withContext(Dispatchers.IO) {
             RetrofitClient().loginService
-                .update(user.toRequestUserUpdate(password))
+                .update(user.toRequestUserUpdate())
                 .await()
                 .user?.toDomainUser()
         }

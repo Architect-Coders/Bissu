@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingStart="20dp"
@@ -12,15 +13,15 @@
 
         <TextView
             android:id="@+id/create_account_title_text"
-            android:layout_width="0dp"
+            android:layout_width="371dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/opensans_bold"
             android:gravity="center"
-            android:text="@string/create_account_title"
+            android:text="@string/update_account_title"
             android:textColor="@color/primary_text"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/username_input_layout"
+            app:layout_constraintBottom_toTopOf="@+id/user_picture_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,12 +33,10 @@
             android:id="@+id/username_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toTopOf="@+id/email_input_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_account_title_text"
+            app:layout_constraintTop_toBottomOf="@+id/user_picture_layout"
             app:layout_constraintVertical_chainStyle="packed">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -45,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/opensans_regular"
-                android:hint="@string/create_account_username"
+                android:hint="@string/update_account_username"
                 android:inputType="textPersonName" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -66,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
-                android:hint="@string/create_account_email"
+                android:hint="@string/update_account_email"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
-                android:hint="@string/create_account_first_name"
+                android:hint="@string/update_account_first_name"
                 android:inputType="textPersonName" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -95,7 +94,7 @@
             android:id="@+id/last_name_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/password_input_layout"
+            app:layout_constraintBottom_toTopOf="@+id/update_account_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,51 +106,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/opensans_regular"
-                android:hint="@string/create_account_last_name"
+                android:hint="@string/update_account_last_name"
                 android:inputType="textPersonName" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/repeat_password_input_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/last_name_input_layout"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_regular"
-                android:hint="@string/create_account_password"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/repeat_password_input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/user_picture_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_input_layout"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/repeat_password_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/opensans_regular"
-                android:hint="@string/create_account_repeat_password"
-                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -159,49 +115,47 @@
             android:id="@+id/user_picture_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="24dp"
             android:gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/create_account_button"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/username_input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repeat_password_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/create_account_title_text"
             app:layout_constraintVertical_chainStyle="packed">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_photo"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:src="@drawable/ic_camera_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:fontFamily="@font/opensans_italic"
-                android:textSize="12sp"
                 android:layout_marginTop="5dp"
-                android:text="@string/create_account_picture"/>
+                android:fontFamily="@font/opensans_italic"
+                android:text="@string/update_account_picture"
+                android:textColor="@color/primary_text"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/create_account_button"
-            android:layout_width="0dp"
+            android:id="@+id/update_account_button"
+            android:layout_width="271dp"
             android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/create_account_button"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:textColor="@android:color/white"
+            android:layout_marginTop="24dp"
             android:background="@drawable/button_background"
             android:fontFamily="@font/opensans_regular"
+            android:text="@string/update_account_button"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_picture_layout"
+            app:layout_constraintTop_toBottomOf="@+id/last_name_input_layout"
             app:layout_constraintVertical_chainStyle="packed" />
 
 

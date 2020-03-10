@@ -1,11 +1,9 @@
-package com.architectcoders.bissu.ui.home.profile
+package com.architectcoders.bissu.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.domain.entities.User
 import com.architectcoders.domain.usecases.GetAccount
-import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
     init {
@@ -18,20 +16,18 @@ class ProfileViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
         }
 
     sealed class UiModel() {
-        class Content(val user: User?) : UiModel()
-        class Navigation(): UiModel()
+        object CloseSession : UiModel()
+        object UpdateAccountNavigation: UiModel()
+        object ChangePasswordNavigation: UiModel()
     }
 
-    fun getAccount() {
-        launch {
-            _model.value = UiModel.Content( getAccount.invoke())
-        }
+    fun updateAccountClicked(){
+        _model.value = UiModel.UpdateAccountNavigation
     }
-
-    fun onProfileEditClicked() {
-        launch {
-            _model.value = UiModel.Navigation()
-        }
+    fun changePasswordClicked(){
+        _model.value = UiModel.ChangePasswordNavigation
     }
-
+    fun logOutClicked(){
+        _model.value = UiModel.CloseSession
+    }
 }
