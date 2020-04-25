@@ -30,6 +30,14 @@
     <string name="observationfragment_cantcreateobservation">We couldn\'t create de observation</string>
     <string name="observationfragment_observationcreated">Observation created</string>
 
+    <!-- Create observation-->
+    <string name="create_observation_title">Create Observation</string>
+    <string name="create_observation_pages_hint">Pages</string>
+    <string name="create_observation_observation_hint">Observation</string>
+    <string name="create_observation_create_button">Create</string>
+    <string name="create_observation_pages_error">The pages is required</string>
+    <string name="create_observation_observation_error">The observation is required</string>
+
 
     <!-- common -->
     <string name="agree">Agree</string>

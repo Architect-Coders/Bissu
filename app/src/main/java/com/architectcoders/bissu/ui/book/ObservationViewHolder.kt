@@ -15,13 +15,13 @@ class ObservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 .load(item.user.photoUrl)
                 .placeholder(R.drawable.ic_profile_placeholder)
                 .centerCrop()
-                .into(itemView.observationitem_profileicon)
+                .into(itemView.user_image)
         } else {
-            itemView.observationitem_profileicon.setImageResource(R.drawable.ic_profile_placeholder)
+            itemView.user_image.setImageResource(R.drawable.ic_profile_placeholder)
         }
 
-        itemView.observationitem_user.text = item.user.username
-        itemView.observationitem_userobservation.text = item.description
-        itemView.observationitem_bookpage.text = item.page
+        itemView.user_name_text.text = item.user.username
+        itemView.observation_text.text = item.description
+        itemView.page_text.text = item.page +"\nPages"
     }
 }

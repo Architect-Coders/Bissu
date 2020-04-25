@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,8 +16,7 @@ import kotlinx.android.synthetic.main.fragment_observation.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-class ObservationFragment : Fragment(), View.OnClickListener {
+class ObservationFragment : Fragment() {
 
     private var book: Book? = null
     private lateinit var bookId: String
@@ -29,8 +27,7 @@ class ObservationFragment : Fragment(), View.OnClickListener {
         fun newInstance(bookId: String): ObservationFragment {
             val fragment = ObservationFragment()
             fragment.arguments = bundleOf(
-                BOOK_ID to bookId
-            )
+                BOOK_ID to bookId)
             return fragment
         }
     }
@@ -39,90 +36,57 @@ class ObservationFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (savedInstanceState == null) {
             arguments?.let {
-                bookId = it.getString(BOOK_ID, "")
+                if (it.containsKey(BOOK_ID)){
+                    bookId = it.getString(BOOK_ID )
+                }
             }
-        } else {
-            savedInstanceState.let {
-                bookId = it.getString(BOOK_ID, "")
-            }
-        }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_observation, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
-        viewModel.getBook(bookId)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        observationfragment_create.setOnClickListener(this)
-    }
-
-    private fun setupPageSpinner() {
-        var pages = 2
-
-        book?.pages?.toIntOrNull()?.let {
-            pages = it
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
+        create_observation_button.setOnClickListener{
+            createObservation();
         }
 
-        val dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            context!!,
-            android.R.layout.simple_spinner_item,
-            (1..pages).toList().map { item -> item.toString() }
-        )
-
-        dataAdapter.insert("Select page", 0)
-
-        observationfragment_pagenumber.adapter = dataAdapter
+        viewModel.getBook(bookId)
     }
 
     private fun updateUi(model: UiModel?) {
         when (model) {
             is Loading -> progressVisibility(model.value)
             is ContentBook -> updateBookUi(model.book)
-            is ShowToast -> context?.showToast(model.value)
-            is GoBack -> activity?.onBackPressed()
+            is CreateAccountError -> createAccountError()
+            is NavigateToHome -> activity?.onBackPressed()
         }
+    }
+
+    private fun createAccountError(){
+        context?.showToast(R.string.observationfragment_cantcreateobservation)
     }
 
     private fun updateBookUi(book: Book?) {
         this.book = book
-        setupPageSpinner()
     }
 
     private fun progressVisibility(value: Boolean) {
-        observationfragment_progress.visibility = if (value) View.VISIBLE else View.GONE
+        progress_bar_layout.visibility = if (value) View.VISIBLE else View.GONE
     }
 
-    override fun onClick(p0: View?) {
-        when (p0?.id) {
-            R.id.observationfragment_create -> {
-                viewModel.onCreateClicked(book,
-                    observationfragment_pagenumber.selectedItemPosition,
-                    observationfragment_pagenumber.selectedItem.toString(),
-                    observationfragment_description.text.toString())
+
+    private fun createObservation(){
+        if(viewModel.validatePages(context!!, pages_edit_text, pages_text_input) &&
+            viewModel.validateObservation(context!!,observation_edit_text,observation_text_input)){
+            book?.let {
+                viewModel.onCreateClicked(it, pages_edit_text.text.toString(),observation_edit_text.text.toString() )
             }
         }
-    }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.apply {
-            BOOK_ID to bookId
-        }
     }
 }

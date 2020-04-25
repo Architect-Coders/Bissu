@@ -14,13 +14,13 @@ class OwnerObservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 .with(itemView)
                 .load(item.user.photoUrl)
                 .centerCrop()
-                .into(itemView.observationitem_profileicon)
+                .into(itemView.user_image)
         } else {
-            itemView.observationitem_profileicon.setImageResource(R.drawable.ic_profile_placeholder)
+            itemView.user_image.setImageResource(R.drawable.ic_profile_placeholder)
         }
 
-        itemView.observationitem_user.text = item.book.title
-        itemView.observationitem_userobservation.text = item.description
-        itemView.observationitem_bookpage.text = item.page
+        itemView.user_name_text.text = item.book.title
+        itemView.observation_text.text = item.description
+        itemView.page_text.text = item.page
     }
 }

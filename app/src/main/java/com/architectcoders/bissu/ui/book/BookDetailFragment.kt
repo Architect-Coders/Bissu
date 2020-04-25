@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookDetailFragment : Fragment() {
 
-    private var book: Book? = null
+    private lateinit var book: Book
     private lateinit var bookId: String
     private val observationAdapter by lazy { ObservationAdapter() }
 
@@ -34,124 +34,70 @@ class BookDetailFragment : Fragment() {
         }
     }
 
-    private val viewModel: BookDetailViewModel by currentScope.viewModel(this)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true);
-
-        if (savedInstanceState == null) {
-            arguments?.let {
-                bookId = it.getString(BOOK_ID, "")
-            }
-        } else {
-            savedInstanceState.let {
-                bookId = it.getString(BOOK_ID, "")
-            }
+        arguments?.let {
+            bookId = it.getString(BOOK_ID, "")
         }
     }
 
-    private fun initializeAdapter() {
-        bookdetail_observations.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = observationAdapter
-        }
-    }
+    private val viewModel: BookDetailViewModel by currentScope.viewModel(this)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_book_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
         initializeAdapter()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+        create_observation.setOnClickListener {
+            navigateToNewObservation();
+        }
         viewModel.getBook(bookId)
         viewModel.fetchObservations(bookId)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_book_detail, menu)
+    private fun initializeAdapter() {
+        observations_recycler_view.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = observationAdapter}
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val book = this.book
-
-        if(book == null){
-            // TODO unavailable function
-        }else{
-            val fragmentManager = activity!!.supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = ObservationFragment.newInstance(book.id)
-            fragmentTransaction.replace(R.id.content_main, fragment, fragment.tag)
-            fragmentTransaction.addToBackStack(fragment.tag)
-            fragmentTransaction.commit()
-
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.apply {
-            BOOK_ID to bookId
-        }
+    private fun navigateToNewObservation(){
+        val fragmentManager = activity!!.supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = ObservationFragment.newInstance(bookId)
+        fragmentTransaction.replace(R.id.content_main, fragment)
+        fragmentTransaction.addToBackStack(fragment.tag)
+        fragmentTransaction.commit()
     }
 
     private fun updateUi(model: UiModel?) {
         when (model) {
             is UiModel.Loading -> mainProgressVisibility(model.value)
             is UiModel.Content -> updateBookUi(model.book)
-            is UiModel.LoadingObservations -> observationProgressVisibility(model.value)
+            is UiModel.LoadingObservations -> mainProgressVisibility(model.value)
             is UiModel.Observations -> processObservations(model.observations)
         }
     }
 
-    private fun processObservations(observations: ArrayList<Observation>) {
+    private fun processObservations(observations: List<Observation>) {
         observationAdapter.submitList(observations.map { ObservationItem(it) })
-        bookdetail_observations.visibility =
-            if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
+        observations_recycler_view.visibility = if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
     }
-
-    private fun observationProgressVisibility(value: Boolean) {
-        bookdetail_observationsprogress.visibility = if (value) View.VISIBLE else View.GONE
-    }
-
     private fun mainProgressVisibility(value: Boolean) {
-        bookdetailfragment_progress.visibility = if (value) View.VISIBLE else View.GONE
+        progress_bar_layout.visibility = if (value) View.VISIBLE else View.GONE
     }
 
     private fun updateBookUi(book: Book?) {
-        this.book = book
-
-        if (book != null) {
-            if (!book.photoUrl.isNullOrEmpty()) {
-                Glide
-                    .with(this)
-                    .load(book.photoUrl)
-                    .centerCrop()
-                    .into(bookdetail_bookimg)
+            if (book?.photoUrl.isNullOrEmpty()) {
+                Glide.with(this).load(book?.photoUrl).centerCrop().into(bookdetail_bookimg)
+            }else{
+                bookdetail_bookimg.setImageResource(R.mipmap.ic_launcher)
             }
-
-            bookdetail_booktitle.text = book.title
-            bookdetail_bookpages.text = book.pages
-            bookdetail_bookauthor.text = book.author
-            bookdetail_bookeditorial.text = book.editorial
-            bookdetail_bookcategory.text = book.category?.name
-            bookdetail_bookdescription.text = book.description
-        }
+            book_title_text.text = book?.title
+            book_author_text.text = book?.author
+            book_description_text.text = book?.description
     }
 }

@@ -30,9 +30,9 @@ class BookDetailViewModel(private val getBook: GetBook, private val getObservati
 
     fun getBook(bookId: String) {
         launch {
-            _model.value = UiModel.Loading(true)
+          //  _model.value = UiModel.Loading(true)
             _model.value = UiModel.Content(getBook.invoke(bookId))
-            _model.value = UiModel.Loading(false)
+          //  _model.value = UiModel.Loading(false)
         }
     }
 
