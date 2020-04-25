@@ -30,6 +30,18 @@
     <string name="observationfragment_cantcreateobservation">We couldn\'t create de observation</string>
     <string name="observationfragment_observationcreated">Observation created</string>
 
+    <!-- Create book -->
+    <string name="create_book_title">Create book</string>
+    <string name="create_book_title_hint">Title</string>
+    <string name="create_book_category_hint">Category</string>
+    <string name="create_book_editorial_hint">Editorial</string>
+    <string name="create_book_author_hint">Author</string>
+    <string name="create_book_pages_hint">Pages</string>
+    <string name="create_book_description_hint">Description</string>
+    <string name="create_book_create_button">Create</string>
+
+
+
     <!-- Create observation-->
     <string name="create_observation_title">Create Observation</string>
     <string name="create_observation_pages_hint">Pages</string>

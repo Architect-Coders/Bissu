@@ -38,11 +38,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView( inflater: LayoutInflater,container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragmet_create_book, container, false)
     }
 
@@ -57,18 +53,13 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         viewModel.getCategories()
 
-        camera_image_view.setOnClickListener {
-            dispatcheTakePictureIntent()
-        }
-
-        portada_image_view.setOnClickListener {
+        book_picture_layout.setOnClickListener {
             dispatcheTakePictureIntent()
         }
     }
 
     private fun updateUi(model: CreateBookViewModel.UiModel) {
-        progress_bar_layout.visibility =
-            if (model is CreateBookViewModel.UiModel.Loading) View.VISIBLE else View.GONE
+        progress_bar_layout.visibility = if (model is CreateBookViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
             is CreateBookViewModel.UiModel.Content -> {
                 categoryList = model.list
@@ -90,7 +81,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
         } else {
             var bm: Bitmap? = null
 
-            portada_image_view.getDrawable().let {
+          /*  portada_image_view.getDrawable().let {
                 it?.let {
                     try {
                         bm = (it as BitmapDrawable).bitmap
@@ -99,7 +90,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     }
 
                 }
-            }
+            } */
             viewModel.createBook(
                 title_edit_text.text.toString(),
                 author_edit_text.text.toString(),
@@ -123,7 +114,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         category_list_spinner.adapter = adapter
 
-        category_list_spinner.onItemSelectedListener = this
+       // category_list_spinner.onItemSelectedListener = this
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -147,7 +138,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageBitmap = data!!.extras?.get("data") as Bitmap
-            portada_image_view.setImageBitmap(imageBitmap)
+            book_photo.setImageBitmap(imageBitmap)
         }
     }
 }
