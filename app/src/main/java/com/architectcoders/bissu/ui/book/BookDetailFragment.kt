@@ -50,19 +50,19 @@ class BookDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
-        initializeAdapter()
+       // initializeAdapter()
         create_observation.setOnClickListener {
             navigateToNewObservation();
         }
         viewModel.getBook(bookId)
-        viewModel.fetchObservations(bookId)
+       // viewModel.fetchObservations(bookId)
     }
 
-    private fun initializeAdapter() {
+    /*private fun initializeAdapter() {
         observations_recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = observationAdapter}
-    }
+    } */
 
     private fun navigateToNewObservation(){
         val fragmentManager = activity!!.supportFragmentManager
@@ -78,14 +78,14 @@ class BookDetailFragment : Fragment() {
             is UiModel.Loading -> mainProgressVisibility(model.value)
             is UiModel.Content -> updateBookUi(model.book)
             is UiModel.LoadingObservations -> mainProgressVisibility(model.value)
-            is UiModel.Observations -> processObservations(model.observations)
+          //  is UiModel.Observations -> processObservations(model.observations)
         }
     }
 
-    private fun processObservations(observations: List<Observation>) {
+   /* private fun processObservations(observations: List<Observation>) {
         observationAdapter.submitList(observations.map { ObservationItem(it) })
         observations_recycler_view.visibility = if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
-    }
+    } */
     private fun mainProgressVisibility(value: Boolean) {
         progress_bar_layout.visibility = if (value) View.VISIBLE else View.GONE
     }

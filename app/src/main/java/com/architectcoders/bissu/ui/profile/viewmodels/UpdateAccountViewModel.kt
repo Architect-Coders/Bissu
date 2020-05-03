@@ -1,5 +1,6 @@
 package com.architectcoders.bissu.ui.profile.viewmodels
 
+import android.app.Activity
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,6 +42,12 @@ class UpdateAccountViewModel(
     fun navigateToProfile(){
         _model.value =
             UiModel.NavigationToHome
+    }
+
+    fun closeSession(activity: Activity){
+        launch {
+            com.architectcoders.bissu.ui.common.closeSession(activity)
+        }
     }
 
     fun updateAccount(currentUser : User, username: String, email: String,firstName: String, lastName: String,photoUrl: String? = null ) {

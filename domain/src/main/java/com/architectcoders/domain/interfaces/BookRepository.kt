@@ -8,5 +8,5 @@ import com.architectcoders.domain.entities.Book
 interface BookRepository {
     suspend fun getBooks(forceRefresh: Boolean): List<Book>
     suspend fun getBook(id: String): Book
-    suspend fun createBook(  title: String, author: String,   pages: String, editorial: String, categoryId: String, description: String, photoUrl: String? ): Boolean
+    suspend fun createBook( title: String, author: String,   pages: String, editorial: String, categoryId: String, description: String, photoUrl: String? ): Boolean
 }

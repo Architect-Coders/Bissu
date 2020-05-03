@@ -6,10 +6,9 @@ import com.architectcoders.bissu.ui.common.ScopedViewModel
 import com.architectcoders.domain.entities.Book
 import com.architectcoders.domain.entities.Observation
 import com.architectcoders.domain.usecases.GetBook
-import com.architectcoders.domain.usecases.GetObservations
 import kotlinx.coroutines.launch
 
-class BookDetailViewModel(private val getBook: GetBook, private val getObservations: GetObservations) : ScopedViewModel() {
+class BookDetailViewModel(private val getBook: GetBook) : ScopedViewModel() {
 
     private val _model = MutableLiveData<UiModel>()
     val model: LiveData<UiModel>
@@ -30,17 +29,17 @@ class BookDetailViewModel(private val getBook: GetBook, private val getObservati
 
     fun getBook(bookId: String) {
         launch {
-          //  _model.value = UiModel.Loading(true)
+            _model.value = UiModel.Loading(true)
             _model.value = UiModel.Content(getBook.invoke(bookId))
-          //  _model.value = UiModel.Loading(false)
+            _model.value = UiModel.Loading(false)
         }
     }
 
-    fun fetchObservations(bookId: String){
+    /*fun fetchObservations(bookId: String){
         launch {
             _model.value = UiModel.LoadingObservations(true)
             _model.value = UiModel.Observations(getObservations.invoke(bookId))
             _model.value = UiModel.LoadingObservations(false)
         }
-    }
+    } */
 }

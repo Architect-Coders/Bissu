@@ -3,43 +3,38 @@ package com.architectcoders.bissu.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.framework.database.Prefs
+import com.architectcoders.bissu.ui.home.HomeActivity
 import com.architectcoders.bissu.ui.login.LoginActivity
-import org.koin.android.ext.android.inject
 import kotlinx.android.synthetic.main.toolbar.*
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val session: Prefs by inject()
+    private val viewModel: MainViewModel by currentScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        viewModel.model.observe(this, Observer(::updateUi))
+        viewModel.getUser()
+    }
 
-        supportActionBar.let {
-            setSupportActionBar(toolbar)
-            it?.setDisplayShowHomeEnabled(true)
-            it?.setDisplayHomeAsUpEnabled(true)
-        }
-
-        if(session.isUserLogged){
-            goToHome()
-        }else{
-            goToLogin()
+    private fun updateUi(model: MainViewModel.UiModel) {
+        when (model) {
+            is MainViewModel.UiModel.NavigateToHome -> navigateToHome()
+            is MainViewModel.UiModel.NavigateToLogin -> navigateToLogin()
         }
     }
 
-    private fun goToLogin(){
+    private fun navigateToLogin(){
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 
-    private fun goToHome() {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val fragment = MainPagerFragment.newInstance()
-        fragmentTransaction.replace(R.id.content_main, fragment)
-        fragmentTransaction.commit()
+    private fun navigateToHome() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
     }
 }

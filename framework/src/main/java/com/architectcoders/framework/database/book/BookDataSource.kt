@@ -21,7 +21,6 @@ class BookDataSource(db: LocalDatabase) : BookLocalDataSource {
             bookDao.update(book.toRoomBook())
         }
 
-
     override suspend fun isEmpty(): Boolean =
         withContext(Dispatchers.IO) { bookDao.count() <= 0 }
 

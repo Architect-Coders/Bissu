@@ -1,6 +1,8 @@
 package com.architectcoders.bissu
 
 import BookListFragment
+import com.architectcoders.bissu.ui.MainActivity
+import com.architectcoders.bissu.ui.MainViewModel
 import com.architectcoders.framework.database.LocalDatabase
 import com.architectcoders.framework.database.Prefs
 import com.architectcoders.framework.database.book.BookDataSource
@@ -72,7 +74,7 @@ private val dataModule = module {
     factory<CategoryRemoteDatasource> { CategoryRemotelDataSource() }
     factory<LoginRemoteDatasource> { LoginDatasource() }
     factory<BookRemoteDatasource> { BookDatasource() }
-    factory<ObservationRemoteDatasource> { ObservationDatasource() }
+    factory<ObservationRemoteDatasource> { ObservationDatasource(androidApplication()) }
 
     factory<UserRepositoryDomain> { UserRepository(get(), get()) }
     factory<BookRepositoryDomain> { BookRepository(get(), get()) }
@@ -130,7 +132,7 @@ private val scopesModule = module {
     scope(named<MyObservationsFragment>()) {
         viewModel { MyObservationsViewModel(get(), get()) }
         scoped { GetAccount(get()) }
-        scoped { GetOwnerObservations(get()) }
+        scoped { GetObservationsByUser(get()) }
     }
 
     scope(named<ProfileFragment>()) {
@@ -143,9 +145,9 @@ private val scopesModule = module {
     }
 
     scope(named<BookDetailFragment>()) {
-        viewModel { BookDetailViewModel(get(), get()) }
+        viewModel { BookDetailViewModel(get()) }
         scoped { GetBook(get()) }
-        scoped { GetObservations(get()) }
+
     }
 
     scope(named<ObservationFragment>()) {
@@ -159,5 +161,10 @@ private val scopesModule = module {
         viewModel { CreateBookViewModel(get(), get()) }
         scoped { GetCategories(get()) }
         scoped { CreateBook(get()) }
+    }
+
+    scope(named<MainActivity>()){
+        viewModel { MainViewModel(get()) }
+        scoped { GetAccount(get()) }
     }
 }

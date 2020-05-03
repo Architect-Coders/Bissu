@@ -65,6 +65,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logOut(){
-        closeSession(activity!!)
+        viewModel.closeSession(activity!!);
     }
 }

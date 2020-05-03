@@ -65,14 +65,14 @@ class UpdateAccountFragment : Fragment() {
     private fun updateUi(model: UpdateAccountViewModel.UiModel) {
         progress_bar_view.visibility = if (model is UpdateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
-            is UpdateAccountViewModel.UiModel.ContentEdit -> if (model.user == null) closeSession(activity!!) else setCurrentUser(model.user)
+            is UpdateAccountViewModel.UiModel.ContentEdit -> if (model.user == null) navigationToHome() else setCurrentUser(model.user)
             is UpdateAccountViewModel.UiModel.Content -> validateUpdateAccountContent(model.status)
             is UpdateAccountViewModel.UiModel.NavigationToHome ->  navigationToHome()
         }
     }
 
     private fun  navigationToHome(){
-        closeSession(activity!!)
+        viewModel.closeSession(activity!!)
     }
 
     private fun validateUpdateAccountContent( succes : Boolean){

@@ -83,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/book_description_text" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
+          <!--  <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/observations_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/book_author_text"
                 tools:listitem="@layout/item_observation"
-                tools:visibility="visible" />
+                tools:visibility="visible" /> -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
