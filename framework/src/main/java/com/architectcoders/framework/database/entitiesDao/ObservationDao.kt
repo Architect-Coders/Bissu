@@ -11,10 +11,10 @@ import com.architectcoders.framework.database.entities.Observation
 interface ObservationDao {
 
 
-    @Query("SELECT * FROM Observation WHERE Observation.book_id LIKE :id")
+    @Query("SELECT * FROM Observation WHERE Observation.book LIKE :id")
     fun getObsevartionsByBook(id: String): List<Observation>
 
-    @Query("SELECT * FROM Observation WHERE Observation.user_id LIKE :id")
+    @Query("SELECT * FROM Observation WHERE Observation.userId LIKE :id")
     fun getObsevartionsByUser(id: String): List<Observation>
 
     @Query("SELECT * FROM Observation WHERE id LIKE :id")

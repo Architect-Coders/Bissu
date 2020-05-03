@@ -5,6 +5,7 @@ import com.architectcoders.framework.server.observation.response.CreateObservati
 import com.architectcoders.framework.server.observation.response.ObservationResponse
 import com.architectcoders.framework.server.observation.response.ObservationsResponse
 import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -17,9 +18,9 @@ interface ObservationServices {
     fun getObservations(@Field("id") bookId: String): Deferred<ObservationsResponse>
 
     @FormUrlEncoded
-    @POST("/api/observation/getByUser")
-    fun getObservationsByUser(@Field("id") id: String): Deferred<ObservationsResponse>
+    @POST("/api/observation/getByuser")
+    fun getObservationsByUser(@Field("id") id: String): Deferred<Response<ObservationsResponse>>
 
     @POST("/api/observation/add")
-    fun createObservation(@Body body: CreateObservationRequest): Deferred<CreateObservationResponse>
+    fun createObservation(@Body body: CreateObservationRequest): Deferred<Response<CreateObservationResponse>>
 }

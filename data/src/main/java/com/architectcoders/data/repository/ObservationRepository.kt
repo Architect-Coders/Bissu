@@ -2,50 +2,26 @@ package com.architectcoders.data.repository
 
 import com.architectcoders.data.source.ObservationLocalDataSource
 import com.architectcoders.data.source.ObservationRemoteDatasource
+import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.Observation
 import com.architectcoders.domain.interfaces.ObservationRepository
 
-class ObservationRepository(
-    private val localDataSource: ObservationLocalDataSource,
-    private val remoteDataSource: ObservationRemoteDatasource
-) : ObservationRepository {
+class ObservationRepository(private val localDataSource: ObservationLocalDataSource, private val remoteDataSource: ObservationRemoteDatasource)
+    : ObservationRepository {
 
 
-    override suspend fun getObservations(id: String): ArrayList<Observation> {
-        remoteDataSource.getObservationsByBook(id).let {
-            it.forEach { observation ->
-                val localObservation = localDataSource.getObservation(observation.id)
-                if (localObservation == null) {
-                    localDataSource.addObservation(observation)
-                } else {
-                    localDataSource.updateObservation(observation)
-                }
+
+    override suspend fun getObservationsByUser(userId: String, forceRefresh : Boolean): DataResponse<List<Observation>> {
+        if(forceRefresh || localDataSource.isEmpty() ){
+            val response = remoteDataSource.getObservationsByUser(userId)
+            if (response is DataResponse.Success){
+                response.data.forEach { localDataSource.addObservation(it) }
             }
-        }
-
-        return ArrayList(localDataSource.getObservations(id))
+            return response
+        } else return DataResponse.Success(localDataSource.getObservationsByUser(userId))
     }
 
-    override suspend fun getOwnerObservations(userId: String): List<Observation> {
-        remoteDataSource.getObservationsByOwner(userId).let {
-            it.forEach { observation ->
-                val localObservation = localDataSource.getObservation(observation.id)
-                if (localObservation == null) {
-                    localDataSource.addObservation(observation)
-                } else {
-                    localDataSource.updateObservation(observation)
-                }
-            }
-        }
-
-        return localDataSource.getObservationsByOwner(userId)
-    }
-
-    override suspend fun createObservation(observation: Observation): Boolean {
-        return try {
-            remoteDataSource.createObservation(observation)
-        } catch (exceptio: Exception) {
-            false
-        }
+    override suspend fun createObservation(observation: Observation): DataResponse<Boolean> {
+           return remoteDataSource.createObservation(observation)
     }
 }

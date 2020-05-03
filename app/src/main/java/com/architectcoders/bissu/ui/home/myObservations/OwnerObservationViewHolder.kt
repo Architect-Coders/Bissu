@@ -9,16 +9,7 @@ import kotlinx.android.synthetic.main.item_observation.view.*
 
 class OwnerObservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: Observation) {
-        if (!item.user.photoUrl.isNullOrEmpty()) {
-            Glide
-                .with(itemView)
-                .load(item.user.photoUrl)
-                .centerCrop()
-                .into(itemView.user_image)
-        } else {
-            itemView.user_image.setImageResource(R.drawable.ic_profile_placeholder)
-        }
-
+        itemView.user_image.setImageResource(R.drawable.ic_profile_placeholder)
         itemView.user_name_text.text = item.book.title
         itemView.observation_text.text = item.description
         itemView.page_text.text = item.page

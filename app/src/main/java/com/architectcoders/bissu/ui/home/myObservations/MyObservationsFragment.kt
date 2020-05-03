@@ -23,16 +23,8 @@ class MyObservationsFragment : Fragment() {
 
     private val viewModel: MyObservationsViewModel by currentScope.viewModel(this)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_observations, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel.getObservationsByOwner()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +33,8 @@ class MyObservationsFragment : Fragment() {
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
 
         initializeAdapter()
+
+        viewModel.getObservationsByUser()
     }
 
     private fun initializeAdapter() {
@@ -61,9 +55,8 @@ class MyObservationsFragment : Fragment() {
         myobservations_progress.visibility = if (value) View.VISIBLE else View.GONE
     }
 
-    private fun processObservations(books: List<Observation>) {
-        observationAdapter.submitList(books.map { OwnerObservationItem(it) })
-        myobservations_observations.visibility =
-            if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
+    private fun processObservations(observations: List<Observation>) {
+        observationAdapter.submitList(observations.map { OwnerObservationItem(it) })
+        myobservations_observations.visibility = if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
     }
 }

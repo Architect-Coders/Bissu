@@ -6,7 +6,7 @@ data class Observation(
     @SerializedName("_id")
     val id: String,
     @SerializedName("user")
-    val user: User,
+    val userId: String,
     @SerializedName("book")
     val book: ObservationBook,
     @SerializedName("description")

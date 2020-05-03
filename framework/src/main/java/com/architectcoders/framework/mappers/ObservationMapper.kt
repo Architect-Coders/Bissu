@@ -7,7 +7,7 @@ import com.architectcoders.framework.server.entities.Observation as RemoteObserv
 
 fun Observation.toRoomObservation(): RoomObservation = RoomObservation(
     id = id,
-    user = user.toRoomUser(),
+    userId = userId,
     book = book.toRoomBook(),
     description = description,
     page = page
@@ -16,7 +16,7 @@ fun Observation.toRoomObservation(): RoomObservation = RoomObservation(
 fun RoomObservation.toDomainObservation(): Observation =
     Observation(
         id = id,
-        user = user.toDomainUser(),
+        userId = userId,
         book = book.toDomainBook(),
         description = description,
         page = page
@@ -25,7 +25,7 @@ fun RoomObservation.toDomainObservation(): Observation =
 fun RemoteObservation.toDomainObservation(): Observation =
     Observation(
         id = id,
-        user = user.toDomainUser(),
+        userId = userId,
         book = book.toDomainBook(),
         description = description,
         page = page
@@ -33,7 +33,7 @@ fun RemoteObservation.toDomainObservation(): Observation =
 
 fun Observation.toCreateObservationRequest(): CreateObservationRequest =
     CreateObservationRequest(
-        user = user.id,
+        user = userId,
         book = book.id,
         description = description,
         page = page

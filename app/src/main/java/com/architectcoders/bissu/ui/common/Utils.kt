@@ -1,18 +1,45 @@
 package com.architectcoders.bissu.ui.common
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.ConnectivityManager
 import android.util.Base64
 import com.architectcoders.bissu.ui.MainActivity
+import com.architectcoders.framework.database.LocalDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 
 
-fun closeSession(activity : Activity){
+suspend fun  closeSession(activity : Activity){
     val intent = Intent(activity, MainActivity::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-    //remove all models
+    deleteAllModels(activity)
+    activity.startActivity(intent)
+}
+
+private suspend fun deleteAllModels(activity: Activity){
+    withContext(Dispatchers.IO) {
+        val database = LocalDatabase.build(activity.applicationContext)
+        database.bookData().deleteAllBooks();
+        database.categoryDao().deleteAllCategories()
+        database.observationDao().deleteAllObservations()
+        database.userDao().deleteAllUser()
+    }
+}
+
+fun Context.isAvailableNetwork(): Boolean {
+    val connectivityManager =this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkInfo = connectivityManager.activeNetworkInfo
+    return networkInfo != null && networkInfo.isConnected
+}
+
+fun launchMainActivity(activity : Activity){
+    val intent = Intent(activity, MainActivity::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
     activity.startActivity(intent)
 }
 

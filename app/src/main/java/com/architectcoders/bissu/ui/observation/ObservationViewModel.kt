@@ -8,6 +8,7 @@ import com.architectcoders.bissu.ui.common.ScopedViewModel
 import com.architectcoders.bissu.ui.common.validateInput
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel.*
 import com.architectcoders.domain.entities.Book
+import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.Observation
 import com.architectcoders.domain.entities.User
 import com.architectcoders.domain.usecases.CreateObservation
@@ -59,11 +60,17 @@ class ObservationViewModel(
 
     private fun createObservation(user: User, book: Book, description: String, page: String) {
         launch {
+
             _model.value = Loading(true)
-            val observation = Observation("", user, book, description, page)
-            createObservation.invoke(observation).let {
-                if (it)  _model.value = NavigateToHome()
-                 else _model.value = CreateAccountError()
+
+            val observation = Observation("", user.id, book, description, page)
+
+            val result = createObservation.invoke(observation)
+
+            when(result){
+                is DataResponse.Success -> NavigateToHome()
+                is DataResponse.NetworkError ->  CreateAccountError()
+                is DataResponse.ServerError -> CreateAccountError()
             }
             _model.value = Loading(false)
         }

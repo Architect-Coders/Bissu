@@ -9,5 +9,5 @@ data class ObservationsResponse(
     @SerializedName("message")
     var message: String,
     @SerializedName("observations")
-    var observations: ArrayList<Observation>
+    var observations: List<Observation>
 )

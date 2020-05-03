@@ -17,18 +17,14 @@ object OwnerObservationCell : Cell<RecyclerItem>() {
         return R.layout.item_observation
     }
 
-    override fun holder(
-        parent: ViewGroup
-    ): RecyclerView.ViewHolder {
+    override fun holder(parent: ViewGroup): RecyclerView.ViewHolder {
         return OwnerObservationViewHolder(parent.viewOf(type()))
     }
 
     override fun bind(
         holder: RecyclerView.ViewHolder,
         item: RecyclerItem?,
-        listener: AdapterListener?
-    ) {
-
+        listener: AdapterListener?) {
         if (holder is OwnerObservationViewHolder && item is OwnerObservationItem) {
             holder.bind(item.observation)
             holder.itemView.setOnClickListener {
