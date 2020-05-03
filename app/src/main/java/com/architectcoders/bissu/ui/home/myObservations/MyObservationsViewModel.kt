@@ -33,10 +33,7 @@ class MyObservationsViewModel(private val getAccount: GetAccount, private val ge
 
             _model.value = UiModel.Loading(true)
 
-            if (!AndroidApplication.context.isAvailableNetwork())
-                _model.value = UiModel.Loading(false)
 
-            else{
                 getAccount.invoke()?.id?.let {
 
                     val result = getObservationsByUser.invoke(it)
@@ -47,7 +44,7 @@ class MyObservationsViewModel(private val getAccount: GetAccount, private val ge
                     }
 
                 }
-            }
+
             _model.value = UiModel.Loading(false)
         }
     }

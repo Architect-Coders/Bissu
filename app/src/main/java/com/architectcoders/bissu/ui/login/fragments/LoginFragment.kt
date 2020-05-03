@@ -14,8 +14,8 @@ import com.architectcoders.bissu.ui.common.showAlertDialog
 import com.architectcoders.bissu.ui.login.viewmodels.LoginViewModel
 import kotlinx.android.synthetic.main.login_login.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
  * Created by Anibal Cortez on 2019-12-11.
@@ -23,7 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginFragment : Fragment() {
 
     private val session: Prefs by inject()
-    private val viewModel: LoginViewModel by currentScope.viewModel(this)
+    private val viewModel: LoginViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         return inflater.inflate(R.layout.login_login, container, false)

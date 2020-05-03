@@ -13,8 +13,8 @@ import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel
 import com.architectcoders.bissu.ui.observation.ObservationViewModel.UiModel.*
 import com.architectcoders.domain.entities.Book
 import kotlinx.android.synthetic.main.fragment_observation.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class ObservationFragment : Fragment() {
 
@@ -32,7 +32,7 @@ class ObservationFragment : Fragment() {
         }
     }
 
-    private val viewModel: ObservationViewModel by currentScope.viewModel(this)
+    private val viewModel: ObservationViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

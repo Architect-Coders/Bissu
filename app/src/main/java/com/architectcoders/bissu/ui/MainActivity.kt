@@ -4,16 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.architectcoders.bissu.R
+
 import com.architectcoders.bissu.ui.home.HomeActivity
 import com.architectcoders.bissu.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.toolbar.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by currentScope.viewModel(this)
+    private val viewModel: MainViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

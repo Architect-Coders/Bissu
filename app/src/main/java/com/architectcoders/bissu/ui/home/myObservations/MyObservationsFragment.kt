@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.architectcoders.bissu.R
 import com.architectcoders.domain.entities.Observation
 import kotlinx.android.synthetic.main.fragment_my_observations.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class MyObservationsFragment : Fragment() {
 
@@ -21,7 +21,7 @@ class MyObservationsFragment : Fragment() {
         fun newInstance() = MyObservationsFragment()
     }
 
-    private val viewModel: MyObservationsViewModel by currentScope.viewModel(this)
+    private val viewModel: MyObservationsViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_observations, container, false)

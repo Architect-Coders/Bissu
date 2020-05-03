@@ -3,7 +3,6 @@ package com.architectcoders.bissu.ui.book.fragments
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -19,15 +18,15 @@ import com.architectcoders.bissu.ui.book.CreateBookViewModel
 import com.architectcoders.bissu.ui.common.toBase64
 import com.architectcoders.domain.entities.Category
 import kotlinx.android.synthetic.main.fragmet_create_book.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
  * Created by Anibal Cortez on 2020-02-16.
  */
 class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    private val viewModel: CreateBookViewModel by currentScope.viewModel(this)
+    private val viewModel: CreateBookViewModel by lifecycleScope.viewModel(this)
     val REQUEST_IMAGE_CAPTURE = 1
     var USER_ID_EDIT = ""
     private lateinit var categoryList: List<Category>
@@ -138,7 +137,7 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val imageBitmap = data!!.extras?.get("data") as Bitmap
-            book_photo.setImageBitmap(imageBitmap)
+           // book_photo.setImageBitmap(imageBitmap)
         }
     }
 }

@@ -10,15 +10,15 @@ import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.common.showAlertDialog
 import com.architectcoders.bissu.ui.login.viewmodels.CreateAccountViewModel
 import kotlinx.android.synthetic.main.login_create_account.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
  * Created by Anibal Cortez on 2019-12-16.
  */
 class CreateAccountFragment : Fragment() {
 
-    private val viewModel: CreateAccountViewModel by currentScope.viewModel(this)
+    private val viewModel: CreateAccountViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.login_create_account, container, false)

@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.ui.common.closeSession
 import com.architectcoders.bissu.ui.common.showAlertDialog
 import com.architectcoders.bissu.ui.common.toBase64
 import com.architectcoders.bissu.ui.common.toBitmap
@@ -29,7 +28,9 @@ import kotlinx.android.synthetic.main.login_create_account.username_edit_text
 import kotlinx.android.synthetic.main.login_create_account.username_input_layout
 import kotlinx.android.synthetic.main.profile_update_account.*
 import org.koin.androidx.scope.currentScope
+import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
  * Created by Anibal Cortez on 2020-03-05.
@@ -41,7 +42,7 @@ class UpdateAccountFragment : Fragment() {
 
     private lateinit var currentUser: User
     private var photoUrl : Bitmap? = null
-    private val viewModel: UpdateAccountViewModel by currentScope.viewModel(this)
+    private val viewModel: UpdateAccountViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.profile_update_account, container, false)
@@ -86,7 +87,7 @@ class UpdateAccountFragment : Fragment() {
         first_name_edit_text.setText(user.firstName)
         last_name_edit_text.setText(user.lastName)
         user.photoUrl?.let { image ->
-             image.toBitmap()?.apply {  user_photo.setImageBitmap(this)}
+            // image.toBitmap()?.apply {  user_photo.setImageBitmap(this)}
         }
     }
 
@@ -122,7 +123,7 @@ class UpdateAccountFragment : Fragment() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data!!.extras?.get("data") as Bitmap
             photoUrl = imageBitmap
-            user_photo.setImageBitmap(imageBitmap)
+           // user_photo.setImageBitmap(imageBitmap)
         }
     }
 }

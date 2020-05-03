@@ -19,7 +19,7 @@ class ObservationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         } else {
         } */
 
-        itemView.user_image.setImageResource(R.drawable.ic_profile_placeholder)
+       // itemView.user_image.setImageResource(R.drawable.ic_profile_placeholder)
 
         // itemView.user_name_text.text = item.user.username
         itemView.observation_text.text = item.description

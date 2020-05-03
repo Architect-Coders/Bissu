@@ -16,7 +16,9 @@ import com.architectcoders.bissu.ui.profile.ProfileActivity.Companion.UPDATE_CCO
 import com.architectcoders.bissu.ui.profile.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.main.profile_home_profile.*
 import org.koin.androidx.scope.currentScope
+import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.scope.viewModel
 
 
 class ProfileFragment : Fragment() {
@@ -24,7 +26,7 @@ class ProfileFragment : Fragment() {
     companion object {
         fun newInstance() = ProfileFragment()
     }
-    private val viewModel: ProfileViewModel by currentScope.viewModel(this)
+    private val viewModel: ProfileViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.profile_home_profile, container, false)

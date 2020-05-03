@@ -18,8 +18,8 @@ import com.architectcoders.bissu.ui.home.bookList.BookListViewModel
 import com.architectcoders.bissu.ui.home.bookList.BookListViewModel.UiModel
 import com.architectcoders.domain.entities.Book
 import kotlinx.android.synthetic.main.fragment_book_list.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class BookListFragment : Fragment(), AdapterListener {
 
@@ -27,7 +27,7 @@ class BookListFragment : Fragment(), AdapterListener {
     companion object {
         fun newInstance() = BookListFragment()
     }
-    private val viewModel: BookListViewModel by currentScope.viewModel(this)
+    private val viewModel: BookListViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         return inflater.inflate(R.layout.fragment_book_list, container, false)
@@ -38,9 +38,9 @@ class BookListFragment : Fragment(), AdapterListener {
 
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
 
-        vRefreshLayout.setOnRefreshListener {
+       /* vRefreshLayout.refre {
             viewModel.refreshBooks()
-        }
+        } */
 
         fab.setOnClickListener {
             viewModel.addBookClicked();
@@ -60,7 +60,7 @@ class BookListFragment : Fragment(), AdapterListener {
 
     private fun updateUi(model: UiModel?) {
         when (model) {
-            is UiModel.Refresh -> swipeRefresh(model.value)
+            //is UiModel.Refresh -> swipeRefresh(model.value)
             is UiModel.Loading -> progressVisibility(model.value)
             is UiModel.Content -> processBooks(model.books)
             is UiModel.Navigation -> {
@@ -70,9 +70,9 @@ class BookListFragment : Fragment(), AdapterListener {
         }
     }
 
-    private fun swipeRefresh(value :Boolean){
+    /*private fun swipeRefresh(value :Boolean){
         vRefreshLayout.isRefreshing = if (value) true else false;
-    }
+    } */
 
     private fun progressVisibility(value: Boolean) {
         booklistfragment_progress.visibility = if (value) View.VISIBLE else View.GONE

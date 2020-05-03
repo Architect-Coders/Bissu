@@ -5,16 +5,14 @@ import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.ui.book.BookDetailViewModel.UiModel
 import com.architectcoders.bissu.ui.observation.ObservationFragment
 import com.architectcoders.domain.entities.Book
-import com.architectcoders.domain.entities.Observation
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_book_detail.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class BookDetailFragment : Fragment() {
 
@@ -41,7 +39,7 @@ class BookDetailFragment : Fragment() {
         }
     }
 
-    private val viewModel: BookDetailViewModel by currentScope.viewModel(this)
+    private val viewModel: BookDetailViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_book_detail, container, false)

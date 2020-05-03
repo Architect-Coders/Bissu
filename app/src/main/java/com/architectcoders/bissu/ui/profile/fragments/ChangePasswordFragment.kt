@@ -7,19 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.ui.common.closeSession
 import com.architectcoders.bissu.ui.common.showAlertDialog
 import com.architectcoders.bissu.ui.profile.viewmodels.ChangePasswordViewModel
 import com.architectcoders.domain.entities.User
 import kotlinx.android.synthetic.main.profile_change_password.*
-import org.koin.androidx.scope.currentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class ChangePasswordFragment : Fragment() {
 
     private lateinit var currentUser: User
 
-    private val viewModel: ChangePasswordViewModel by currentScope.viewModel(this)
+    private val viewModel: ChangePasswordViewModel by lifecycleScope.viewModel(this)
 
     override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.profile_change_password, container, false)
