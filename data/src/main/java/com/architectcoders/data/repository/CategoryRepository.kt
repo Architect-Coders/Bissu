@@ -19,5 +19,4 @@ class CategoryRepository(private val localDatasource: CategoryLocalDatasource, p
         return localDatasource.getCategories()
     }
 
-
 }

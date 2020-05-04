@@ -30,6 +30,11 @@ class BookDataSource(db: LocalDatabase) : BookLocalDataSource {
             bookDao.insertBooks(bookList.map { it.toRoomBook() })
         }
 
+    override suspend fun saveBook(book: Book) =
+        withContext(Dispatchers.IO){
+            bookDao.saveBook(book = book.toRoomBook())
+        }
+
     override suspend fun getBooks(): List<Book> =
         withContext(Dispatchers.IO) {
             bookDao.getBooks().map {

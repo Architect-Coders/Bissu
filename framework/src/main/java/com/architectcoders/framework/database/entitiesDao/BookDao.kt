@@ -18,6 +18,9 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertBooks(books: List<Book>)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun saveBook(book: Book)
+
     @Update
     fun update(book: Book)
 

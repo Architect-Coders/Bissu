@@ -3,6 +3,7 @@ package com.architectcoders.data.repository
 import com.architectcoders.data.source.BookLocalDataSource
 import com.architectcoders.data.source.BookRemoteDatasource
 import com.architectcoders.domain.entities.Book
+import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.interfaces.BookRepository
 
 class BookRepository(
@@ -10,33 +11,28 @@ class BookRepository(
     private val remoteDatasource: BookRemoteDatasource
 ) : BookRepository {
 
-    override suspend fun getBooks(forceRefresh: Boolean): List<Book> {
-
+    override suspend fun getBooks(forceRefresh: Boolean): DataResponse<List<Book>> {
         if (localDataSource.isEmpty() || forceRefresh) {
-            remoteDatasource.getBooks().let {
-                localDataSource.saveBooks(it)
-            }
+            val response = remoteDatasource.getBooks()
+            if (response is DataResponse.Success)
+                localDataSource.saveBooks(response.data)
+            return response
         }
-        return localDataSource.getBooks()
+        return DataResponse.Success(localDataSource.getBooks())
     }
 
-    override suspend fun getBook(id: String): Book {
+    override suspend fun getBookById(id: String): Book {
         return localDataSource.getBook(id)
     }
 
-
     override suspend fun createBook(
-        title: String,
-        author: String,
-        pages: String,
-        editorial: String,
-        categoryId: String,
-        description: String,
-        photoUrl: String?
-    ): Boolean {
-       // val book = remoteDatasource.createBook(title, author, pages, editorial, categoryId, description)
-        // insert book
-        return true
+        title: String, author: String, pages: String,
+        editorial: String, categoryId: String, description: String, photoUrl: String?
+    ): DataResponse<Book> {
+        val response = remoteDatasource.createBook(title, author, pages, editorial, categoryId, description)
+        if (response is DataResponse.Success)
+            localDataSource.saveBook(response.data)
+        return response
     }
 
 }

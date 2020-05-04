@@ -2,7 +2,6 @@ package com.architectcoders.framework.server.observation
 
 import com.architectcoders.framework.server.observation.request.CreateObservationRequest
 import com.architectcoders.framework.server.observation.response.CreateObservationResponse
-import com.architectcoders.framework.server.observation.response.ObservationResponse
 import com.architectcoders.framework.server.observation.response.ObservationsResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response

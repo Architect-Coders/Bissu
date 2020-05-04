@@ -1,3 +1,4 @@
 include ':app', ':data', ':domain', ':framework'
 
 rootProject.name='Bissu'
+include ':testShared'
