@@ -1,7 +1,7 @@
 package com.architectcoders.framework.database.login
 
 import com.architectcoders.framework.database.LocalDatabase
-import com.architectcoders.data.source.LoginLocalDataSource
+import com.architectcoders.data.source.UserLocalDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.architectcoders.domain.entities.User
@@ -11,7 +11,7 @@ import com.architectcoders.framework.mappers.toRoomUser
 /**
  * Created by Anibal Cortez on 2019-12-12.
  */
-class LoginDataSource(db: LocalDatabase) : LoginLocalDataSource {
+class LoginDataSource(db: LocalDatabase) : UserLocalDataSource {
 
     override suspend fun getUser(): User =
         withContext(Dispatchers.IO) { userDao.getUser().toDomainUser() }

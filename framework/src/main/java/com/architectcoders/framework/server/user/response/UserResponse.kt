@@ -1,4 +1,4 @@
-package com.architectcoders.framework.server.login.response
+package com.architectcoders.framework.server.user.response
 
 import com.architectcoders.framework.server.entities.User
 import com.google.gson.annotations.SerializedName

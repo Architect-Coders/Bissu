@@ -4,7 +4,7 @@ import com.architectcoders.data.source.BookLocalDataSource
 import com.architectcoders.data.source.BookRemoteDatasource
 import com.architectcoders.domain.entities.Book
 import com.architectcoders.domain.entities.DataResponse
-import com.architectcoders.domain.interfaces.BookRepository
+import com.architectcoders.domain.reositories.BookRepository
 
 class BookRepository(
     private val localDataSource: BookLocalDataSource,

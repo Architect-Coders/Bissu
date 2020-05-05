@@ -1,4 +1,4 @@
-package com.architectcoders.domain.interfaces
+package com.architectcoders.domain.reositories
 
 import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.Observation

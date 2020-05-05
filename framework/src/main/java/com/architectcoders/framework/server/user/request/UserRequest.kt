@@ -1,4 +1,4 @@
-package com.architectcoders.framework.server.login.request
+package com.architectcoders.framework.server.user.request
 
 import com.architectcoders.framework.server.entities.Category
 

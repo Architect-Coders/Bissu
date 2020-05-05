@@ -2,7 +2,7 @@ package com.architectcoders.framework.server
 
 import com.architectcoders.framework.server.book.BookServices
 import com.architectcoders.framework.server.category.CategoryService
-import com.architectcoders.framework.server.login.LoginServices
+import com.architectcoders.framework.server.user.LoginServices
 import com.architectcoders.framework.server.observation.ObservationServices
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -22,7 +22,7 @@ class RetrofitClient {
         OkHttpClient.Builder().addInterceptor(this).build()
     }
 
-    val loginService: LoginServices = Retrofit.Builder()
+    val userService: LoginServices = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addCallAdapterFactory(CoroutineCallAdapterFactory())

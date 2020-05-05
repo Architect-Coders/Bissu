@@ -3,7 +3,7 @@ package com.architectcoders.data.repository
 import com.architectcoders.data.source.CategoryLocalDatasource
 import com.architectcoders.data.source.CategoryRemoteDatasource
 import com.architectcoders.domain.entities.Category
-import com.architectcoders.domain.interfaces.CategoryRepository
+import com.architectcoders.domain.reositories.CategoryRepository
 
 /**
  * Created by Anibal Cortez on 2020-02-17.

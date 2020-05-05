@@ -1,44 +1,47 @@
 package com.architectcoders.data.repository
 
-import com.architectcoders.data.source.LoginLocalDataSource
-import com.architectcoders.data.source.LoginRemoteDatasource
+import com.architectcoders.data.source.UserLocalDataSource
+import com.architectcoders.data.source.UserRemoteDatasource
+import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.User
-import com.architectcoders.domain.interfaces.UserRepository
+import com.architectcoders.domain.reositories.UserRepository
+
 /**
  * Created by Anibal Cortez on 2019-12-11.
  */
-class UserRepository(private val localDataSource: LoginLocalDataSource, private val remoteDatasource: LoginRemoteDatasource) :
-    UserRepository {
+class UserRepository(
+    private val localDataSource: UserLocalDataSource,
+    private val remoteDatasource: UserRemoteDatasource
+) : UserRepository {
 
-   override suspend fun doLogin(username: String, password: String): Boolean {
-        remoteDatasource.doLogin(username, password)?.let {
-            localDataSource.deleteAlluser()
-            localDataSource.saveUser(it)
-            return true
+    override suspend fun doLogin(username: String, password: String): DataResponse<User> {
+        val response = remoteDatasource.doLogin(username, password)
+        if (response is DataResponse.Success) {
+            localDataSource.deleteUser()
+            localDataSource.saveUser(response.data)
         }
-        return false
+        return response
     }
 
-    override suspend fun createAccount(username: String, email: String,firstName: String, lastName: String, password: String , photoUrl : String?): Boolean {
-        val remoteUser : User? = remoteDatasource.createAccount(username, email,firstName, lastName, password , photoUrl)
-        remoteUser?.let {
-            return true
+    override suspend fun createAccount(
+        username: String, email: String, firstName: String,
+        lastName: String, password: String, photoUrl: String?
+    ): DataResponse<User> {
+        val response =remoteDatasource.createAccount(username, email, firstName, lastName, password, photoUrl)
+        return response
+    }
+
+    override suspend fun getSessionUser(): DataResponse<User> {
+        if (localDataSource.isEmpty())
+            return DataResponse.SessionError
+        return DataResponse.Success(localDataSource.getUser())
+    }
+
+    override suspend fun updateUser(user: User): DataResponse<User> {
+        val response = remoteDatasource.updateAccount(user)
+        if (response is DataResponse.Success){
+            localDataSource.updateUser(response.data)
         }
-        return false
+        return response
     }
-
-    override suspend fun getUser(): User? {
-        if (localDataSource.isEmpty()) return null
-        return localDataSource.getUser()
-    }
-
-    override suspend fun updateUser(user: User): Boolean {
-        val remoteUser : User? = remoteDatasource.updateAccount(user)
-        remoteUser?.let {
-            localDataSource.updateUser(remoteUser)
-            return true
-        }
-        return false
-    }
-
 }

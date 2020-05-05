@@ -1,8 +1,11 @@
 package com.architectcoders.data.repository
 
-import com.architectcoders.data.source.LoginLocalDataSource
-import com.architectcoders.data.source.LoginRemoteDatasource
+import com.architectcoders.data.source.UserLocalDataSource
+import com.architectcoders.data.source.UserRemoteDatasource
+import com.architectcoders.domain.entities.DataResponse
+import com.architectcoders.domain.entities.User
 import com.example.testshared.mockedPassword
+import com.example.testshared.mockedServerError
 import com.example.testshared.mockedUser
 import com.example.testshared.mockedUsername
 import com.nhaarman.mockitokotlin2.verify
@@ -16,43 +19,52 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class UserRepositoryTest{
+class UserRepositoryTest {
 
     @Mock
-    private lateinit var localDataSource: LoginLocalDataSource
+    private lateinit var localDataSource: UserLocalDataSource
     @Mock
-    private lateinit var remoteDatasource: LoginRemoteDatasource
+    private lateinit var remoteDatasource: UserRemoteDatasource
 
     lateinit var userRepository: UserRepository
 
     @Before
-    fun init(){
-        userRepository = UserRepository(localDataSource,remoteDatasource)
+    fun init() {
+        userRepository = UserRepository(localDataSource, remoteDatasource)
     }
 
     @Test
-    fun doLoginValid(){
+    fun doLoginValid() {
         runBlocking {
-            whenever(remoteDatasource.doLogin(mockedUsername, mockedPassword)).thenReturn(mockedUser)
-            val result : Boolean = userRepository.doLogin(mockedUsername, mockedPassword)
-            assertTrue( result)
+            val loginResponse = DataResponse.Success(mockedUser)
+            whenever(remoteDatasource.doLogin(mockedUsername, mockedPassword)).thenReturn(
+                loginResponse
+            )
+            val result = userRepository.doLogin(mockedUsername, mockedPassword)
+            assertEquals(loginResponse, result)
         }
 
     }
 
     @Test
-    fun doLoginInvalid(){
+    fun doLoginInvalid() {
         runBlocking {
-            whenever(remoteDatasource.doLogin(mockedUsername, mockedPassword)).thenReturn(null)
-            val result : Boolean = userRepository.doLogin(mockedUsername, mockedPassword)
-            assertFalse( result)
+            val loginResponse = DataResponse.ServerError(mockedServerError)
+            whenever(remoteDatasource.doLogin(mockedUsername, mockedPassword)).thenReturn(
+                loginResponse
+            )
+            val result = userRepository.doLogin(mockedUsername, mockedPassword)
+            assertEquals(loginResponse, result)
         }
     }
 
     @Test
-    fun doLoginAndSaveUser(){
+    fun doLoginAndSaveUser() {
         runBlocking {
-            whenever(remoteDatasource.doLogin(mockedUsername, mockedPassword)).thenReturn(mockedUser)
+            val loginResponse = DataResponse.Success(mockedUser)
+            whenever(remoteDatasource.doLogin(mockedUsername, mockedPassword)).thenReturn(
+                loginResponse
+            )
 
             userRepository.doLogin(mockedUsername, mockedPassword)
 
@@ -60,5 +72,53 @@ class UserRepositoryTest{
         }
     }
 
+    @Test
+    fun doLoginNetworkError() {
+        runBlocking {
+            val loginResponse = DataResponse.NetworkError
+            whenever(remoteDatasource.doLogin(mockedUsername, mockedPassword)).thenReturn(
+                loginResponse
+            )
+            val result = userRepository.doLogin(mockedUsername, mockedPassword)
+            assertEquals(loginResponse, result)
+        }
+    }
+
+    @Test
+    fun updateAccountAndSave() {
+        runBlocking {
+            val loginResponse = DataResponse.Success(mockedUser)
+            whenever(remoteDatasource.updateAccount(mockedUser)).thenReturn(loginResponse)
+
+            userRepository.updateUser(mockedUser)
+
+            verify(localDataSource).updateUser(mockedUser)
+        }
+    }
+
+    @Test
+    fun getSessionUserValid() {
+        runBlocking {
+            val loginResponse = DataResponse.Success(mockedUser)
+            whenever(localDataSource.isEmpty()).thenReturn(false)
+            whenever(localDataSource.getUser()).thenReturn(mockedUser)
+
+            val result: DataResponse<User> = userRepository.getSessionUser()
+            assertEquals(loginResponse, result)
+        }
+    }
+
+    @Test
+    fun getSessionUserErrorSession() {
+        runBlocking {
+
+            val loginResponse = DataResponse.SessionError
+            whenever(localDataSource.isEmpty()).thenReturn(true)
+
+            val result: DataResponse<User> = userRepository.getSessionUser()
+
+            assertEquals(loginResponse, result)
+        }
+    }
 
 }

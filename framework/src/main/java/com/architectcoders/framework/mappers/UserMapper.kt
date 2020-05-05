@@ -1,7 +1,7 @@
 package com.architectcoders.framework.mappers
 
-import com.architectcoders.framework.server.login.request.UserRequest
-import com.architectcoders.framework.server.login.request.UserRequestUpdate
+import com.architectcoders.framework.server.user.request.UserRequest
+import com.architectcoders.framework.server.user.request.UserRequestUpdate
 import com.architectcoders.domain.entities.User
 import com.architectcoders.framework.database.entities.User as RoomUser
 import com.architectcoders.framework.server.entities.User as RemoteUser

@@ -1,7 +1,7 @@
 package com.architectcoders.domain.usecases
 
 import com.architectcoders.domain.entities.Category
-import com.architectcoders.domain.interfaces.CategoryRepository
+import com.architectcoders.domain.reositories.CategoryRepository
 
 /**
  * Created by Anibal Cortez on 2020-02-17.

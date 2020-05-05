@@ -5,13 +5,10 @@ import com.architectcoders.domain.entities.User
 /**
  * Created by Anibal Cortez on 2019-12-11.
  */
-interface LoginLocalDataSource {
+interface UserLocalDataSource {
     suspend fun isEmpty(): Boolean
     suspend fun saveUser(user: User)
-    suspend fun findById(username: String, password: String): User
     suspend fun updateUser(user: User)
-    suspend fun getUser(username: String): User
     suspend fun getUser(): User
-    suspend fun getAlluser(): List<User>
-    suspend fun deleteAlluser()
+    suspend fun deleteUser()
 }

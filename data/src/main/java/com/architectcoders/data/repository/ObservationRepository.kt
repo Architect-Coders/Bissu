@@ -4,7 +4,7 @@ import com.architectcoders.data.source.ObservationLocalDataSource
 import com.architectcoders.data.source.ObservationRemoteDatasource
 import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.Observation
-import com.architectcoders.domain.interfaces.ObservationRepository
+import com.architectcoders.domain.reositories.ObservationRepository
 
 class ObservationRepository(private val localDataSource: ObservationLocalDataSource, private val remoteDataSource: ObservationRemoteDatasource)
     : ObservationRepository {
@@ -12,10 +12,12 @@ class ObservationRepository(private val localDataSource: ObservationLocalDataSou
 
 
     override suspend fun getObservationsByUser(userId: String, forceRefresh : Boolean): DataResponse<List<Observation>> {
-        if(forceRefresh || localDataSource.isEmpty() ){
+        if(localDataSource.isEmpty() || forceRefresh ){
             val response = remoteDataSource.getObservationsByUser(userId)
             if (response is DataResponse.Success){
-                response.data.forEach { localDataSource.addObservation(it) }
+                response.data.forEach {
+                    localDataSource.addObservation(it)
+                }
             }
             return response
         } else return DataResponse.Success(localDataSource.getObservationsByUser(userId))
