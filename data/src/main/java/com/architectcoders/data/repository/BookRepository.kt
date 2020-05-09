@@ -21,8 +21,9 @@ class BookRepository(
         return DataResponse.Success(localDataSource.getBooks())
     }
 
-    override suspend fun getBookById(id: String): Book {
-        return localDataSource.getBook(id)
+    override suspend fun getBookById(id: String): DataResponse<Book> {
+        val result = localDataSource.getBook(id)
+        return DataResponse.Success(result)
     }
 
     override suspend fun createBook(

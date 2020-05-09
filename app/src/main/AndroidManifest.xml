@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name="com.architectcoders.bissu.ui.MainActivity"
+        <activity android:name="com.architectcoders.bissu.main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,15 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.architectcoders.bissu.ui.login.LoginActivity"
+        <activity android:name="com.architectcoders.bissu.login.LoginActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.architectcoders.bissu.ui.profile.ProfileActivity"
+        <activity android:name="com.architectcoders.bissu.profile.ProfileActivity"
            />
-        <activity android:name=".ui.book.BookDetailActivity"
+        <activity android:name="com.architectcoders.bissu.book.BookDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.book.activities.CreateBookActivity"
+        <activity android:name="com.architectcoders.bissu.book.activities.CreateBookActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.home.HomeActivity"
+        <activity android:name="com.architectcoders.bissu.home.HomeActivity"
             android:screenOrientation="portrait"/>
     </application>
 

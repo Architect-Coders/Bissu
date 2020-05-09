@@ -8,7 +8,7 @@ import com.architectcoders.domain.entities.DataResponse
  */
 interface BookRepository {
     suspend fun getBooks(forceRefresh: Boolean): DataResponse<List<Book>>
-    suspend fun getBookById(id: String): Book
+    suspend fun getBookById(id: String):DataResponse<Book>
     suspend fun createBook(title: String, author: String, pages: String, editorial: String,
         categoryId: String, description: String, photoUrl: String?
     ): DataResponse<Book>
