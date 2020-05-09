@@ -72,10 +72,9 @@ private val dataModule = module {
     factory<ObservationLocalDataSource> { ObservationDataSource(get()) }
     factory<CategoryLocalDatasource> { CategoryLocalDataSource(get()) }
     factory<CategoryRemoteDatasource> { CategoryRemotelDataSource() }
-    factory<UserRemoteDatasource> { UserDatasource() }
-    factory<BookRemoteDatasource> { BookDatasource() }
+    factory<UserRemoteDatasource> { UserDatasource(androidApplication()) }
+    factory<BookRemoteDatasource> { BookDatasource(androidApplication()) }
     factory<ObservationRemoteDatasource> { ObservationDatasource(androidApplication()) }
-
     factory<UserRepositoryDomain> { UserRepository(get(), get()) }
     factory<BookRepositoryDomain> { BookRepository(get(), get()) }
     factory<ObservationRepositoryDomain> { ObservationRepository(get(), get()) }
@@ -109,7 +108,7 @@ private val scopesModule = module {
             )
         }
         scoped { UpdateAccount(get()) }
-        scoped { GetAccount(get()) }
+        scoped { GetSessionUser(get()) }
     }
 
     scope(named<ChangePasswordFragment>()) {
@@ -120,7 +119,7 @@ private val scopesModule = module {
             )
         }
         scoped { UpdateAccount(get()) }
-        scoped { GetAccount(get()) }
+        scoped { GetSessionUser(get()) }
     }
 
 
@@ -131,7 +130,7 @@ private val scopesModule = module {
 
     scope(named<MyObservationsFragment>()) {
         viewModel { MyObservationsViewModel(get(), get()) }
-        scoped { GetAccount(get()) }
+        scoped { GetSessionUser(get()) }
         scoped { GetObservationsByUser(get()) }
     }
 
@@ -141,7 +140,7 @@ private val scopesModule = module {
                 get()
             )
         }
-        scoped { GetAccount(get()) }
+        scoped { GetSessionUser(get()) }
     }
 
     scope(named<BookDetailFragment>()) {
@@ -152,7 +151,7 @@ private val scopesModule = module {
 
     scope(named<ObservationFragment>()) {
         viewModel { ObservationViewModel(get(), get(), get()) }
-        scoped { GetAccount(get()) }
+        scoped { GetSessionUser(get()) }
         scoped { GetBook(get()) }
         scoped { CreateObservation(get()) }
     }
@@ -164,7 +163,8 @@ private val scopesModule = module {
     }
 
     scope(named<MainActivity>()){
-        viewModel { MainViewModel(get()) }
-        scoped { GetAccount(get()) }
+        viewModel { MainViewModel(get(),get()) }
+        scoped { GetSessionUser(get()) }
+
     }
 }

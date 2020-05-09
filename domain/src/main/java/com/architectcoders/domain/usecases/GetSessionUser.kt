@@ -9,5 +9,5 @@ import com.architectcoders.domain.reositories.UserRepository
  */
 
 class GetSessionUser(private val userRepository : UserRepository) {
-    suspend fun getUser(): DataResponse<User> = userRepository.getSessionUser()
+    suspend fun invoke(): DataResponse<User> = userRepository.getSessionUser()
 }

@@ -3,10 +3,13 @@ package com.architectcoders.bissu.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.ui.common.ScopedViewModel
-import com.architectcoders.domain.usecases.GetAccount
+import com.architectcoders.domain.entities.DataResponse
+import com.architectcoders.domain.usecases.GetSessionUser
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
+class MainViewModel(private val getSessionUser: GetSessionUser, uiDispatcher: CoroutineDispatcher)
+    : ScopedViewModel(uiDispatcher) {
 
     init {
         initScope()
@@ -26,8 +29,11 @@ class MainViewModel(private val getAccount: GetAccount) : ScopedViewModel() {
 
     fun getUser(){
         launch {
-            if (getAccount.invoke() == null) _model.value = UiModel.NavigateToLogin
-            else _model.value =  UiModel.NavigateToHome
+            val response = getSessionUser.invoke()
+            when(response){
+                is DataResponse.Success -> _model.value = UiModel.NavigateToLogin
+                is DataResponse.SessionError -> UiModel.NavigateToHome
+            }
         }
     }
 }
