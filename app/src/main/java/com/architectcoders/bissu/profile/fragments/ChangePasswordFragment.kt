@@ -20,7 +20,11 @@ class ChangePasswordFragment : Fragment() {
 
     private val viewModel: ChangePasswordViewModel by lifecycleScope.viewModel(this)
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.profile_change_password, container, false)
     }
 
@@ -36,33 +40,55 @@ class ChangePasswordFragment : Fragment() {
     }
 
     private fun updateUi(model: ChangePasswordViewModel.UiModel) {
-        progress_bar_view.visibility = if (model is ChangePasswordViewModel.UiModel.Loading) View.VISIBLE else View.GONE
+        progress_bar_view.visibility =
+            if (model is ChangePasswordViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
-            is ChangePasswordViewModel.UiModel.UserSessionContent ->  setCurrentUser(model.user)
-            is ChangePasswordViewModel.UiModel.ChangePasswordContent -> validateUpdateAccountContent(model.status)
+            is ChangePasswordViewModel.UiModel.UserSessionContent -> setCurrentUser(model.user)
+            is ChangePasswordViewModel.UiModel.ChangePasswordContent -> validateUpdateAccountContent(model.user)
             is ChangePasswordViewModel.UiModel.NavigationToHome -> navigationToHome()
         }
     }
 
-    private fun  navigationToHome(){
+    private fun navigationToHome() {
         viewModel.closeSession(activity!!)
     }
 
-    private fun validateUpdateAccountContent( succes : Boolean){
-        if (succes) viewModel.navigateToHome()
-        else context?.showAlertDialog("User not registered")
+    private fun validateUpdateAccountContent(user: User) {
+         viewModel.navigateToHome()
     }
 
-    private fun setCurrentUser(user : User){
+    private fun setCurrentUser(user: User) {
         currentUser = user
     }
 
-    private fun changePassword(){
+    private fun changePassword() {
         if (
             viewModel.validatePassword(context!!, password_edit_text, password_input_layout) &&
-            viewModel.validateRepeatPassword(context!!,repeat_password_edit_text, repeat_password_input_layout) &&
-            viewModel.validateInputPassword(context!!,password_edit_text, repeat_password_edit_text,repeat_password_input_layout)){
-            viewModel.updateAccount(currentUser, password = password_edit_text.text.toString())
+            viewModel.validateRepeatPassword(
+                context!!,
+                repeat_password_edit_text,
+                repeat_password_input_layout
+            ) &&
+            viewModel.validateInputPassword(
+                context!!,
+                password_edit_text,
+                repeat_password_edit_text,
+                repeat_password_input_layout
+            )
+        ) {
+            viewModel.updateAccount(
+                User(
+                    id = currentUser.id,
+                    username = currentUser.username,
+                    password = password_edit_text.text.toString(),
+                    email = currentUser.email,
+                    firstName = currentUser.firstName,
+                    lastName = currentUser.lastName,
+                    photoUrl = currentUser.photoUrl,
+                    categories = currentUser.categories
+                    )
+
+            )
         }
     }
 

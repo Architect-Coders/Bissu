@@ -1,4 +1,4 @@
-package com.architectcoders.domain.reositories
+package com.architectcoders.domain.repositories
 
 import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.User

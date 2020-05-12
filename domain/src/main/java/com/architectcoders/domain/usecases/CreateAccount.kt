@@ -2,7 +2,7 @@ package com.architectcoders.domain.usecases
 
 import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.User
-import com.architectcoders.domain.reositories.UserRepository
+import com.architectcoders.domain.repositories.UserRepository
 
 /**
  * Created by Anibal Cortez on 2019-12-16.

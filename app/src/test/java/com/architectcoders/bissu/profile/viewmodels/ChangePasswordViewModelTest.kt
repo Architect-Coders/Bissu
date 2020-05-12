@@ -94,9 +94,10 @@ class ChangePasswordViewModelTest {
 
             changePasswordViewModel.model.observeForever(observer)
 
-            changePasswordViewModel.updateAccount(mockedUser, mockedUser.password)
+            changePasswordViewModel.updateAccount(mockedUser)
 
-            verify(observer).onChanged(ChangePasswordViewModel.UiModel.ChangePasswordContent(true))
+            verify(observer).onChanged(ChangePasswordViewModel.UiModel.ChangePasswordContent(
+                mockedUser))
         }
     }
 
@@ -110,7 +111,7 @@ class ChangePasswordViewModelTest {
 
             changePasswordViewModel.model.observeForever(observer)
 
-            changePasswordViewModel.updateAccount(mockedUser, mockedUser.password)
+            changePasswordViewModel.updateAccount(mockedUser)
 
             verify(observer).onChanged(ChangePasswordViewModel.UiModel.ServerError)
         }
@@ -126,7 +127,7 @@ class ChangePasswordViewModelTest {
 
             changePasswordViewModel.model.observeForever(observer)
 
-            changePasswordViewModel.updateAccount(mockedUser, mockedUser.password)
+            changePasswordViewModel.updateAccount(mockedUser)
 
             verify(observer).onChanged(ChangePasswordViewModel.UiModel.NetworkError)
         }

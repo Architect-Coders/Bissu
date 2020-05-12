@@ -4,7 +4,7 @@ import com.architectcoders.data.source.ObservationLocalDataSource
 import com.architectcoders.data.source.ObservationRemoteDatasource
 import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.Observation
-import com.architectcoders.domain.reositories.ObservationRepository
+import com.architectcoders.domain.repositories.ObservationRepository
 
 class ObservationRepository(private val localDataSource: ObservationLocalDataSource, private val remoteDataSource: ObservationRemoteDatasource)
     : ObservationRepository {

@@ -8,6 +8,7 @@ import com.architectcoders.bissu.common.ScopedViewModel
 import com.architectcoders.bissu.common.validateInput
 import com.architectcoders.bissu.common.validateInputPasword
 import com.architectcoders.domain.entities.DataResponse
+import com.architectcoders.domain.entities.User
 import com.architectcoders.domain.usecases.CreateAccount
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -28,7 +29,7 @@ class CreateAccountViewModel(private val createAccount: CreateAccount, uiDispatc
 
     sealed class UiModel {
         data class Loading(val value : Boolean) : UiModel()
-        data class CreateAccountContent(val success: Boolean) : UiModel()
+        data class CreateAccountContent(val user : User) : UiModel()
         object NavigationLogin : UiModel()
         object ServerError : UiModel()
         object NetworkError: UiModel()
@@ -44,7 +45,7 @@ class CreateAccountViewModel(private val createAccount: CreateAccount, uiDispatc
 
             val response =  createAccount.invoke(username, email, firstName, lastName, password, photoUrl)
             when(response){
-                is DataResponse.Success ->  _model.value = UiModel.CreateAccountContent(true)
+                is DataResponse.Success ->  _model.value = UiModel.CreateAccountContent(response.data)
                 is DataResponse.ServerError -> _model.value = UiModel.ServerError
                 is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
             }

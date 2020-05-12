@@ -1,6 +1,6 @@
 package com.architectcoders.domain.usecases
 
-import com.architectcoders.domain.reositories.BookRepository
+import com.architectcoders.domain.repositories.BookRepository
 import com.example.testshared.mockedBook
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking

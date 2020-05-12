@@ -1,6 +1,6 @@
 package com.architectcoders.domain.usecases
 
-import com.architectcoders.domain.reositories.CategoryRepository
+import com.architectcoders.domain.repositories.CategoryRepository
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Before

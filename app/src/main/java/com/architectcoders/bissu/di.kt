@@ -36,10 +36,10 @@ import com.architectcoders.data.repository.BookRepository
 import com.architectcoders.data.repository.CategoryRepository
 import com.architectcoders.data.repository.ObservationRepository
 import com.architectcoders.data.repository.UserRepository
-import com.architectcoders.domain.reositories.UserRepository as UserRepositoryDomain
-import com.architectcoders.domain.reositories.ObservationRepository as ObservationRepositoryDomain
-import com.architectcoders.domain.reositories.CategoryRepository as CategoryRepositoryDomain
-import com.architectcoders.domain.reositories.BookRepository as BookRepositoryDomain
+import com.architectcoders.domain.repositories.UserRepository as UserRepositoryDomain
+import com.architectcoders.domain.repositories.ObservationRepository as ObservationRepositoryDomain
+import com.architectcoders.domain.repositories.CategoryRepository as CategoryRepositoryDomain
+import com.architectcoders.domain.repositories.BookRepository as BookRepositoryDomain
 import com.architectcoders.data.source.*
 import com.architectcoders.domain.usecases.*
 import kotlinx.coroutines.CoroutineDispatcher
@@ -56,7 +56,7 @@ fun AndroidApplication.initDi() {
     startKoin {
         androidLogger()
         androidContext(this@initDi)
-        modules(listOf(appModule, dataModule, scopesModule))
+        modules(listOf(appModule,domainModule, dataModule, scopesModule))
     }
 }
 
@@ -68,13 +68,19 @@ private val appModule = module {
 
 private val dataModule = module {
     factory<UserLocalDataSource> { LoginDataSource(get()) }
+    factory<UserRemoteDatasource> { UserDatasource(androidApplication()) }
+
+    factory<BookRemoteDatasource> { BookDatasource(androidApplication()) }
     factory<BookLocalDataSource> { BookDataSource(get()) }
+
+    factory<ObservationRemoteDatasource> { ObservationDatasource(androidApplication()) }
     factory<ObservationLocalDataSource> { ObservationDataSource(get()) }
+
     factory<CategoryLocalDatasource> { CategoryLocalDataSource(get()) }
     factory<CategoryRemoteDatasource> { CategoryRemotelDataSource(androidApplication()) }
-    factory<UserRemoteDatasource> { UserDatasource(androidApplication()) }
-    factory<BookRemoteDatasource> { BookDatasource(androidApplication()) }
-    factory<ObservationRemoteDatasource> { ObservationDatasource(androidApplication()) }
+}
+
+val domainModule = module{
     factory<UserRepositoryDomain> { UserRepository(get(), get()) }
     factory<BookRepositoryDomain> { BookRepository(get(), get()) }
     factory<ObservationRepositoryDomain> { ObservationRepository(get(), get()) }

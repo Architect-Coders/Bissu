@@ -83,15 +83,9 @@ class UpdateAccountViewModelTest {
 
             updateAccountViewModel.model.observeForever(observer)
 
-            updateAccountViewModel.updateAccount(
-                mockedUser,
-                mockedUser.username,
-                mockedUser.email,
-                mockedUser.firstName,
-                mockedUser.lastName,
-                mockedUser.photoUrl
-            )
-            verify(observer).onChanged(UpdateAccountViewModel.UiModel.UpdateAccountContent(true))
+            updateAccountViewModel.updateAccount( mockedUser)
+
+            verify(observer).onChanged(UpdateAccountViewModel.UiModel.UpdateAccountContent(mockedUser))
 
         }
     }
@@ -107,12 +101,7 @@ class UpdateAccountViewModelTest {
             updateAccountViewModel.model.observeForever(observer)
 
             updateAccountViewModel.updateAccount(
-                mockedUser,
-                mockedUser.username,
-                mockedUser.email,
-                mockedUser.firstName,
-                mockedUser.lastName,
-                mockedUser.photoUrl
+                mockedUser
             )
             verify(observer).onChanged(UpdateAccountViewModel.UiModel.ServerError)
 
@@ -129,14 +118,8 @@ class UpdateAccountViewModelTest {
 
             updateAccountViewModel.model.observeForever(observer)
 
-            updateAccountViewModel.updateAccount(
-                mockedUser,
-                mockedUser.username,
-                mockedUser.email,
-                mockedUser.firstName,
-                mockedUser.lastName,
-                mockedUser.photoUrl
-            )
+            updateAccountViewModel.updateAccount(mockedUser)
+
             verify(observer).onChanged(UpdateAccountViewModel.UiModel.NetworkError)
 
         }

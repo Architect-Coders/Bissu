@@ -38,10 +38,14 @@ class UpdateAccountFragment : Fragment() {
     val REQUEST_IMAGE_CAPTURE = 1
 
     private lateinit var currentUser: User
-    private var photoUrl : Bitmap? = null
+    private var photoUrl: Bitmap? = null
     private val viewModel: UpdateAccountViewModel by lifecycleScope.viewModel(this)
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.profile_update_account, container, false)
     }
 
@@ -61,23 +65,24 @@ class UpdateAccountFragment : Fragment() {
     }
 
     private fun updateUi(model: UpdateAccountViewModel.UiModel) {
-        progress_bar_view.visibility = if (model is UpdateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
+        progress_bar_view.visibility =
+            if (model is UpdateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
-            is UpdateAccountViewModel.UiModel.UserSessionContent ->  setCurrentUser(model.user)
-            is UpdateAccountViewModel.UiModel.UpdateAccountContent -> validateUpdateAccountContent(model.status)
-            is UpdateAccountViewModel.UiModel.NavigationToHome ->  navigationToHome()
+            is UpdateAccountViewModel.UiModel.UserSessionContent -> setCurrentUser(model.user)
+            is UpdateAccountViewModel.UiModel.UpdateAccountContent -> validateUpdateAccountContent( model.user)
+            is UpdateAccountViewModel.UiModel.NavigationToHome -> navigationToHome()
         }
     }
 
-    private fun  navigationToHome(){
+    private fun navigationToHome() {
         viewModel.closeSession(activity!!)
     }
 
-    private fun validateUpdateAccountContent( succes : Boolean){
-        if (succes) viewModel.navigateToProfile() else context?.showAlertDialog("User not registered")
+    private fun validateUpdateAccountContent(updateUser: User) {
+         viewModel.navigateToProfile()
     }
 
-    private fun setCurrentUser(user : User){
+    private fun setCurrentUser(user: User) {
         currentUser = user
         email_edit_text.setText(user.email)
         username_edit_text.setText(user.username)
@@ -90,21 +95,26 @@ class UpdateAccountFragment : Fragment() {
 
 
     private fun updateAccount() {
-      if(  viewModel.validateUsername(context!!, username_edit_text, username_input_layout) &&
-                viewModel.validateEmail(context!!, email_edit_text, email_input_layout) &&
-                viewModel.validateFirstName(context!!, first_name_edit_text, first_name_imput_layout) &&
-                viewModel.validateLastName(context!!, last_name_edit_text, last_name_input_layout) ){
+        if (viewModel.validateUsername(context!!, username_edit_text, username_input_layout) &&
+            viewModel.validateEmail(context!!, email_edit_text, email_input_layout) &&
+            viewModel.validateFirstName(context!!, first_name_edit_text, first_name_imput_layout) &&
+            viewModel.validateLastName(context!!, last_name_edit_text, last_name_input_layout)
+        ) {
 
-         val userPhoto : String? = if (photoUrl == null) currentUser.photoUrl  else photoUrl!!.toBase64()
-          viewModel.updateAccount(
-              currentUser,
-              username_edit_text.text.toString(),
-              email_edit_text.text.toString(),
-              first_name_edit_text.text.toString(),
-              last_name_edit_text.text.toString(),
-              userPhoto
-          )
-      }
+            val userPhoto: String? = if (photoUrl == null) currentUser.photoUrl else photoUrl!!.toBase64()
+            viewModel.updateAccount(
+                User(
+                    currentUser.id,
+                    username_edit_text.text.toString(),
+                    email_edit_text.text.toString(),
+                    first_name_edit_text.text.toString(),
+                    last_name_edit_text.text.toString(),
+                    password = currentUser.password,
+                    photoUrl = userPhoto,
+                    categories = currentUser.categories
+                )
+            )
+        }
     }
 
     private fun dispatcheTakePictureIntent() {
@@ -120,7 +130,7 @@ class UpdateAccountFragment : Fragment() {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data!!.extras?.get("data") as Bitmap
             photoUrl = imageBitmap
-           // user_photo.setImageBitmap(imageBitmap)
+            // user_photo.setImageBitmap(imageBitmap)
         }
     }
 }

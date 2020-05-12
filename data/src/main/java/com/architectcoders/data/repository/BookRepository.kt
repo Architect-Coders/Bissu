@@ -4,7 +4,7 @@ import com.architectcoders.data.source.BookLocalDataSource
 import com.architectcoders.data.source.BookRemoteDatasource
 import com.architectcoders.domain.entities.Book
 import com.architectcoders.domain.entities.DataResponse
-import com.architectcoders.domain.reositories.BookRepository
+import com.architectcoders.domain.repositories.BookRepository
 
 class BookRepository(
     private val localDataSource: BookLocalDataSource,
@@ -23,6 +23,7 @@ class BookRepository(
 
     override suspend fun getBookById(id: String): DataResponse<Book> {
         val result = localDataSource.getBook(id)
+
         return DataResponse.Success(result)
     }
 

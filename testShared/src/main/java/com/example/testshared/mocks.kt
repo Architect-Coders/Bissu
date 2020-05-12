@@ -26,6 +26,8 @@ val mockedServerError = 500
 
 val mockedUsername = "Anibalc"
 val mockedPassword = "123"
+val mockedUsernameUpdate = "AnibalCortez"
+val mockedPasswordUpdate = "12345"
 val mockedDescription = "This is a description"
 val mockedPages = "500"
 
@@ -37,6 +39,17 @@ val mockedUser = User(
     firstName = "anibal",
     lastName = "arenas",
     password = mockedPassword,
+    photoUrl = null,
+    categories = listOf(mockedCategory)
+)
+
+val mockedUserUpdate = User(
+    id = "1",
+    username = mockedUsernameUpdate,
+    email = "aniablc@gmail.com",
+    firstName = "anibal",
+    lastName = "arenas",
+    password = mockedPasswordUpdate,
     photoUrl = null,
     categories = listOf(mockedCategory)
 )

@@ -1,11 +1,10 @@
 package com.architectcoders.domain.usecases
 
-import com.architectcoders.domain.reositories.UserRepository
+import com.architectcoders.domain.repositories.UserRepository
 import com.example.testshared.mockedPassword
 import com.example.testshared.mockedUsername
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -4,7 +4,7 @@ import com.architectcoders.data.source.CategoryLocalDatasource
 import com.architectcoders.data.source.CategoryRemoteDatasource
 import com.architectcoders.domain.entities.Category
 import com.architectcoders.domain.entities.DataResponse
-import com.architectcoders.domain.reositories.CategoryRepository
+import com.architectcoders.domain.repositories.CategoryRepository
 
 /**
  * Created by Anibal Cortez on 2020-02-17.

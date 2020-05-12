@@ -1,7 +1,7 @@
 package com.architectcoders.domain.usecases
 
 
-import com.architectcoders.domain.reositories.ObservationRepository
+import com.architectcoders.domain.repositories.ObservationRepository
 import com.example.testshared.mockedUser
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking

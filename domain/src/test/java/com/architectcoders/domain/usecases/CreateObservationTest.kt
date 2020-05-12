@@ -1,12 +1,11 @@
 package com.architectcoders.domain.usecases
 
-import com.architectcoders.domain.reositories.ObservationRepository
+import com.architectcoders.domain.repositories.ObservationRepository
 import com.example.testshared.mockedObservation
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.runner.RunWith
 import org.mockito.Mock

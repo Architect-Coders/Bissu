@@ -93,7 +93,8 @@ class CreateAccountViewModelTest{
                 mockedUser.photoUrl
             )
 
-            verify(observer).onChanged(CreateAccountViewModel.UiModel.CreateAccountContent(true))
+            verify(observer).onChanged(CreateAccountViewModel.UiModel.CreateAccountContent(
+                mockedUser))
         }
 
     }

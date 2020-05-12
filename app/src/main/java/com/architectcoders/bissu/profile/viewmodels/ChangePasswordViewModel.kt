@@ -37,7 +37,7 @@ class ChangePasswordViewModel(
     }
 
     sealed class UiModel {
-        data class ChangePasswordContent(val status: Boolean) : UiModel()
+        data class ChangePasswordContent(var user: User) : UiModel()
         data class UserSessionContent(val user: User) : UiModel()
         object Loading : UiModel()
         object NavigationToHome : UiModel()
@@ -47,18 +47,6 @@ class ChangePasswordViewModel(
 
     }
 
-    private fun getUser(currentUser: User, password: String): User {
-        return User(
-            id = currentUser.id,
-            username = currentUser.username,
-            email = currentUser.email,
-            firstName = currentUser.firstName,
-            lastName = currentUser.lastName,
-            password = password,
-            photoUrl = currentUser.photoUrl,
-            categories = currentUser.categories
-        )
-    }
 
     fun navigateToHome() {
         _model.value = UiModel.NavigationToHome
@@ -71,13 +59,13 @@ class ChangePasswordViewModel(
         }
     }
 
-    fun updateAccount(currentUser: User, password: String) {
+    fun updateAccount(updatedUser: User) {
         launch {
             _model.value = UiModel.Loading
 
-            val response = updateAccount.invoke(getUser(currentUser, password))
+            val response = updateAccount.invoke(updatedUser)
             when (response) {
-                is DataResponse.Success -> _model.value = UiModel.ChangePasswordContent(true)
+                is DataResponse.Success -> _model.value = UiModel.ChangePasswordContent(response.data)
                 is DataResponse.ServerError -> _model.value = UiModel.ServerError
                 is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
             }
@@ -91,8 +79,6 @@ class ChangePasswordViewModel(
             val response = getSessionUser.invoke()
             when (response) {
                 is DataResponse.Success -> _model.value = UiModel.UserSessionContent(response.data)
-                is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
-                is DataResponse.ServerError -> _model.value = UiModel.ServerError
                 is DataResponse.SessionError -> _model.value = UiModel.SessionError
             }
 

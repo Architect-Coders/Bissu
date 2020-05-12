@@ -36,7 +36,7 @@ class UpdateAccountViewModel(
     }
 
     sealed class UiModel {
-        data class UpdateAccountContent(val status: Boolean) : UiModel()
+        data class UpdateAccountContent(val user: User) : UiModel()
         data class UserSessionContent(val user: User) : UiModel()
         object Loading : UiModel()
         object ServerError :  UiModel()
@@ -56,14 +56,12 @@ class UpdateAccountViewModel(
         }
     }
 
-    fun updateAccount(currentUser : User, username: String, email: String,firstName: String, lastName: String,photoUrl: String? = null ) {
+    fun updateAccount(userUpdated : User) {
         launch {
             _model.value = UiModel.Loading
-            val response =  updateAccount.invoke( User( id = currentUser.id,
-                    username = username, email = email,firstName = firstName,
-                    lastName = lastName, password = currentUser.password, photoUrl = photoUrl, categories = currentUser.categories))
+            val response =  updateAccount.invoke(userUpdated)
             when(response){
-                is DataResponse.Success ->    _model.value = UiModel.UpdateAccountContent(true)
+                is DataResponse.Success ->  _model.value = UiModel.UpdateAccountContent(response.data)
                 is DataResponse.ServerError ->    _model.value = UiModel.ServerError
                 is DataResponse.NetworkError ->    _model.value = UiModel.NetworkError
             }

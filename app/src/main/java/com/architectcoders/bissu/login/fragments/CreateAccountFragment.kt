@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
 import com.architectcoders.bissu.common.showAlertDialog
 import com.architectcoders.bissu.login.viewmodels.CreateAccountViewModel
+import com.architectcoders.domain.entities.User
 import kotlinx.android.synthetic.main.login_create_account.*
 import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.scope.viewModel
@@ -35,7 +36,7 @@ class CreateAccountFragment : Fragment() {
 
     private fun updateUi(model: CreateAccountViewModel.UiModel) {
         when (model) {
-            is CreateAccountViewModel.UiModel.CreateAccountContent -> validateAccountContent(model.success)
+            is CreateAccountViewModel.UiModel.CreateAccountContent -> validateAccountContent(model.user)
             is CreateAccountViewModel.UiModel.Loading -> progressVisibility(model.value)
             is CreateAccountViewModel.UiModel.NavigationLogin -> navigationToLoginFragment();
         }
@@ -45,9 +46,8 @@ class CreateAccountFragment : Fragment() {
         progress_bar_view.visibility = if (value) View.VISIBLE else View.GONE
     }
 
-    private fun validateAccountContent( succes : Boolean){
-        if (succes) viewModel.loginNavigation()
-        else context?.showAlertDialog("User not registered")
+    private fun validateAccountContent( user : User){
+         viewModel.loginNavigation()
     }
 
     private fun navigationToLoginFragment(){
