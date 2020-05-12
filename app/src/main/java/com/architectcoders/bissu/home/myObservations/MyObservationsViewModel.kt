@@ -24,10 +24,12 @@ class MyObservationsViewModel(
         }
 
     sealed class UiModel {
-        class Loading(val value: Boolean) : UiModel()
-        class ObservationContent(val observations: List<Observation>) : UiModel()
+        data class UserContent(val user: User) : UiModel()
+        data class Loading(val value: Boolean) : UiModel()
+        data class ObservationContent(val observations: List<Observation>) : UiModel()
+        object ServerError : UiModel()
+        object NetworkError : UiModel()
         object SessionError : UiModel()
-        class UserContent(val user: User) : UiModel()
     }
 
     init {
@@ -37,11 +39,14 @@ class MyObservationsViewModel(
     fun getSessionUser() {
         launch {
             _model.value = UiModel.Loading(true)
+
             val response = getAccount.invoke()
+
             when (response) {
-                is DataResponse.Success -> UiModel.UserContent(response.data)
-                is DataResponse.SessionError -> UiModel.SessionError
+                is DataResponse.Success -> _model.value = UiModel.UserContent(response.data)
+                is DataResponse.SessionError -> _model.value =UiModel.SessionError
             }
+            _model.value = UiModel.Loading(false)
         }
     }
 
@@ -51,10 +56,8 @@ class MyObservationsViewModel(
             val response = getObservationsByUser.invoke(userId, forceRefresh)
             when (response) {
                 is DataResponse.Success -> _model.value = UiModel.ObservationContent(response.data)
-                is DataResponse.ServerError -> {
-                }
-                is DataResponse.NetworkError -> {
-                }
+                is DataResponse.ServerError -> _model.value = UiModel.ServerError
+                is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
             }
             _model.value = UiModel.Loading(false)
         }

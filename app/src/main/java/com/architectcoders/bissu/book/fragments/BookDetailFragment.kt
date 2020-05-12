@@ -1,4 +1,4 @@
-package com.architectcoders.bissu.book
+package com.architectcoders.bissu.book.fragments
 
 import android.os.Bundle
 import android.view.*
@@ -6,7 +6,9 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.book.BookDetailViewModel.UiModel
+import com.architectcoders.bissu.book.ObservationAdapter
+import com.architectcoders.bissu.book.viewModel.BookDetailViewModel
+import com.architectcoders.bissu.book.viewModel.BookDetailViewModel.UiModel
 import com.architectcoders.bissu.observation.ObservationFragment
 import com.architectcoders.domain.entities.Book
 import com.bumptech.glide.Glide
@@ -24,7 +26,8 @@ class BookDetailFragment : Fragment() {
         private const val BOOK_ID = "bookId"
 
         fun newInstance(bookId: String): BookDetailFragment {
-            val fragment = BookDetailFragment()
+            val fragment =
+                BookDetailFragment()
             fragment.arguments = bundleOf(
                 BOOK_ID to bookId
             )
@@ -48,19 +51,12 @@ class BookDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
-       // initializeAdapter()
         create_observation.setOnClickListener {
             navigateToNewObservation();
         }
         viewModel.getBook(bookId)
-       // viewModel.fetchObservations(bookId)
     }
 
-    /*private fun initializeAdapter() {
-        observations_recycler_view.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = observationAdapter}
-    } */
 
     private fun navigateToNewObservation(){
         val fragmentManager = activity!!.supportFragmentManager
@@ -74,16 +70,10 @@ class BookDetailFragment : Fragment() {
     private fun updateUi(model: UiModel?) {
         when (model) {
             is UiModel.Loading -> mainProgressVisibility(model.value)
-            is UiModel.Content -> updateBookUi(model.book)
-            is UiModel.LoadingObservations -> mainProgressVisibility(model.value)
-          //  is UiModel.Observations -> processObservations(model.observations)
+            is UiModel.BookContent -> updateBookUi(model.book)
         }
     }
 
-   /* private fun processObservations(observations: List<Observation>) {
-        observationAdapter.submitList(observations.map { ObservationItem(it) })
-        observations_recycler_view.visibility = if (observationAdapter.itemCount > 0) View.VISIBLE else View.GONE
-    } */
     private fun mainProgressVisibility(value: Boolean) {
         progress_bar_layout.visibility = if (value) View.VISIBLE else View.GONE
     }

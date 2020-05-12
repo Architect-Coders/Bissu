@@ -13,9 +13,9 @@ import com.architectcoders.framework.server.category.CategoryDatasource as Categ
 import com.architectcoders.framework.database.category.CategoryDatasource as CategoryLocalDataSource
 import com.architectcoders.framework.server.user.UserDatasource
 import com.architectcoders.framework.server.observation.ObservationDatasource
-import com.architectcoders.bissu.book.BookDetailFragment
-import com.architectcoders.bissu.book.BookDetailViewModel
-import com.architectcoders.bissu.book.CreateBookViewModel
+import com.architectcoders.bissu.book.fragments.BookDetailFragment
+import com.architectcoders.bissu.book.viewModel.BookDetailViewModel
+import com.architectcoders.bissu.book.viewModel.CreateBookViewModel
 import com.architectcoders.bissu.book.fragments.CreateBookFragment
 import com.architectcoders.bissu.home.bookList.BookListViewModel
 import com.architectcoders.bissu.home.myObservations.MyObservationsFragment
@@ -71,7 +71,7 @@ private val dataModule = module {
     factory<BookLocalDataSource> { BookDataSource(get()) }
     factory<ObservationLocalDataSource> { ObservationDataSource(get()) }
     factory<CategoryLocalDatasource> { CategoryLocalDataSource(get()) }
-    factory<CategoryRemoteDatasource> { CategoryRemotelDataSource() }
+    factory<CategoryRemoteDatasource> { CategoryRemotelDataSource(androidApplication()) }
     factory<UserRemoteDatasource> { UserDatasource(androidApplication()) }
     factory<BookRemoteDatasource> { BookDatasource(androidApplication()) }
     factory<ObservationRemoteDatasource> { ObservationDatasource(androidApplication()) }
@@ -132,13 +132,17 @@ private val scopesModule = module {
 
     scope(named<ProfileFragment>()) {
         viewModel {
-            ProfileViewModel( get(),get())
+            ProfileViewModel( get())
         }
-        scoped { GetSessionUser(get()) }
     }
 
     scope(named<BookDetailFragment>()) {
-        viewModel { BookDetailViewModel(get(),get()) }
+        viewModel {
+            BookDetailViewModel(
+                get(),
+                get()
+            )
+        }
         scoped { GetBook(get()) }
 
     }
@@ -151,7 +155,13 @@ private val scopesModule = module {
     }
 
     scope(named<CreateBookFragment>()) {
-        viewModel { CreateBookViewModel(get(), get(),get()) }
+        viewModel {
+            CreateBookViewModel(
+                get(),
+                get(),
+                get()
+            )
+        }
         scoped { GetCategories(get()) }
         scoped { CreateBook(get()) }
     }

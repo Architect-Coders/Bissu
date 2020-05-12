@@ -27,9 +27,11 @@ class CreateAccountViewModel(private val createAccount: CreateAccount, uiDispatc
         }
 
     sealed class UiModel {
-        class Loading(val value : Boolean) : UiModel()
-        class CreateAccountContent(val success: Boolean) : UiModel()
+        data class Loading(val value : Boolean) : UiModel()
+        data class CreateAccountContent(val success: Boolean) : UiModel()
         object NavigationLogin : UiModel()
+        object ServerError : UiModel()
+        object NetworkError: UiModel()
     }
 
     init {
@@ -43,16 +45,15 @@ class CreateAccountViewModel(private val createAccount: CreateAccount, uiDispatc
             val response =  createAccount.invoke(username, email, firstName, lastName, password, photoUrl)
             when(response){
                 is DataResponse.Success ->  _model.value = UiModel.CreateAccountContent(true)
-                is DataResponse.ServerError -> {}
-                is DataResponse.NetworkError -> {}
+                is DataResponse.ServerError -> _model.value = UiModel.ServerError
+                is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
             }
             _model.value = UiModel.Loading(false)
         }
     }
 
     fun loginNavigation() {
-        _model.value =
-            UiModel.NavigationLogin
+        _model.value = UiModel.NavigationLogin
     }
 
     fun validateUsername(

@@ -25,7 +25,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.architectcoders.bissu.profile.ProfileActivity"
            />
-        <activity android:name="com.architectcoders.bissu.book.BookDetailActivity"
+        <activity android:name="com.architectcoders.bissu.book.activities.BookDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name="com.architectcoders.bissu.book.activities.CreateBookActivity"
             android:screenOrientation="portrait"/>

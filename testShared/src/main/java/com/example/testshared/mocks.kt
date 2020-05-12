@@ -26,7 +26,8 @@ val mockedServerError = 500
 
 val mockedUsername = "Anibalc"
 val mockedPassword = "123"
-
+val mockedDescription = "This is a description"
+val mockedPages = "500"
 
 
 val mockedUser = User(

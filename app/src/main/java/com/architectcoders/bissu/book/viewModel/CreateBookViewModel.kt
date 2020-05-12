@@ -1,4 +1,4 @@
-package com.architectcoders.bissu.book
+package com.architectcoders.bissu.book.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,10 @@ import kotlinx.coroutines.launch
 /**
  * Created by Anibal Cortez on 2020-02-18.
  */
-class CreateBookViewModel(private val getCategories : GetCategories, private val createBook : CreateBook, uiDispacher : CoroutineDispatcher)
+class CreateBookViewModel(
+    private val getCategories : GetCategories,
+    private val createBook : CreateBook,
+    uiDispacher : CoroutineDispatcher)
     :   ScopedViewModel(uiDispacher) {
 
     private val _model = MutableLiveData<UiModel>()
@@ -23,9 +26,11 @@ class CreateBookViewModel(private val getCategories : GetCategories, private val
         }
 
     sealed class UiModel {
+        data class CategoryContent(val list : List<Category>) : UiModel()
+        object CreateBookSuccess : UiModel()
         object Loading : UiModel()
-        class Content(val list : List<Category>) : UiModel()
-        class CreateBook(var boolean: Boolean) : UiModel()
+        object ServerError : UiModel()
+        object NetworkError : UiModel()
     }
 
     init {
@@ -35,7 +40,12 @@ class CreateBookViewModel(private val getCategories : GetCategories, private val
     fun getCategories(){
         launch {
             _model.value = UiModel.Loading
-            _model.value = UiModel.Content(getCategories.invoke() )
+            val response =  getCategories.invoke()
+            when(response){
+                is DataResponse.Success ->  _model.value = UiModel.CategoryContent(response.data)
+                is DataResponse.ServerError ->  _model.value = UiModel.ServerError
+                is DataResponse.NetworkError ->  _model.value = UiModel.NetworkError
+            }
         }
     }
 
@@ -44,9 +54,9 @@ class CreateBookViewModel(private val getCategories : GetCategories, private val
             _model.value = UiModel.Loading
             val response = createBook.invoke(title,author, pages, editorial,categoryId, description, photoUrl)
             when(response){
-                is DataResponse.Success -> _model.value = UiModel.CreateBook(true)
-                is DataResponse.ServerError -> _model.value = UiModel.CreateBook(false)
-                is DataResponse.NetworkError -> _model.value = UiModel.CreateBook(false)
+                is DataResponse.Success -> _model.value =UiModel.CreateBookSuccess
+                is DataResponse.ServerError -> _model.value =UiModel.ServerError
+                is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
             }
 
         }

@@ -36,9 +36,10 @@ class UpdateAccountViewModel(
     }
 
     sealed class UiModel {
+        data class UpdateAccountContent(val status: Boolean) : UiModel()
+        data class UserSessionContent(val user: User) : UiModel()
         object Loading : UiModel()
-        class Content(val status: Boolean) : UiModel()
-        class ContentEdit(val user: User) : UiModel()
+        object ServerError :  UiModel()
         object SessionError :  UiModel()
         object NetworkError :  UiModel()
         object NavigationToHome : UiModel()
@@ -62,8 +63,8 @@ class UpdateAccountViewModel(
                     username = username, email = email,firstName = firstName,
                     lastName = lastName, password = currentUser.password, photoUrl = photoUrl, categories = currentUser.categories))
             when(response){
-                is DataResponse.Success ->    _model.value = UiModel.Content(true)
-                is DataResponse.ServerError ->    _model.value = UiModel.SessionError
+                is DataResponse.Success ->    _model.value = UiModel.UpdateAccountContent(true)
+                is DataResponse.ServerError ->    _model.value = UiModel.ServerError
                 is DataResponse.NetworkError ->    _model.value = UiModel.NetworkError
             }
             _model.value = UiModel.Loading
@@ -75,7 +76,7 @@ class UpdateAccountViewModel(
             _model.value = UiModel.Loading
             val response =  getSessionUser.invoke()
             when(response){
-                is DataResponse.Success -> _model.value = UiModel.ContentEdit(response.data)
+                is DataResponse.Success -> _model.value = UiModel.UserSessionContent(response.data)
                 is DataResponse.SessionError -> _model.value = UiModel.SessionError
             }
             _model.value = UiModel.Loading

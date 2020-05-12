@@ -16,7 +16,7 @@ interface Scope : CoroutineScope {
     val uiDispatcher: CoroutineDispatcher
 
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
+        get() = uiDispatcher + job
 
     fun initScope() {
         job = SupervisorJob()

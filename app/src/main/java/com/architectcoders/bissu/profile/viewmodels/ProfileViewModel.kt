@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
-    private val getSessionUser: GetSessionUser,
     uiDispatcher: CoroutineDispatcher
 )
     : ScopedViewModel(uiDispatcher) {
@@ -41,7 +40,6 @@ class ProfileViewModel(
         _model.value = UiModel.ChangePasswordNavigation
     }
     fun logOutClicked(){
-        _model.value =
-            UiModel.CloseSession
+        _model.value = UiModel.CloseSession
     }
 }

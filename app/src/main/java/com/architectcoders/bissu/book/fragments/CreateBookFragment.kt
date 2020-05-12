@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.book.CreateBookViewModel
+import com.architectcoders.bissu.book.viewModel.CreateBookViewModel
 import com.architectcoders.bissu.common.toBase64
 import com.architectcoders.domain.entities.Category
 import kotlinx.android.synthetic.main.fragmet_create_book.*
@@ -60,15 +60,12 @@ class CreateBookFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun updateUi(model: CreateBookViewModel.UiModel) {
         progress_bar_layout.visibility = if (model is CreateBookViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
-            is CreateBookViewModel.UiModel.Content -> {
+            is CreateBookViewModel.UiModel.CategoryContent -> {
                 categoryList = model.list
                 initSpinner(categoryList)
             }
-            is CreateBookViewModel.UiModel.CreateBook -> {
-                if (model.boolean)
-                    activity?.finish()
-                else Toast.makeText(context, "Error to create the book", Toast.LENGTH_LONG).show()
-            }
+            is CreateBookViewModel.UiModel.CreateBookSuccess -> activity?.finish()
+
         }
     }
 

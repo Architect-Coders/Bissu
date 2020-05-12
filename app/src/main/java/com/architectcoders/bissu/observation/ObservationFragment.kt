@@ -70,10 +70,14 @@ class ObservationFragment : Fragment() {
             is BookContent -> updateBookUi(model.book)
             is UserContent -> sessionContent(model.user)
             is ServerError -> createAccountError()
+            is CreateObservationSuccess -> navigateToHome()
             is NavigateToHome -> activity?.onBackPressed()
         }
     }
 
+    private fun navigateToHome(){
+        viewModel.navigateToHome()
+    }
     private fun sessionContent(user: User) {
         sessionUser = user
         createObservation()
@@ -102,8 +106,8 @@ class ObservationFragment : Fragment() {
 
     private fun createObservation() {
         viewModel.createObservation(
-            sessionUser,
-            book,
+            sessionUser.id,
+            book.id,
             observation_edit_text.text.toString(),
             pages_edit_text.text.toString()
         )

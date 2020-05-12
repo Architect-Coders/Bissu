@@ -37,9 +37,8 @@ class ChangePasswordViewModel(
     }
 
     sealed class UiModel {
-
-        class Content(val status: Boolean) : UiModel()
-        class ContentEdit(val user: User) : UiModel()
+        data class ChangePasswordContent(val status: Boolean) : UiModel()
+        data class UserSessionContent(val user: User) : UiModel()
         object Loading : UiModel()
         object NavigationToHome : UiModel()
         object ServerError : UiModel()
@@ -61,10 +60,10 @@ class ChangePasswordViewModel(
         )
     }
 
-    fun navigateToProfile() {
-        _model.value =
-            UiModel.NavigationToHome
+    fun navigateToHome() {
+        _model.value = UiModel.NavigationToHome
     }
+
 
     fun closeSession(activity: Activity) {
         launch {
@@ -78,7 +77,7 @@ class ChangePasswordViewModel(
 
             val response = updateAccount.invoke(getUser(currentUser, password))
             when (response) {
-                is DataResponse.Success -> _model.value = UiModel.Content(true)
+                is DataResponse.Success -> _model.value = UiModel.ChangePasswordContent(true)
                 is DataResponse.ServerError -> _model.value = UiModel.ServerError
                 is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
             }
@@ -91,9 +90,9 @@ class ChangePasswordViewModel(
             _model.value = UiModel.Loading
             val response = getSessionUser.invoke()
             when (response) {
-                is DataResponse.Success -> _model.value = UiModel.ContentEdit(response.data)
+                is DataResponse.Success -> _model.value = UiModel.UserSessionContent(response.data)
                 is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
-                is DataResponse.ServerError -> _model.value = UiModel.SessionError
+                is DataResponse.ServerError -> _model.value = UiModel.ServerError
                 is DataResponse.SessionError -> _model.value = UiModel.SessionError
             }
 

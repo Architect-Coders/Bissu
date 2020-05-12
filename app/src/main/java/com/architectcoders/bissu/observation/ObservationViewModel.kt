@@ -32,9 +32,10 @@ class ObservationViewModel(
         }
 
     sealed class UiModel {
-        class Loading(val value: Boolean) : UiModel()
-        class BookContent(val book: Book) : UiModel()
-        class UserContent(val user: User) : UiModel()
+        data class Loading(val value: Boolean) : UiModel()
+        data class BookContent(val book: Book) : UiModel()
+        data class UserContent(val user: User) : UiModel()
+        object CreateObservationSuccess : UiModel()
         object NavigateToHome : UiModel()
         object ServerError : UiModel()
         object NetworkError : UiModel()
@@ -49,36 +50,30 @@ class ObservationViewModel(
     fun getBook(bookId: String) {
         launch {
             _model.value = UiModel.Loading(true)
+
             val response = getBook.invoke(bookId)
             when(response){
                 is DataResponse.Success ->  _model.value = UiModel.BookContent(response.data)
+                is DataResponse.ServerError ->  _model.value = UiModel.ServerError
             }
             _model.value = UiModel.Loading(false)
         }
     }
 
-    fun validatePages( context: Context, pages: TextInputEditText, pagesInputLayout: TextInputLayout): Boolean {
-        return pagesInputLayout.validateInput( pages, context.resources.getString(R.string.create_observation_pages_error))
+
+    fun navigateToHome(){
+        _model.value = UiModel.NavigateToHome
     }
 
-
-    fun validateObservation(context: Context,observation: TextInputEditText, observationInputLayout: TextInputLayout): Boolean {
-        return observationInputLayout.validateInput( observation, context.resources.getString(R.string.create_observation_observation_error))
-    }
-
-     fun createObservation(user: User, book: Book, description: String, page: String) {
+     fun createObservation(userId :String, bookId : String,description : String, page : String) {
         launch {
-
             _model.value = UiModel.Loading(true)
+            val response = createObservation.invoke(userId,bookId,description,page)
 
-            val observation = Observation("", user.id, book, description, page)
-
-            val result = createObservation.invoke(observation)
-
-            when(result){
-                is DataResponse.Success -> UiModel.NavigateToHome
-                is DataResponse.NetworkError ->  UiModel.NetworkError
-                is DataResponse.ServerError -> UiModel.ServerError
+            when(response){
+                is DataResponse.Success ->  _model.value = UiModel.CreateObservationSuccess
+                is DataResponse.NetworkError ->   _model.value = UiModel.NetworkError
+                is DataResponse.ServerError ->  _model.value = UiModel.ServerError
             }
             _model.value = UiModel.Loading(false)
         }
@@ -94,6 +89,15 @@ class ObservationViewModel(
             }
             _model.value = UiModel.Loading(false)
         }
+    }
+
+    fun validatePages( context: Context, pages: TextInputEditText, pagesInputLayout: TextInputLayout): Boolean {
+        return pagesInputLayout.validateInput( pages, context.resources.getString(R.string.create_observation_pages_error))
+    }
+
+
+    fun validateObservation(context: Context,observation: TextInputEditText, observationInputLayout: TextInputLayout): Boolean {
+        return observationInputLayout.validateInput( observation, context.resources.getString(R.string.create_observation_observation_error))
     }
 
 }

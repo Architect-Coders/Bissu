@@ -7,6 +7,7 @@ import com.architectcoders.domain.entities.DataResponse
 import com.architectcoders.domain.entities.Observation
 import com.architectcoders.framework.mappers.toCreateObservationRequest
 import com.architectcoders.framework.mappers.toDomainObservation
+import com.architectcoders.framework.server.observation.request.CreateObservationRequest
 import com.architectcoders.framework.util.ErrorCode
 import com.architectcoders.framework.util.isAvailableNetwork
 import kotlinx.coroutines.Dispatchers
@@ -30,17 +31,24 @@ class ObservationDatasource(val context: Context) : ObservationRemoteDatasource 
             return@withContext DataResponse.ServerError(ErrorCode.SERVER_ERROR)
         }
 
-    override suspend fun createObservation(observation: Observation): DataResponse<Boolean> =
+    override suspend fun createObservation(userId :String, bookId : String,description : String, page : String): DataResponse<Observation> =
         withContext(Dispatchers.IO) {
             //validate network connection
             if (!context.isAvailableNetwork()) return@withContext DataResponse.NetworkError
             //call to API
-            val result = RetrofitClient().observationService.createObservation(observation.toCreateObservationRequest()).await()
+            val result = RetrofitClient().observationService.createObservation(
+                CreateObservationRequest(
+                    user = userId,
+                    book = bookId,
+                    description = description,
+                    page = page
+                )
+            ).await()
             //validate resul
             if (result.isSuccessful){
                 if (result.body() == null) return@withContext DataResponse.ServerError(ErrorCode.BAD_REQUEST)
-               // val observation : Observation = result.body()!!.observation
-                return@withContext DataResponse.Success(true)
+                val observationResponse : Observation = result.body()!!.observation.toDomainObservation()
+                return@withContext DataResponse.Success(observationResponse)
             }
             return@withContext DataResponse.ServerError(ErrorCode.SERVER_ERROR)
         }

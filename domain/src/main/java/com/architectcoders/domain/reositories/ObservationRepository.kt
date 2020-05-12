@@ -8,5 +8,5 @@ import com.architectcoders.domain.entities.Observation
  */
 interface ObservationRepository {
     suspend fun getObservationsByUser(userId: String, forceRefresh : Boolean): DataResponse<List<Observation>>
-    suspend fun createObservation(observation: Observation): DataResponse<Boolean>
+    suspend fun createObservation(userId :String, bookId : String,description : String, page : String): DataResponse<Observation>
 }

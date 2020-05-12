@@ -38,9 +38,9 @@ class ChangePasswordFragment : Fragment() {
     private fun updateUi(model: ChangePasswordViewModel.UiModel) {
         progress_bar_view.visibility = if (model is ChangePasswordViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
-            is ChangePasswordViewModel.UiModel.ContentEdit -> if (model.user == null) navigationToHome() else setCurrentUser(model.user)
-            is ChangePasswordViewModel.UiModel.Content -> validateUpdateAccountContent(model.status)
-            is ChangePasswordViewModel.UiModel.NavigationToHome ->  navigationToHome()
+            is ChangePasswordViewModel.UiModel.UserSessionContent ->  setCurrentUser(model.user)
+            is ChangePasswordViewModel.UiModel.ChangePasswordContent -> validateUpdateAccountContent(model.status)
+            is ChangePasswordViewModel.UiModel.NavigationToHome -> navigationToHome()
         }
     }
 
@@ -49,7 +49,8 @@ class ChangePasswordFragment : Fragment() {
     }
 
     private fun validateUpdateAccountContent( succes : Boolean){
-        if (succes) viewModel.navigateToProfile() else context?.showAlertDialog("User not registered")
+        if (succes) viewModel.navigateToHome()
+        else context?.showAlertDialog("User not registered")
     }
 
     private fun setCurrentUser(user : User){

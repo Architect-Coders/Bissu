@@ -17,8 +17,6 @@ class MainPagerFragment : Fragment(), BottomNavigationView.OnNavigationItemSelec
         fun newInstance() = MainPagerFragment()
     }
 
-    private lateinit var viewModel: MainPagerViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,10 +37,6 @@ class MainPagerFragment : Fragment(), BottomNavigationView.OnNavigationItemSelec
         vNavigation.setOnNavigationItemSelectedListener(this)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainPagerViewModel::class.java)
-    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

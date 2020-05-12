@@ -23,7 +23,7 @@ class ObservationRepository(private val localDataSource: ObservationLocalDataSou
         } else return DataResponse.Success(localDataSource.getObservationsByUser(userId))
     }
 
-    override suspend fun createObservation(observation: Observation): DataResponse<Boolean> {
-           return remoteDataSource.createObservation(observation)
+    override suspend fun createObservation(userId :String, bookId : String,description : String, page : String): DataResponse<Observation> {
+        return remoteDataSource.createObservation(userId,bookId,description,page)
     }
 }

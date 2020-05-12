@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.book.BookDetailActivity
+import com.architectcoders.bissu.book.activities.BookDetailActivity
 import com.architectcoders.bissu.book.activities.CreateBookActivity
 import com.architectcoders.bissu.common.base.adapters.AdapterClick
 import com.architectcoders.bissu.common.base.adapters.AdapterListener

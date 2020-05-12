@@ -1,11 +1,10 @@
-package com.architectcoders.bissu.book
+package com.architectcoders.bissu.book.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.architectcoders.bissu.common.ScopedViewModel
 import com.architectcoders.domain.entities.Book
 import com.architectcoders.domain.entities.DataResponse
-import com.architectcoders.domain.entities.Observation
 import com.architectcoders.domain.usecases.GetBook
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -22,10 +21,9 @@ class BookDetailViewModel(
         }
 
     sealed class UiModel {
-        class Loading(val value: Boolean) : UiModel()
-        class Content(val book: Book?) : UiModel()
-        class LoadingObservations(val value: Boolean) : UiModel()
-        class Observations(val observations: ArrayList<Observation>) : UiModel()
+        data class Loading(val value: Boolean) : UiModel()
+        data class BookContent(val book: Book) : UiModel()
+        object ServerError : UiModel()
     }
 
     init {
@@ -37,9 +35,10 @@ class BookDetailViewModel(
             _model.value = UiModel.Loading(true)
             val response = getBook.invoke(bookId)
             when(response){
-                is DataResponse.Success -> _model.value = UiModel.Content(response.data)
+                is DataResponse.Success -> _model.value = UiModel.BookContent( response.data)
+                is DataResponse.ServerError -> _model.value = UiModel.ServerError
             }
-            _model.value = UiModel.Loading(false)
+            _model.value =UiModel.Loading(false)
         }
     }
 

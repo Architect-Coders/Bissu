@@ -2,6 +2,7 @@ package com.architectcoders.framework.server.category
 
 import com.architectcoders.framework.server.category.response.CategoryListResponse
 import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 
 /**
@@ -9,5 +10,5 @@ import retrofit2.http.GET
  */
 interface CategoryService {
     @GET("/api/category/list")
-    fun getCategories(): Deferred<CategoryListResponse>
+    fun getCategories(): Deferred<Response<CategoryListResponse>>
 }
