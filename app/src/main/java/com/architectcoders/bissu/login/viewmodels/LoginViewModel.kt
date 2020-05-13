@@ -26,9 +26,10 @@ class LoginViewModel(private val doLogin: DoLogin, uiDispatcher: CoroutineDispat
         }
 
     sealed class UiModel {
-        data class LoginContent(val success: Boolean) : UiModel()
+
         object Loading : UiModel()
-        object Navigation : UiModel()
+        object CreateAccountNavigation : UiModel()
+        object LoginSuccess : UiModel()
         object ServerError : UiModel()
         object NetworkError : UiModel()
     }
@@ -41,7 +42,7 @@ class LoginViewModel(private val doLogin: DoLogin, uiDispatcher: CoroutineDispat
             _model.value = UiModel.Loading
             val response = doLogin.invoke(username, password)
             when(response){
-                is DataResponse.Success ->  _model.value = UiModel.LoginContent(true)
+                is DataResponse.Success ->  _model.value = UiModel.LoginSuccess
                 is DataResponse.ServerError ->  _model.value = UiModel.ServerError
                 is DataResponse.NetworkError -> _model.value = UiModel.NetworkError
             }
@@ -54,6 +55,6 @@ class LoginViewModel(private val doLogin: DoLogin, uiDispatcher: CoroutineDispat
     }
 
     fun onCreateAccountClicked() {
-        _model.value = UiModel.Navigation
+        _model.value = UiModel.CreateAccountNavigation
     }
 }

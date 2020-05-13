@@ -19,6 +19,7 @@ suspend fun  closeSession(activity : Activity){
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
     deleteAllModels(activity)
     activity.startActivity(intent)
+    activity.finish()
 }
 
 private suspend fun deleteAllModels(activity: Activity){

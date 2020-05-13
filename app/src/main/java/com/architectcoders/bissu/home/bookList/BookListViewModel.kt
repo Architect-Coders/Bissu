@@ -19,10 +19,12 @@ class BookListViewModel(private val getBooks: GetBooks,uiDispatcher: CoroutineDi
         }
 
     sealed class UiModel {
-        class Navigation : UiModel();
-        class Refresh(val value: Boolean): UiModel()
-        class Loading(val value: Boolean) : UiModel()
-        class Content(val books: List<Book>) : UiModel()
+        object CreateBookNavigation : UiModel();
+        data class Refresh(val value: Boolean): UiModel()
+        data class Loading(val value: Boolean) : UiModel()
+        data class Content(val books: List<Book>) : UiModel()
+        object ServerError : UiModel()
+        object NetworkError : UiModel()
     }
 
     init {
@@ -35,8 +37,8 @@ class BookListViewModel(private val getBooks: GetBooks,uiDispatcher: CoroutineDi
             val response = getBooks.invoke()
             when(response){
                 is DataResponse.Success ->  _model.value = UiModel.Content(response.data)
-                is DataResponse.ServerError -> {}
-                is DataResponse.NetworkError -> {}
+                is DataResponse.ServerError ->  _model.value = UiModel.ServerError
+                is DataResponse.NetworkError ->  _model.value = UiModel.NetworkError
             }
 
             _model.value = UiModel.Loading(false)
@@ -49,8 +51,8 @@ class BookListViewModel(private val getBooks: GetBooks,uiDispatcher: CoroutineDi
             val response = getBooks.invoke(true)
             when(response){
                 is DataResponse.Success ->   _model.value = UiModel.Content(response.data)
-                is DataResponse.ServerError -> {}
-                is DataResponse.NetworkError -> {}
+                is DataResponse.ServerError ->  _model.value = UiModel.ServerError
+                is DataResponse.NetworkError ->  _model.value = UiModel.NetworkError
             }
             _model.value = UiModel.Refresh(false)
         }
@@ -58,6 +60,6 @@ class BookListViewModel(private val getBooks: GetBooks,uiDispatcher: CoroutineDi
     }
 
     fun addBookClicked(){
-        _model.value = UiModel.Navigation();
+        _model.value = UiModel.CreateBookNavigation;
     }
 }

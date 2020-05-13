@@ -8,7 +8,7 @@ data class Observation(
     @SerializedName("user")
     val userId: String,
     @SerializedName("book")
-    val book: Book,
+    val book: ObservationBook,
     @SerializedName("description")
     val description: String,
     @SerializedName("page")

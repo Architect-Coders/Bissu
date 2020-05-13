@@ -38,7 +38,7 @@ class UpdateAccountViewModel(
     sealed class UiModel {
         data class UpdateAccountContent(val user: User) : UiModel()
         data class UserSessionContent(val user: User) : UiModel()
-        object Loading : UiModel()
+        data class Loading(val status : Boolean) : UiModel()
         object ServerError :  UiModel()
         object SessionError :  UiModel()
         object NetworkError :  UiModel()
@@ -58,26 +58,26 @@ class UpdateAccountViewModel(
 
     fun updateAccount(userUpdated : User) {
         launch {
-            _model.value = UiModel.Loading
+            _model.value = UiModel.Loading(true)
             val response =  updateAccount.invoke(userUpdated)
             when(response){
                 is DataResponse.Success ->  _model.value = UiModel.UpdateAccountContent(response.data)
                 is DataResponse.ServerError ->    _model.value = UiModel.ServerError
                 is DataResponse.NetworkError ->    _model.value = UiModel.NetworkError
             }
-            _model.value = UiModel.Loading
+            _model.value = UiModel.Loading(false)
         }
     }
 
     fun getCurrentUser() {
         launch {
-            _model.value = UiModel.Loading
+            _model.value = UiModel.Loading(true)
             val response =  getSessionUser.invoke()
             when(response){
                 is DataResponse.Success -> _model.value = UiModel.UserSessionContent(response.data)
                 is DataResponse.SessionError -> _model.value = UiModel.SessionError
             }
-            _model.value = UiModel.Loading
+            _model.value = UiModel.Loading(false)
         }
     }
 

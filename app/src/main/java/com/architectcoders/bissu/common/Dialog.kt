@@ -6,13 +6,12 @@ import android.content.DialogInterface
 import com.architectcoders.bissu.R
 
 fun Context.showAlertDialog(message : String){
-    // Use the Builder class for convenient dialog construction
     val builder = AlertDialog.Builder(this)
     builder.setMessage(message)
         .setPositiveButton(
-            R.string.agree,
-            DialogInterface.OnClickListener { dialog, id ->
-                // FIRE ZE MISSILES!
+            R.string.agree, DialogInterface.OnClickListener
+            { dialog, id ->
+                dialog.dismiss()
             })
     builder.create()
     builder.show()

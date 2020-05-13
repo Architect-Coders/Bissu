@@ -40,7 +40,8 @@ allprojects {
                 roomRuntime         : 'androidx.room:room-runtime:2.2.4',
                 glide               : 'com.github.bumptech.glide:glide:4.11.0',
                 dexter              : 'com.karumi:dexter:6.0.2',
-                materialspinner     : 'com.github.ganfra:material-spinner:2.0.0'
+                materialspinner     : 'com.github.ganfra:material-spinner:2.0.0',
+                swiperefreshlayout  : 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
         ]
 
         firebaseLibs = [
@@ -63,7 +64,8 @@ allprojects {
                 retrofit                 : 'com.squareup.retrofit2:retrofit:2.7.2',
                 coroutineAdapter         : 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2',
                 retrofitGsonConverter    : 'com.squareup.retrofit2:converter-gson:2.7.2',
-                koin                     : "org.koin:koin-androidx-viewmodel:2.1.1"
+                koin                     : 'org.koin:koin-androidx-viewmodel:2.1.1',
+                circleImage              : 'de.hdodenhof:circleimageview:3.1.0'
         ]
 
         testLibs = [

@@ -25,7 +25,11 @@ class LoginFragment : Fragment() {
     private val session: Prefs by inject()
     private val viewModel: LoginViewModel by lifecycleScope.viewModel(this)
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.login_login, container, false)
     }
 
@@ -40,31 +44,47 @@ class LoginFragment : Fragment() {
             viewModel.onCreateAccountClicked()
         }
     }
+
     private fun doLogin() {
-        viewModel.doLogin(context!!,username_edit_text, password_edit_text,username_text_input, password_input_layout )
+        viewModel.doLogin(
+            context!!,
+            username_edit_text,
+            password_edit_text,
+            username_text_input,
+            password_input_layout
+        )
     }
 
     private fun updateUi(model: LoginViewModel.UiModel) {
-        progress_bar_view.visibility = if (model is LoginViewModel.UiModel.Loading) View.VISIBLE else View.GONE
+        progress_bar_view.visibility =
+            if (model is LoginViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
-            is LoginViewModel.UiModel.LoginContent -> validateLoginConten(model.success)
-            is LoginViewModel.UiModel.Navigation ->  navigateToCreateAccountFragment();
+            is LoginViewModel.UiModel.LoginSuccess -> validateLoginConten()
+            is LoginViewModel.UiModel.CreateAccountNavigation -> navigateToCreateAccountFragment();
+            is LoginViewModel.UiModel.NetworkError -> showConnectionError()
+            is LoginViewModel.UiModel.ServerError -> showLoginError()
         }
     }
-    private fun validateLoginConten(succes : Boolean){
 
-        if (succes) {
-            session.isUserLogged = true
-            navigateToHomeActivitity()
-        }else context?.showAlertDialog(resources.getString(R.string.login_error))
+    private fun showConnectionError(){
+        context?.showAlertDialog(resources.getString(R.string.connection_error))
     }
 
-    private fun navigateToHomeActivitity(){
+    private fun showLoginError(){
+        context?.showAlertDialog(resources.getString(R.string.login_error))
+    }
+
+    private fun validateLoginConten() {
+        navigateToHomeActivitity()
+    }
+
+    private fun navigateToHomeActivitity() {
         val intent = Intent(activity, MainActivity::class.java)
         activity?.startActivity(intent)
         activity?.finish()
     }
-    private fun navigateToCreateAccountFragment(){
+
+    private fun navigateToCreateAccountFragment() {
         session.isUserLogged = true
         val fragmentManager = activity!!.supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

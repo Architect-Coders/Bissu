@@ -55,12 +55,11 @@
     <string name="agree">Agree</string>
     <string name="disagre">Disagre</string>
     <string name="yes">YES</string>
-
     <string name="no">NO</string>
     <string name="ok">OK</string>
-
     <string name="not_registered">The user is not rgistered</string>
-
+    <string name="connection_error">Please check your connection and try again.</string>
+    <string name="defalult_error">Something is wrong, please wait a moment and try again</string>
     <!-- login -->
     <string name="login_title">Login</string>
     <string name="login_username">Username</string>

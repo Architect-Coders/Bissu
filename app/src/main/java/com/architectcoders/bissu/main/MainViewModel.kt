@@ -31,9 +31,8 @@ class MainViewModel(private val getSessionUser: GetSessionUser, uiDispatcher: Co
         launch {
             val response = getSessionUser.invoke()
             when(response){
-                is DataResponse.Success -> _model.value =
-                    UiModel.NavigateToLogin
-                is DataResponse.SessionError -> UiModel.NavigateToHome
+                is DataResponse.Success -> _model.value = UiModel.NavigateToHome
+                is DataResponse.SessionError ->  _model.value = UiModel.NavigateToLogin
             }
         }
     }

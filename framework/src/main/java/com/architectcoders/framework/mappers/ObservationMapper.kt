@@ -26,15 +26,15 @@ fun RemoteObservation.toDomainObservation(): Observation =
     Observation(
         id = id,
         userId = userId,
-        book = book.toDomainBook(),
+        book = book.todomainObservationBook(),
         description = description,
         page = page
     )
 
-fun Observation.toCreateObservationRequest(): CreateObservationRequest =
+/*fun Observation.toCreateObservationRequest(): CreateObservationRequest =
     CreateObservationRequest(
         user = userId,
         book = book.id,
         description = description,
         page = page
-    )
+    ) */

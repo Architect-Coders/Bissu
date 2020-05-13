@@ -12,6 +12,7 @@ import com.architectcoders.bissu.book.activities.BookDetailActivity
 import com.architectcoders.bissu.book.activities.CreateBookActivity
 import com.architectcoders.bissu.common.base.adapters.AdapterClick
 import com.architectcoders.bissu.common.base.adapters.AdapterListener
+import com.architectcoders.bissu.common.showAlertDialog
 import com.architectcoders.bissu.home.bookList.BookAdapter
 import com.architectcoders.bissu.home.bookList.BookItem
 import com.architectcoders.bissu.home.bookList.BookListViewModel
@@ -38,9 +39,9 @@ class BookListFragment : Fragment(), AdapterListener {
 
         viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
 
-       /* vRefreshLayout.refre {
+        vRefreshLayout.setOnRefreshListener {
             viewModel.refreshBooks()
-        } */
+        }
 
         fab.setOnClickListener {
             viewModel.addBookClicked();
@@ -60,19 +61,31 @@ class BookListFragment : Fragment(), AdapterListener {
 
     private fun updateUi(model: UiModel?) {
         when (model) {
-            //is UiModel.Refresh -> swipeRefresh(model.value)
+            is UiModel.Refresh -> swipeRefresh(model.value)
             is UiModel.Loading -> progressVisibility(model.value)
             is UiModel.Content -> processBooks(model.books)
-            is UiModel.Navigation -> {
-                val intent = Intent(activity, CreateBookActivity::class.java)
-                startActivity(intent)
-            }
+            is UiModel.CreateBookNavigation -> navigationToCreateBook()
+            is UiModel.ServerError -> showServerError()
+            is UiModel.NetworkError -> showNetworkError()
         }
     }
 
-    /*private fun swipeRefresh(value :Boolean){
+    private fun showServerError(){
+        context?.showAlertDialog(resources.getString(R.string.defalult_error))
+    }
+
+    private fun showNetworkError(){
+        context?.showAlertDialog(resources.getString(R.string.connection_error))
+    }
+
+    private fun navigationToCreateBook(){
+        val intent = Intent(activity, CreateBookActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun swipeRefresh(value :Boolean){
         vRefreshLayout.isRefreshing = if (value) true else false;
-    } */
+    }
 
     private fun progressVisibility(value: Boolean) {
         booklistfragment_progress.visibility = if (value) View.VISIBLE else View.GONE

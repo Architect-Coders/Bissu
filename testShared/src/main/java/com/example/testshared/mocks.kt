@@ -1,9 +1,6 @@
 package com.example.testshared
 
-import com.architectcoders.domain.entities.Book
-import com.architectcoders.domain.entities.Category
-import com.architectcoders.domain.entities.Observation
-import com.architectcoders.domain.entities.User
+import com.architectcoders.domain.entities.*
 
 
 val mockedCategory = Category(
@@ -18,6 +15,17 @@ val mockedBook = Book(
     pages = "300",
     editorial = "Bloomsbury Publishing Scholastic,Corporation Salamandra",
     category = mockedCategory,
+    description = "Harry Potter es una serie de novelas fantásticas escrita por la autora británica J. K. Rowling, en la que se describen las aventuras del joven aprendiz de magia y hechicería Harry Potter y sus amigos Hermione Granger y Ron Weasley, durante los años que pasan en el Colegio Hogwarts de Magia y Hechicería.",
+    photoUrl = null
+)
+
+val mockedObservationBook = ObservationBook(
+    id = "1",
+    title = "Harry Pother",
+    author = "J. K. Rowling",
+    pages = "300",
+    editorial = "Bloomsbury Publishing Scholastic,Corporation Salamandra",
+    category = "mockedCategory",
     description = "Harry Potter es una serie de novelas fantásticas escrita por la autora británica J. K. Rowling, en la que se describen las aventuras del joven aprendiz de magia y hechicería Harry Potter y sus amigos Hermione Granger y Ron Weasley, durante los años que pasan en el Colegio Hogwarts de Magia y Hechicería.",
     photoUrl = null
 )
@@ -57,7 +65,7 @@ val mockedUserUpdate = User(
 val mockedObservation = Observation(
     id = "1",
     userId = mockedUser.id,
-    book = mockedBook,
+    book = mockedObservationBook,
     description = "This is one observation",
     page = "500"
 )

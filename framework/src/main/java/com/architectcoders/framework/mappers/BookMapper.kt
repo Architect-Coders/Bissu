@@ -1,6 +1,8 @@
 package com.architectcoders.framework.mappers
 
 import com.architectcoders.domain.entities.Book
+import com.architectcoders.domain.entities.ObservationBook
+import com.architectcoders.framework.server.entities.ObservationBook as RemoteObservationBook
 import com.architectcoders.framework.server.entities.Book as RemoteBook
 import com.architectcoders.framework.database.entities.Book as RoomBook
 
@@ -38,4 +40,5 @@ fun RemoteBook.toDomainBook(): Book =
         description = description,
         photoUrl = photoUrl
     )
+
 

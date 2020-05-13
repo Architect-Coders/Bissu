@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.architectcoders.bissu.R
-import com.architectcoders.bissu.common.showAlertDialog
 import com.architectcoders.bissu.common.toBase64
 import com.architectcoders.bissu.profile.viewmodels.UpdateAccountViewModel
 import com.architectcoders.domain.entities.User
@@ -65,13 +64,16 @@ class UpdateAccountFragment : Fragment() {
     }
 
     private fun updateUi(model: UpdateAccountViewModel.UiModel) {
-        progress_bar_view.visibility =
-            if (model is UpdateAccountViewModel.UiModel.Loading) View.VISIBLE else View.GONE
         when (model) {
+            is UpdateAccountViewModel.UiModel.Loading -> showProgressDialog(model.status)
             is UpdateAccountViewModel.UiModel.UserSessionContent -> setCurrentUser(model.user)
             is UpdateAccountViewModel.UiModel.UpdateAccountContent -> validateUpdateAccountContent( model.user)
             is UpdateAccountViewModel.UiModel.NavigationToHome -> navigationToHome()
         }
+    }
+
+    private fun showProgressDialog(show : Boolean){
+        progress_bar_view.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun navigationToHome() {
